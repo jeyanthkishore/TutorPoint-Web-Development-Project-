@@ -1,0 +1,21 @@
+.TutorForm {
+  width: 80% !important;
+  margin-top: 3%;
+  margin-left: 10%
+
+}
+
+.TutorFormStl {
+  max-width: 70%;
+  padding-left: 7.5%;
+}
+
+.BreadCrumbStl {
+  margin-top: 0%;
+  margin-left: 1rem;
+  max-width: 70vw;
+}
+
+.TutTitle{
+	margin-right: 18%
+}

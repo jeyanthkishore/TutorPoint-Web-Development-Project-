@@ -1,0 +1,52 @@
+.btn-outline-info {
+    color: #fd7e14 !important;
+    background-color: transparent !important;
+    border: 2px solid #fd7e14 !important;
+}
+.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+    color: #fff;
+    background-color: #fd7e14;
+}
+a {
+    color: white;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.nav-pills .nav-link {
+    border-radius: 0.25rem;
+    background-color: gainsboro;
+    color: black;
+}
+
+.workshop-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+    margin-top: 5%;
+    width: 70%;
+    font-size: medium;
+}
+/*.workshopHead{
+  color: black;
+  background-color: #f5deb3;
+}*/
+
+.nav-pills .nav-link {
+    border-radius: 0.25rem;
+    background-color: gainsboro;
+}
+
+.col-sm-9 {
+    flex: 0 0 75%;
+    max-width: 75%;
+    font-size: revert;
+}
+
+.flex-center-tab {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 100%;
+}
