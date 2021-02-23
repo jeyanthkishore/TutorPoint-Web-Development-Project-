@@ -22,8 +22,8 @@ class NavBarContainer extends React.Component{
             <Nav.Link href="/workshops">Workshops</Nav.Link>
             
             <Nav.Link href="/tutorList">Tutors</Nav.Link>
-            <Nav.Link href="#feedback">Feedback</Nav.Link>
-            <Nav.Link href="#aboutus">AboutUs</Nav.Link>
+            <Nav.Link href="/feedback">Feedback</Nav.Link>
+          
           </Nav>         
           <Button variant="outline-info" href="/becomeTutor" >Become a Tutor</Button>
           <Nav>

@@ -8,6 +8,7 @@ import HomePage from './homepage';
 import TutorTableContainer from './TutorTableContainer';
 import WorkshopContainer from './containers/WorkshopContainer';
 import TutorForm from './TutorForm';
+import Feedback from './Feedback';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/homepage" component={HomePage} ></Route>
           <Route exact path="/tutorList" component={TutorTableContainer} ></Route>
           <Route exact path="/workshops" component={WorkshopContainer} ></Route>
+          <Route exact path="/feedback" component={Feedback} ></Route>
           <Route exact path="/becomeTutor" component={TutorForm} ></Route>
           <Route exact ppath="/password-rest" component={PasswordReset}></Route>
 
