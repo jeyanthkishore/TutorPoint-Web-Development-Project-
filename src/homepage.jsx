@@ -107,17 +107,6 @@ class HomePage extends Component {
             </div>
               <br></br>
               <br></br>
-              <h2>Why Tutor Point?</h2>
-              <br></br>
-              <ul>
-                <li>Experienced tutors</li>
-                <li>Easy Booking</li>
-                <li>Anytime access</li>
-                <li>Pocket Friendly</li>
-              </ul>
-              <br></br>
-              <br></br>
-              <p className="h2 bold">1000+ Students found it usefull...! </p>
             </MDBMask>
           </MDBView>
         </header>

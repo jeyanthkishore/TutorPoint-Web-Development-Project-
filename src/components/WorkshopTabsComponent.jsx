@@ -34,7 +34,7 @@ class WorkshopTabsComponent extends React.Component {
   		departments.map(dep => {
 		  	navs.push(
 		  		<Nav.Item>
-		          <Nav.Link eventKey={dep}>{dep}</Nav.Link>
+		          <Nav.Link className="navLink" eventKey={dep}>{dep}</Nav.Link>
 			     </Nav.Item>);
 		});
 		return navs;
