@@ -1,0 +1,5 @@
+.body--bgchange {
+  background-image: url("/src/profile1.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+}

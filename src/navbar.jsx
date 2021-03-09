@@ -8,8 +8,14 @@ import {
   MDBNavItem,
   MDBNavLink,
   MDBIcon,
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
+  Button,
 } from "mdbreact";
-import { BrowserRouter as Router } from "react-router-dom";
+import logo from "./tp-white.png";
+import { HashRouter as Router } from "react-router-dom";
 
 class NavBar extends Component {
   constructor(props) {
@@ -32,36 +38,65 @@ class NavBar extends Component {
         <Router>
           <header>
             <MDBNavbar id="nav-bar" dark expand="md" scrolling fixed="top">
-              <MDBNavbarBrand href="/">
-                <strong>HOME</strong>
+              <MDBNavbarBrand href="/homepage">
+                <a href="/homepage">
+                  <img
+                    src={logo}
+                    className="d-inline-block align-top"
+                    width="100"
+                    height="30"
+                    alt="React Bootstrap logo"
+                  />
+                </a>
               </MDBNavbarBrand>
               <MDBNavbarToggler onClick={this.onClick} />
               <MDBCollapse isOpen={this.state.collapse} navbar>
                 <MDBNavbarNav left>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Appointments</MDBNavLink>
+                    <MDBNavLink to="/homepage">
+                      <strong>HOME</strong>
+                    </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Workshop Management</MDBNavLink>
+                    <MDBNavLink to="/workshops">
+                      <strong>Workshops</strong>
+                    </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Tutor Management</MDBNavLink>
+                    <MDBNavLink to="/tutorList">
+                      <strong>Tutors</strong>
+                    </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Apply Tutor</MDBNavLink>
+                    <MDBNavLink to="/feedback">
+                      <strong>Feedback</strong>
+                    </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
-                    <MDBNavLink to="#">Feedback</MDBNavLink>
-                  </MDBNavItem>
-                  <MDBNavItem>
-                    <MDBNavLink to="#">Help</MDBNavLink>
+                    <MDBNavLink to="/helppage">
+                      <strong>Help</strong>
+                    </MDBNavLink>
                   </MDBNavItem>
                 </MDBNavbarNav>
                 <MDBNavbarNav right>
+                  <Button className="nav-button" href="#/becomeTutor">
+                    Become a Tutor
+                  </Button>
                   <MDBNavItem>
-                    <MDBNavLink to="#">
-                      <MDBIcon icon="user-circle" />
-                    </MDBNavLink>
+                    <MDBDropdown>
+                      <MDBDropdownToggle nav caret>
+                        <MDBIcon icon="user" />
+                      </MDBDropdownToggle>
+                      <MDBDropdownMenu className="dropdown-default align-center">
+                        <MDBDropdownItem href="#/">Log Out</MDBDropdownItem>
+                        <MDBDropdownItem href="#/password-change">
+                          Change Password
+                        </MDBDropdownItem>
+                        <MDBDropdownItem href="#/details-change">
+                          Change Profile Details
+                        </MDBDropdownItem>
+                      </MDBDropdownMenu>
+                    </MDBDropdown>
                   </MDBNavItem>
                 </MDBNavbarNav>
               </MDBCollapse>

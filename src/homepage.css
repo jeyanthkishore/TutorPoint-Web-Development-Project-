@@ -14,23 +14,27 @@
   left: 111px;
 }
 
+.homepage .view {
+  top: 25px;
+}
+
 .homeCards {
-    display: inherit;
-    margin-top: 0%;
+  display: inherit;
+  margin-top: 0%;
 }
 
-.btn-primary{
-    color: #fff;
-    background-color: #fd7e14 !important;
-    border-color: #fd7e14 !important;
+.btn-primary {
+  color: #fff;
+  background-color: #fd7e14 !important;
+  border-color: #fd7e14 !important;
 }
 
-.tableContainer{
+.tableContainer {
   width: 80%;
 }
 .table {
-    width: 90% !important;
-    margin-bottom: 1rem;
-    color: #212529;
-    background-color: white;
-  }
+  width: 90% !important;
+  margin-bottom: 1rem;
+  color: #212529;
+  background-color: white;
+}
