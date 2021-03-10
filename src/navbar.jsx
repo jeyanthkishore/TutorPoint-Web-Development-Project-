@@ -14,7 +14,7 @@ import {
   MDBDropdownItem,
   Button,
 } from "mdbreact";
-import logo from "./tp-white.png";
+import logo from "./tp-brown.png";
 import { HashRouter as Router } from "react-router-dom";
 
 class NavBar extends Component {
