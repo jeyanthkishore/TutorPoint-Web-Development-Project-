@@ -106,11 +106,11 @@ class Login extends Component {
                       <MDBBtn onClick={this.handleClick}>Login</MDBBtn>
                     </div>
                     <p className="text-center">
-                      <a href="/password-reset">Forget Pasword :( ?</a>
+                      <a href="#/password-reset">Forget Pasword :( ?</a>
                     </p>
                     <p className="text-center">
                       New User? <span className="space"></span>
-                      <a href="/register">Register</a>
+                      <a href="#/register">Register</a>
                     </p>
                   </div>
                 </form>
