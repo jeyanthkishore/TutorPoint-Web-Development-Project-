@@ -57,11 +57,11 @@ form:after {
   width: 23rem;
 }
 .card .card-header {
-    border-bottom-color: linear-gradient(to bottom right, #ffce00, #fe4880);
-    background-color: #343a40;
-    color: white;
+  border-bottom-color: linear-gradient(to bottom right, #ffce00, #fe4880);
+  background-color: #343a40;
+  color: white;
 }
 .btn-default {
-    color: #fff;
-    background-color: #fd7e14 !important;
+  color: #fff;
+  background-color: #fd7e14 !important;
 }
