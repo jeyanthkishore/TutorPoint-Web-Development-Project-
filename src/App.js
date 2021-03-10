@@ -2,7 +2,7 @@ import "./App.css";
 import Register from "./register";
 import Login from "./login";
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import PasswordReset from "./password-reset";
 import HomePage from "./homepage";
 import TutorTableContainer from "./TutorTableContainer";
@@ -10,6 +10,9 @@ import WorkshopContainer from "./containers/WorkshopContainer";
 import TutorForm from "./TutorForm";
 import Feedback from "./Feedback";
 import ManageTutorApplication from "./ManageTutorApplication.jsx";
+import PasswordChange from "./password-change.jsx"
+import DetailChange from "./detailchange.jsx"
+import HelpPage from "./helppage.jsx"
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
           <Route exact path="/feedback" component={Feedback}></Route>
           <Route exact path="/becomeTutor" component={TutorForm}></Route>
           <Route exact path="/password-reset" component={PasswordReset}></Route>
+          <Route exact path="/password-change" component={PasswordChange}></Route>
+          <Route exact path="/helppage" component={HelpPage}></Route>
+          <Route exact path="/details-change" component={DetailChange}></Route>
           <Route
             exact
             path="/manage-tutor-application"
