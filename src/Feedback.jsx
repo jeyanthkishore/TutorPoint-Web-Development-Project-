@@ -22,6 +22,7 @@ function Feedback() {
             className="flex-center flex-column text-white text-center"
           >
             <div className="TutorForm">
+              <h2 className="TutTitle">Feedback Form</h2>
               <br></br>
 
               <Form className="TutorFormStl">

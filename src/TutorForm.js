@@ -22,9 +22,39 @@ class TutorForm extends Component {
         selectedFiles: null,
         loaded: 0,
       },
+      fullName: null,
+      errors: {
+        fullName: "",
+      },
     };
   }
   onChangeHandler = (event) => {
+    event.preventDefault();
+    const { name, value } = event.target;
+    let errors = this.state.errors;
+
+    switch (name) {
+      case "fullName":
+        errors.fullName =
+          value.length < 5
+            ? "Full Name must be atleast 5 characters in length!!!"
+            : "";
+        break;
+      case "description":
+        errors.description =
+          value.length < 100
+            ? "Description must be atleast 100 characters in length!!!"
+            : "";
+        break;
+      default:
+        break;
+    }
+    this.setState({ errors, [name]: value }, () => {
+      console.log(errors);
+    });
+  };
+  onFileChangeHandler = (event) => {
+    event.preventDefault();
     var text = "";
     var i;
     console.log(event.target.files);
@@ -46,10 +76,10 @@ class TutorForm extends Component {
         loaded: 0,
       },
     });
-    event.preventDefault();
   };
 
-  submitHandler = (event) => {
+  onSubmitHandler = (event) => {
+    event.preventDefault();
     console.log("submithandler");
     const data = new FormData(event.target);
     data.uploadDocuments = ("files", this.state.files.selectedFiles);
@@ -65,12 +95,11 @@ class TutorForm extends Component {
       },
     };
     axios
-      .post("apiurl", data, conf)
+      .post("http://localhost:8080/user/uploadfile", data, conf)
       .then((response) => {
         alert("The file is successfully uploaded");
       })
       .catch((error) => {});
-    event.preventDefault();
   };
   render() {
     return (
@@ -87,7 +116,7 @@ class TutorForm extends Component {
                 <h2 className="TutTitle">Application Form - Become a Tutor</h2>
                 <br></br>
 
-                <Form className="TutorFormStl" onSubmit={this.submitHandler}>
+                <Form className="TutorFormStl" onSubmit={this.onSubmitHandler}>
                   <Form.Group as={Row} controlId="fullName">
                     <Form.Label column md={2}>
                       {" "}
@@ -97,8 +126,10 @@ class TutorForm extends Component {
                       <Form.Control
                         type="input"
                         placeholder="Full Name"
-                        name="fullname"
+                        name="fullName"
                         required
+                        minlength="5"
+                        onChange={this.onChangeHandler}
                       />
                     </Col>
                   </Form.Group>
@@ -162,6 +193,8 @@ class TutorForm extends Component {
                         placeholder="write here.."
                         name="description"
                         required
+                        minlength="100"
+                        onChange={this.onChangeHandler}
                       />
                     </Col>
                   </Form.Group>
@@ -175,6 +208,7 @@ class TutorForm extends Component {
                         placeholder="&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  eg. Monday - Tuesday and 7 - 8 PM"
                         name="availability"
                         required
+                        minlength="5"
                       />
                     </Col>
                   </Form.Group>
@@ -191,7 +225,7 @@ class TutorForm extends Component {
                         custom
                         multiple
                         accept="application/pdf"
-                        onChange={this.onChangeHandler}
+                        onChange={this.onFileChangeHandler}
                         value={this.state.selectedFiles}
                         required
                       />
