@@ -11,18 +11,42 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 
 class TutorForm extends Component {
+  state = {};
   constructor(props) {
     super(props);
     this.state = {
-      selectedFile: null,
+      files: {
+        label: "upload your resume and transcripts (PDFs)",
+        selectedFile: null,
+        loaded: 0,
+      },
     };
   }
   onChangeHandler = (event) => {
+    var text = "";
+    var i;
+
+    for (i = 0; i < event.target.files.length; i++) {
+      text += event.target.files[i].name;
+      if (i == event.target.files.length - 1) {
+        continue;
+      } else {
+        text += ", ";
+      }
+      // console.log(event.target.files[i].name);
+    }
+    // console.log(text);
+
     this.setState({
-      selectedFile: event.target.files[0],
-      loaded: 0,
+      files: {
+        label: text,
+        selectedFile: event.target.files[0],
+        loaded: 0,
+      },
     });
   };
+
+  formSubmit = () => {};
   render() {
     return (
       <div>
@@ -35,38 +59,50 @@ class TutorForm extends Component {
               style={{ overflowY: "scroll" }}
             >
               <div className="TutorForm">
-                <h2 className="TutTitle">Become a Tutor - Application Form</h2>
+                <h2 className="TutTitle">Application Form - Become a Tutor</h2>
                 <br></br>
 
                 <Form className="TutorFormStl">
                   <Form.Group as={Row} controlId="fullName">
-                    <Form.Label column sm={2}>
+                    <Form.Label column md={2}>
                       {" "}
                       Full Name
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control placeholder="Full Name" />
+                    <Col md={10}>
+                      <Form.Control
+                        type="input"
+                        placeholder="Full Name"
+                        name="fullname"
+                        required
+                      />
                     </Col>
                   </Form.Group>
 
                   <Form.Group as={Row} controlId="email">
-                    <Form.Label column sm={2}>
+                    <Form.Label column md={2}>
                       Email
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control type="email" placeholder="Enter email" />
+                    <Col md={10}>
+                      <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        name="email"
+                        required
+                      />
                     </Col>
                   </Form.Group>
 
                   <Form.Group as={Row} controlId="department" required>
-                    <Form.Label column sm={2}>
+                    <Form.Label column md={2}>
                       Department
                     </Form.Label>
-                    <Col sm={10}>
+                    <Col md={10}>
                       {" "}
                       <Form.Control
                         as="select"
-                        defaultValue="Choose Department"
+                        // defaultValue="Choose Department"
+                        name="department"
+                        required
                       >
                         <option>Choose Department</option>
                         <option>...</option>
@@ -74,11 +110,16 @@ class TutorForm extends Component {
                     </Col>
                   </Form.Group>
                   <Form.Group as={Row} controlId="course">
-                    <Form.Label column sm={2}>
+                    <Form.Label column md={2}>
                       Course
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control as="select" defaultValue="Choose Course">
+                    <Col md={10}>
+                      <Form.Control
+                        as="select"
+                        defaultValue="Choose Course"
+                        name="course"
+                        required
+                      >
                         <option>Choose Course</option>
                         <option>...</option>
                       </Form.Control>
@@ -86,38 +127,47 @@ class TutorForm extends Component {
                   </Form.Group>
 
                   <Form.Group as={Row} controlId="description">
-                    <Form.Label column sm={2}>
+                    <Form.Label column md={2}>
                       Why do you want to teach?
                     </Form.Label>
-                    <Col sm={10}>
+                    <Col md={10}>
                       <Form.Control
                         as="textarea"
                         rows={3}
                         placeholder="write here.."
+                        name="description"
+                        required
                       />
                     </Col>
                   </Form.Group>
 
-                  <Form.Group as={Row} controlId="timing">
-                    <Form.Label column sm={2}>
+                  <Form.Group as={Row} controlId="availability">
+                    <Form.Label column md={2}>
                       Availability (Tutoring)
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control placeholder="eg. Mon - Tuesday 7-8 pm" />
+                    <Col md={10}>
+                      <Form.Control
+                        placeholder="&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  eg. Monday - Tuesday and 7 - 8 PM"
+                        name="availability"
+                        required
+                      />
                     </Col>
                   </Form.Group>
-                  <Form.Group as={Row} controlId="resume">
-                    <Form.Label column sm={2}>
+                  <Form.Group as={Row} controlId="uploadDocuments">
+                    <Form.Label column md={2}>
                       Upload Documents
                     </Form.Label>
-                    <Col sm={10}>
+                    <Col md={10}>
                       <Form.File
-                        id="resume"
-                        label="upload your resume and transcripts (PDFs)"
+                        type="file"
+                        id="uploadDocuments"
+                        name="uploadDocuments"
+                        label={this.state.files.label}
                         custom
                         multiple
                         accept="application/pdf"
                         onChange={this.onChangeHandler}
+                        required
                       />
                     </Col>
                   </Form.Group>
@@ -131,17 +181,19 @@ class TutorForm extends Component {
                       }}
                       type="checkbox"
                       label="By selecting this checkbox, you agree that all of the information provided is accurate."
+                      required
                     />
                   </Form.Group>
                   <Button
                     style={{ marginLeft: "18%", marginBottom: "0%" }}
                     variant="primary"
                     type="submit"
-                    onClick={() =>
-                      alert(
-                        "Thanks for Submitting the application!!!! Your reference number is #12345678"
-                      )
-                    }
+                    // onClick={() =>
+                    //   alert(
+                    //     "Thanks for Submitting the application!!!! Your reference number is #12345678"
+                    //   )
+                    // }
+                    onClick={this.formSubmit}
                   >
                     Submit
                   </Button>
