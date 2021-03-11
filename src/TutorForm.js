@@ -9,15 +9,17 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
+import axios from "axios";
 
 class TutorForm extends Component {
   state = {};
   constructor(props) {
     super(props);
+
     this.state = {
       files: {
         label: "upload your resume and transcripts (PDFs)",
-        selectedFile: null,
+        selectedFiles: null,
         loaded: 0,
       },
     };
@@ -25,10 +27,10 @@ class TutorForm extends Component {
   onChangeHandler = (event) => {
     var text = "";
     var i;
-
+    console.log(event.target.files);
     for (i = 0; i < event.target.files.length; i++) {
       text += event.target.files[i].name;
-      if (i == event.target.files.length - 1) {
+      if (i === event.target.files.length - 1) {
         continue;
       } else {
         text += ", ";
@@ -40,13 +42,36 @@ class TutorForm extends Component {
     this.setState({
       files: {
         label: text,
-        selectedFile: event.target.files[0],
+        selectedFiles: event.target.files,
         loaded: 0,
       },
     });
+    event.preventDefault();
   };
 
-  formSubmit = () => {};
+  submitHandler = (event) => {
+    console.log("submithandler");
+    const data = new FormData(event.target);
+    data.uploadDocuments = ("files", this.state.files.selectedFiles);
+    // alert("A form was submitted" + JSON.stringify(Object.fromEntries(data)));
+    alert(
+      "A form was submitted" +
+        JSON.stringify(Object.fromEntries(data)) +
+        data.uploadDocuments[0].name
+    );
+    const conf = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    axios
+      .post("apiurl", data, conf)
+      .then((response) => {
+        alert("The file is successfully uploaded");
+      })
+      .catch((error) => {});
+    event.preventDefault();
+  };
   render() {
     return (
       <div>
@@ -62,7 +87,7 @@ class TutorForm extends Component {
                 <h2 className="TutTitle">Application Form - Become a Tutor</h2>
                 <br></br>
 
-                <Form className="TutorFormStl">
+                <Form className="TutorFormStl" onSubmit={this.submitHandler}>
                   <Form.Group as={Row} controlId="fullName">
                     <Form.Label column md={2}>
                       {" "}
@@ -167,6 +192,7 @@ class TutorForm extends Component {
                         multiple
                         accept="application/pdf"
                         onChange={this.onChangeHandler}
+                        value={this.state.selectedFiles}
                         required
                       />
                     </Col>
@@ -193,7 +219,6 @@ class TutorForm extends Component {
                     //     "Thanks for Submitting the application!!!! Your reference number is #12345678"
                     //   )
                     // }
-                    onClick={this.formSubmit}
                   >
                     Submit
                   </Button>
