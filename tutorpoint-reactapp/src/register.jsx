@@ -12,6 +12,7 @@ import {
 } from "mdbreact";
 import validator from "validator";
 import "./register.css";
+import axios from "axios";
 
 class Register extends Component {
   constructor(props) {
@@ -28,16 +29,12 @@ class Register extends Component {
       username: "",
     };
   }
-  // fontStyle = {
-  //   fontFamily: "sans-serif",
-  //   color: "#f9bf03",
-  // };
+
   handleChange(event) {
     console.log(event.target.name);
     this.setState({
       [event.target.name]: event.target.value,
     });
-    console.log(this.state);
   }
 
   componentDidMount() {
@@ -48,7 +45,8 @@ class Register extends Component {
     document.body.classList.remove(this.BG_CLASS);
   }
 
-  handleClick() {
+  async handleClick(event) {
+    event.preventDefault();
     if (
       this.state.email === "" ||
       this.state.password === "" ||
@@ -72,6 +70,24 @@ class Register extends Component {
       alert("Phone number containes alphabets");
       return;
     }
+    const register = {
+      fullname: this.state.username,
+      password: this.state.password,
+      email: this.state.email,
+      contact: this.state.contact,
+      dept: this.state.dept,
+    };
+    await axios
+      .post("http://localhost:8080/register", register)
+      .then((response) => {
+        alert("Registration Successfull");
+        this.props.history.push("/");
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log(error.message);
+        alert("Email Id already Exist! Please enter new email");
+      });
   }
   render() {
     return (

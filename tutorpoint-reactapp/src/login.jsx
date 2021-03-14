@@ -13,6 +13,7 @@ import {
 } from "mdbreact";
 import logo from "./logo12.png";
 import logo_dal from "./gold.png";
+import axios from "axios";
 
 class Login extends Component {
   constructor(props) {
@@ -39,13 +40,32 @@ class Login extends Component {
     document.body.classList.remove(this.BG_CLASS);
   }
 
-  handleClick() {
+  async handleClick() {
     if (!validator.isEmail(this.state.email)) {
       alert("Please enter a valid email");
     } else if (this.state.password.length <= 8) {
       alert("Please enter 8 digit passowrd");
     } else {
-      this.props.history.push("/homepage");
+      const login = {
+        password: this.state.password,
+        email: this.state.email,
+      };
+      await axios
+        .post("http://localhost:8080/login", login)
+        .then((response) => {
+          if (response.data.message === "username") {
+            alert("Mail Id not registered !!!");
+          } else if (response.data.message === "password") {
+            alert("Invalid/Mismatch password");
+          } else {
+            this.props.history.push("/homepage");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          alert("Login Failure, Try again after sometime");
+        });
     }
   }
   handleChange(event) {
@@ -53,7 +73,6 @@ class Login extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-    console.log(this.state);
   }
   render() {
     return (
