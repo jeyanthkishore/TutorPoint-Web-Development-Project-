@@ -58,6 +58,7 @@ class Login extends Component {
           } else if (response.data.message === "password") {
             alert("Invalid/Mismatch password");
           } else {
+            console.log("Logged IN");
             localStorage.setItem("access_token", response.data.token);
             localStorage.setItem("email", this.state.email);
             console.log(localStorage);

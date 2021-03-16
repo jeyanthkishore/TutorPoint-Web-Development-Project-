@@ -38,5 +38,23 @@ function updatePassword(user, keyUpdate) {
     });
 }
 
+//controller method for updating a user
+function updateDetails(user, req) {
+  loginModel.updateOne({ _id: user._id }, {
+    $set: {
+      username: req.body.username,
+      contact: req.body.contact,
+      email: req.body.email,
+      dept: req.body.dept
+    }
+  },
+    (err, result) => {
+      if (err) {
+        return console.log(error)
+      }
+    });
+}
+
 module.exports.registerUser = registerUser;
 module.exports.updatePassword = updatePassword;
+module.exports.updateDetails = updateDetails;

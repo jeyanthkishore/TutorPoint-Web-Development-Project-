@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { registerUser } = require("../controllers/loginController");
 const { updatePassword } = require("../controllers/loginController");
 const { passwordReset } = require("../controllers/passwordController");
+const { updateDetails } = require("../controllers/loginController");
 const bcrypt = require("bcrypt");
 var jwt = require('jsonwebtoken');
 
@@ -29,24 +30,18 @@ router.post("/register", (req, res) => {
 //Login by user
 router.post("/login", (req, res) => {
     loginModel
-        .find({ email: req.body.email })
+        .findOne({ email: req.body.email })
         .exec()
         .then((data) => {
-            if (!data.length) {
-                res.status(200).json({
-                    success: false,
-                    message: "username",
-                });
-            } else {
-            if (!(bcrypt.compareSync(req.body.password,data[0]['password']))) {
+            if (data) {
+                if (!(bcrypt.compareSync(req.body.password,data['password']))) {
                 res.status(200).json({
                     success: false,
                     message: "password",
                 });
             } else {
-                var token = jwt.sign({ id: data['_id'],username:data['username'],email:data['email']},'RANDOM_TOKEN_SECRET',{
-                            expiresIn: 86400 // expires in 24 hours
-                });
+                console.log(data);
+                var token = jwt.sign({ id: data['_id'],username:data['username'],email:data['email'],contact:data['contact'],dept:data['dept']},'shhhhh');
                 console.log(token);
                  res.status(200).json({
                     success: true,
@@ -54,6 +49,11 @@ router.post("/login", (req, res) => {
                     token: token,
                 });
             }
+            } else {
+             res.status(200).json({
+                    success: false,
+                    message: "username",
+                });
         }
             }
         );
@@ -153,7 +153,33 @@ router.post("/passwordChange", (req, res) => {
                 });
         }
             }
+    );
+});
+    //Reset Password for User
+router.post("/changeDetail", (req, res) => {
+    console.log("Working")
+    loginModel
+        .findOne({ email: req.body.email })
+        .exec()
+        .then((data) => {
+            console.log(data)
+            if (data) {
+                updateDetails(data, req);
+                var token = jwt.sign({ id: data['_id'],username:req.body.username,email:req.body.email,contact:req.body.contact,dept:req.body.dept},'shhhhh');
+                res.status(200).json({
+                    success: true,
+                    message: "success",
+                    token: token,
+                });
+                
+            } else {
+                console.log("Email id not found")
+                res.status(200).json({
+                    success: false,
+                    message: "not found",
+                });
+        }
+            }
         );
 });
-
 module.exports = router;

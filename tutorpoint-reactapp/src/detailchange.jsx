@@ -11,6 +11,8 @@ import {
 } from "mdbreact";
 import validator from "validator";
 import "./detailchange.css";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
 
 class DetailsChange extends Component {
   constructor(props) {
@@ -19,11 +21,16 @@ class DetailsChange extends Component {
     this.handleSubmitClick = this.handleSubmitClick.bind(this);
     this.handleCancelClick = this.handleCancelClick.bind(this);
     this.BG_CLASS = "body--bgchange";
+    const token = localStorage.access_token;
+    const decoded = jwt_decode(token);
+    console.log(decoded.email);
+    console.log(decoded.dept);
+    console.log(typeof decoded.contact.toString());
     this.state = {
-      email: "",
-      dept: "",
-      contact: "",
-      username: "",
+      email: decoded.email,
+      dept: decoded.dept,
+      contact: decoded.contact.toString(),
+      username: decoded.username,
     };
   }
 
@@ -33,7 +40,7 @@ class DetailsChange extends Component {
       [event.target.name]: event.target.value,
     });
   }
-  handleSubmitClick() {
+  async handleSubmitClick() {
     if (
       this.state.email === "" ||
       this.state.dept === "" ||
@@ -50,9 +57,33 @@ class DetailsChange extends Component {
     if (!validator.isNumeric(this.state.contact)) {
       alert("Phone number containes alphabets");
       return;
+    } else {
+      const details = {
+        username: this.state.username,
+        email: this.state.email,
+        dept: this.state.dept,
+        contact: this.state.contact,
+      };
+      console.log("send request");
+      await axios
+        .post("http://localhost:8080/changeDetail", details)
+        .then((response) => {
+          if (response.data.message === "not found") {
+            alert("Mail Id not registered !!!");
+          } else if (response.data.message === "success") {
+            alert("Changes are made Successfull");
+            this.props.history.push("/homepage");
+            localStorage.setItem("access_token", response.data.token);
+            localStorage.setItem("email", this.state.email);
+            console.log(localStorage);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          alert("Login Failure, Try again after sometime");
+        });
     }
-    alert("Changes are made Successfull");
-    this.props.history.push("/homepage");
   }
   handleCancelClick() {
     this.props.history.push("/homepage");
@@ -88,6 +119,7 @@ class DetailsChange extends Component {
                         type="text"
                         className="form-control"
                         id="username"
+                        value={this.state.username}
                         name="username"
                         onChange={this.handleChange}
                       />
@@ -97,6 +129,7 @@ class DetailsChange extends Component {
                         className="form-control"
                         id="email"
                         name="email"
+                        value={this.state.email}
                         onChange={this.handleChange}
                       />
                       <label htmlFor="contact">Contact Number</label>
@@ -105,6 +138,7 @@ class DetailsChange extends Component {
                         onChange={this.handleChange}
                         className="form-control"
                         id="contact"
+                        value={this.state.contact}
                         name="contact"
                       ></input>
                       <label htmlFor="email">Department</label>
@@ -112,6 +146,7 @@ class DetailsChange extends Component {
                         type="text"
                         className="form-control"
                         id="dept"
+                        value={this.state.dept}
                         name="dept"
                         onChange={this.handleChange}
                       />
