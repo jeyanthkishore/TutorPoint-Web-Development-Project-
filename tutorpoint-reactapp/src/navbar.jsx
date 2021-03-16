@@ -24,12 +24,17 @@ class NavBar extends Component {
       collapse: false,
     };
     this.onClick = this.onClick.bind(this);
+    this.logOut = this.logOut.bind(this);
   }
 
   onClick() {
     this.setState({
       collapse: !this.state.collapse,
     });
+  }
+
+  logOut() {
+    localStorage.removeItem("access_token");
   }
 
   render() {
@@ -88,7 +93,9 @@ class NavBar extends Component {
                         <MDBIcon icon="user" />
                       </MDBDropdownToggle>
                       <MDBDropdownMenu className="dropdown-default align-center">
-                        <MDBDropdownItem href="#/">Log Out</MDBDropdownItem>
+                        <MDBDropdownItem href="#/" onClick={this.logOut}>
+                          Log Out
+                        </MDBDropdownItem>
                         <MDBDropdownItem href="#/password-change">
                           Change Password
                         </MDBDropdownItem>

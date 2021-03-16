@@ -12,6 +12,7 @@ import {
   MDBView,
 } from "mdbreact";
 import "./password-change.css";
+import axios from "axios";
 
 class PasswordChange extends Component {
   constructor(props) {
@@ -40,15 +41,35 @@ class PasswordChange extends Component {
     document.body.classList.remove(this.BG_CLASS);
   }
 
-  handleClick() {
+  async handleClick() {
     if (this.state.newPassword !== this.state.renewPassword) {
       alert("Password do not match");
     }
     if (this.state.renewPassword.length < 8) {
       alert("Password length doesnot match");
     } else {
-      alert("Password change successfull");
-      this.props.history.push("/homepage");
+      const password = {
+        oldPassword: this.state.oldPassword,
+        newPassword: this.state.newPassword,
+        email: localStorage.getItem("email"),
+      };
+      await axios
+        .post("http://localhost:8080/passwordChange", password)
+        .then((response) => {
+          if (response.data.message === "not found") {
+            alert("Mail Id not registered !!!");
+          } else if (response.data.message === "password") {
+            alert("Please enter correct old Password");
+          } else {
+            alert("Password Change Successfull!!!");
+            this.props.history.push("/homepage");
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          alert("Password update failure. Please try again");
+        });
     }
   }
   render() {

@@ -5,6 +5,7 @@ const app = express();
 const userRoute = require("./api/routes/userRoute");
 const mailRoute = require("./api/routes/mailRoute");
 const loginRoute = require("./api/routes/loginRoute");
+const passwordRoute = require("./api/controllers/passwordController");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 

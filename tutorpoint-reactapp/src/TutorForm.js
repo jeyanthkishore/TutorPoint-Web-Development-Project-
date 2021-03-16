@@ -28,9 +28,6 @@ class TutorForm extends Component {
       },
     };
   }
-  onTutorApplicationStatusClick() {
-    this.props.history.push("/tutor-application-status");
-  }
   onChangeHandler = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
@@ -108,7 +105,7 @@ class TutorForm extends Component {
   render() {
     return (
       <div>
-        <section>
+        <header>
           <NavBar></NavBar>
           <MDBView src={homepage}>
             <MDBMask
@@ -117,19 +114,6 @@ class TutorForm extends Component {
               style={{ overflowY: "scroll" }}
             >
               <div className="TutorForm">
-                <div
-                  style={{
-                    marginLeft: "75%",
-                    marginBottom: "0%",
-                    color: "orange",
-                    fontWeight: "50",
-                  }}
-                >
-                  <a href="#/tutor-application-status">
-                    {" "}
-                    👉Tutor Application Status
-                  </a>
-                </div>
                 <h2 className="TutTitle">Application Form - Become a Tutor</h2>
                 <br></br>
 
@@ -277,7 +261,7 @@ class TutorForm extends Component {
               </div>
             </MDBMask>
           </MDBView>
-        </section>
+        </header>
       </div>
     );
   }
