@@ -5,6 +5,7 @@ import "./homepage.css";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import { Table, Card, FormControl, Form, Button } from "react-bootstrap";
+import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
 
 class HomePage extends Component {
   constructor(props) {
@@ -12,6 +13,12 @@ class HomePage extends Component {
     this.handleWorkshopClick = this.handleWorkshopClick.bind(this);
     this.handleTutorClick = this.handleTutorClick.bind(this);
     this.onTutorClick = this.onTutorClick.bind(this);
+  }
+  componentDidMount() {
+    var token = localStorage.getItem("access_token");
+    if (token === "" || token === undefined || token === null) {
+      this.props.history.push("/");
+    }
   }
   handleWorkshopClick() {
     this.props.history.push("/workshops");
