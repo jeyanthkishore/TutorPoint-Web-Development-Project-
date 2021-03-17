@@ -8,6 +8,10 @@
   color: #fff;
   background-color: #fd7e14;
 }
+
+.swal2-styled.swal2-confirm {
+  background-color: #fd7e14 !important;
+}
 .navLink {
   color: white;
   text-decoration: none;

@@ -11,6 +11,8 @@ import {
 import validator from "validator";
 import "./password-reset.css";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class SecurityCode extends Component {
   constructor(props) {
@@ -39,15 +41,17 @@ class SecurityCode extends Component {
       this.state.newPassword === "" ||
       this.state.resetPassword === ""
     ) {
-      alert("Please enter all the required details");
+      Swal.fire("Please Enter All Required Details");
       return;
     }
     if (localStorage.getItem("securityCode") !== this.state.securityCode) {
-      alert("Invalid Security Code! Please enter code sent to your mail");
+      Swal.fire(
+        "Invalid Security Code! \n Please Enter Code Sent to your Mail"
+      );
       return;
     }
     if (this.state.newPassword !== this.state.resetPassword) {
-      alert("Password miss match");
+      Swal.fire("Password Miss Match");
       return;
     }
     if (
@@ -56,7 +60,7 @@ class SecurityCode extends Component {
       this.state.newPassword.length < 8 ||
       this.state.resetPassword.length < 8
     ) {
-      alert("Password should be less than 16 characters");
+      Swal.fire("Password should be between 8 to 16 characters");
       return;
     } else {
       await axios
@@ -68,9 +72,9 @@ class SecurityCode extends Component {
         })
         .then((response) => {
           if (response.data.message === "not found") {
-            alert("Mail ID not registered with the application !!!");
+            Swal.fire("Mail ID not registered with the application !!!");
           } else if (response.data.message === "success") {
-            alert(
+            Swal.fire(
               "Password has been reset successfully.\n Use the new password for Login !"
             );
             localStorage.removeItem("securityCode");
@@ -81,7 +85,7 @@ class SecurityCode extends Component {
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Error in Resetting Password");
+          Swal.fire("Error in Resetting Password");
         });
     }
   }

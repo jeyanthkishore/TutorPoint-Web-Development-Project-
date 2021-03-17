@@ -11,6 +11,8 @@ import {
 import validator from "validator";
 import "./password-reset.css";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class PasswordReset extends Component {
   constructor(props) {
@@ -33,7 +35,7 @@ class PasswordReset extends Component {
 
   async handleClick() {
     if (!validator.isEmail(this.state.resetPassword)) {
-      alert("Please enter a valid email");
+      Swal.fire("Please Enter a Valid Email ID");
     } else {
       await axios
         .get("http://localhost:8080/sendSecurityCode", {
@@ -41,12 +43,12 @@ class PasswordReset extends Component {
         })
         .then((response) => {
           if (response.data.message === "not found") {
-            alert("Mail ID not registered with the application !!!");
+            Swal.fire("Mail ID not registered with the application !!!");
           } else if (response.data.message === "success") {
             localStorage.setItem("securityCode", response.data.code);
             localStorage.setItem("email", this.state.resetPassword);
             console.log(localStorage);
-            alert(
+            Swal.fire(
               "Security Code has been sent to the corresponding mail id.\n Use the Code sent for to change password !"
             );
             this.props.history.push("/securityCode");
@@ -55,7 +57,7 @@ class PasswordReset extends Component {
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Email Id already Exist! Please enter new email");
+          Swal.fire("Email Id already Exist! Please enter new email");
         });
     }
   }
