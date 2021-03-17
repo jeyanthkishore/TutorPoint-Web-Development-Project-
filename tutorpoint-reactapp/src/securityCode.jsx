@@ -52,7 +52,9 @@ class SecurityCode extends Component {
     }
     if (
       this.state.newPassword.length > 16 ||
-      this.state.resetPassword.length > 16
+      this.state.resetPassword.length > 16 ||
+      this.state.newPassword.length < 8 ||
+      this.state.resetPassword.length < 8
     ) {
       alert("Password should be less than 16 characters");
       return;

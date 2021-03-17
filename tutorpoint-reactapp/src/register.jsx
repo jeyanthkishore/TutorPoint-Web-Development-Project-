@@ -62,6 +62,9 @@ class Register extends Component {
       alert("Password miss match");
       return;
     }
+    if (this.state.password.length < 8 || this.state.password.length > 16) {
+      alert("Password should be greater than 8 digits");
+    }
     if (!validator.isEmail(this.state.email)) {
       alert("Please enter a valid email ID");
       return;
