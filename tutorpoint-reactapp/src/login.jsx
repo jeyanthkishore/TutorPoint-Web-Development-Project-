@@ -110,7 +110,7 @@ class Login extends Component {
               </MDBCardHeader>
               <MDBCardBody>
                 <form>
-                  <div className="grey-text">
+                  <div className="">
                     <MDBInput
                       label="Email"
                       icon="envelope"

@@ -63,8 +63,9 @@ class PasswordChange extends Component {
           } else if (response.data.message === "password") {
             Swal.fire("Please enter correct old Password");
           } else {
-            Swal.fire("Password Change Successfull!!!");
-            this.props.history.push("/homepage");
+            Swal.fire("Password Change Successfull!!!").then((response) => {
+              this.props.history.push("/homepage");
+            });
           }
         })
         .catch(function (error) {
@@ -93,7 +94,7 @@ class PasswordChange extends Component {
                   </MDBCardHeader>
                   <MDBCardBody>
                     <form>
-                      <div className="">
+                      <div>
                         <label htmlFor="oldPassword">Enter old password</label>
                         <input
                           type="password"

@@ -73,8 +73,9 @@ class DetailsChange extends Component {
           if (response.data.message === "not found") {
             Swal.fire("Mail Id not registered !!!");
           } else if (response.data.message === "success") {
-            Swal.fire("Changes are made Successfull");
-            this.props.history.push("/homepage");
+            Swal.fire("Changes are made Successfull").then((result) => {
+              this.props.history.push("/homepage");
+            });
             localStorage.setItem("access_token", response.data.token);
             localStorage.setItem("email", this.state.email);
             console.log(localStorage);
@@ -152,7 +153,7 @@ class DetailsChange extends Component {
                         name="dept"
                         onChange={this.handleChange}
                       />
-                      <div className="text-center new-button">
+                      <div className="text-center new-button password-button">
                         <MDBBtn onClick={this.handleSubmitClick}>Submit</MDBBtn>
                         <MDBBtn onClick={this.handleCancelClick}>Cancel</MDBBtn>
                       </div>

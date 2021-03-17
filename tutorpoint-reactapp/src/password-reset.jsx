@@ -50,8 +50,9 @@ class PasswordReset extends Component {
             console.log(localStorage);
             Swal.fire(
               "Security Code has been sent to the corresponding mail id.\n Use the Code sent for to change password !"
-            );
-            this.props.history.push("/securityCode");
+            ).then((response) => {
+              this.props.history.push("/securityCode");
+            });
           }
         })
         .catch(function (error) {
@@ -83,7 +84,7 @@ class PasswordReset extends Component {
               </MDBCardHeader>
               <MDBCardBody>
                 <form>
-                  <div className="grey-text">
+                  <div>
                     <label htmlFor="resetPassword">Enter your Email ID</label>
                     <input
                       type="text"
@@ -92,8 +93,9 @@ class PasswordReset extends Component {
                       name="resetPassword"
                       onChange={this.handleChange}
                     />
-                    <div className="text-center new-button">
+                    <div className="text-center new-button password-button">
                       <MDBBtn onClick={this.handleClick}>Submit</MDBBtn>
+                      <MDBBtn href="#/">Back</MDBBtn>
                     </div>
                   </div>
                 </form>

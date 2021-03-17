@@ -111,7 +111,7 @@ class Register extends Component {
                 </MDBCardHeader>
                 <MDBCardBody>
                   <form>
-                    <div className="grey-text">
+                    <div>
                       <MDBInput
                         label="Full Name*"
                         group

@@ -19,6 +19,7 @@ class SecurityCode extends Component {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleBackClick = this.handleBackClick.bind(this);
     this.BG_CLASS = "body--bg";
     this.state = {
       securityCode: "",
@@ -35,6 +36,11 @@ class SecurityCode extends Component {
     document.body.classList.remove(this.BG_CLASS);
   }
 
+  handleBackClick() {
+    localStorage.removeItem("securityCode");
+    localStorage.removeItem("email");
+    this.props.history.push("/password-reset");
+  }
   async handleClick() {
     if (
       this.state.securityCode === "" ||
@@ -76,10 +82,11 @@ class SecurityCode extends Component {
           } else if (response.data.message === "success") {
             Swal.fire(
               "Password has been reset successfully.\n Use the new password for Login !"
-            );
+            ).then((response) => {
+              this.props.history.push("/");
+            });
             localStorage.removeItem("securityCode");
             localStorage.removeItem("email");
-            this.props.history.push("/");
           }
         })
         .catch(function (error) {
@@ -111,7 +118,7 @@ class SecurityCode extends Component {
               </MDBCardHeader>
               <MDBCardBody>
                 <form>
-                  <div className="grey-text">
+                  <div className="">
                     <label htmlFor="resetPassword">
                       Enter your Security Code
                     </label>
@@ -138,8 +145,9 @@ class SecurityCode extends Component {
                       name="resetPassword"
                       onChange={this.handleChange}
                     />
-                    <div className="text-center new-button">
+                    <div className="text-center new-button pass-button">
                       <MDBBtn onClick={this.handleClick}>Submit</MDBBtn>
+                      <MDBBtn onClick={this.handleBackClick}>Back</MDBBtn>
                     </div>
                   </div>
                 </form>
