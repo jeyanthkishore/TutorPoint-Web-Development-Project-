@@ -37,7 +37,22 @@ class TutorForm extends Component {
       },
       departmentObject: [],
       departmentList: [],
+      selectedDepartment: "",
+      courseList: [],
     };
+    coursesList().then((res) => {
+      let deptNames = [];
+      var i;
+      for (i = 0; i < res[0].departments.length; i++) {
+        deptNames.push(res[0].departments[i].department_name);
+      }
+      console.log("datadepna" + typeof deptNames);
+      this.setState({
+        departmentObject: res[0].departments,
+        departmentList: deptNames,
+      });
+      console.log("dismount" + this.state.departmentObject[0].department_name);
+    });
   }
 
   componentDidMount() {
@@ -56,9 +71,30 @@ class TutorForm extends Component {
     });
   }
 
-  onDropdownSelect(value) {
-    console.log(value.department_name);
-  }
+  onDropdownSelect = (event) => {
+    event.preventDefault();
+    console.log("here" + event.target.value);
+    var i;
+    var j;
+    var courseNames = [];
+    for (i = 0; i < this.state.departmentObject.length; i++) {
+      console.log("ind" + this.state.departmentObject[i].department_name);
+      if (
+        this.state.departmentObject[i].department_name === event.target.value
+      ) {
+        for (j = 0; j < this.state.departmentObject[i].courses.length; j++) {
+          courseNames.push(
+            this.state.departmentObject[i].courses[j].course_name
+          );
+        }
+        console.log(
+          "insideDropedowd" + this.state.departmentObject[i].courses.length
+        );
+      }
+    }
+    this.setState({ courseList: courseNames });
+  };
+
   onTutorApplicationStatusClick() {
     this.props.history.push("/tutor-application-status");
   }
@@ -139,6 +175,21 @@ class TutorForm extends Component {
     this.props.history.push("/tutor-application-status");
   };
   render() {
+    const options = this.state.departmentList.map((r) => {
+      return (
+        <option key={r} value={r}>
+          {r}
+        </option>
+      );
+    });
+    const courseOptions = this.state.courseList.map((r) => {
+      return (
+        <option key={r} value={r}>
+          {r}
+        </option>
+      );
+    });
+
     // const departmentNames = this.state.departmentObject.map(function (
     //   department
     // ) {
@@ -146,7 +197,7 @@ class TutorForm extends Component {
     //   return department.department_name;
     // });
     // console.log("constrendfunc" + departmentNames);
-    console.log("list" + typeof this.state.departmentList);
+    // console.log("list" + typeof this.state.departmentList);
     return (
       <div>
         <section>
@@ -217,7 +268,18 @@ class TutorForm extends Component {
                         // defaultValue="Choose Department"
                         name="department"
                         required
-                      ></Form.Control>
+                        onChange={this.onDropdownSelect}
+                      >
+                        <option>Choose Department</option>
+                        {options}
+                        {/* {this.state.departmentList.map((r) => {
+                          return (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          );
+                        })} */}
+                      </Form.Control>
                     </Col>
                   </Form.Group>
                   <Form.Group as={Row} controlId="course">
@@ -231,8 +293,8 @@ class TutorForm extends Component {
                         name="course"
                         required
                       >
+                        {courseOptions}
                         <option>Choose Course</option>
-                        <option>...</option>
                       </Form.Control>
                     </Col>
                   </Form.Group>
