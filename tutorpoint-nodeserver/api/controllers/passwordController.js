@@ -20,10 +20,10 @@ function passwordReset (req) {
       to: req.email, // list of receivers
       subject: "Tutor Application Password Recovery Mail", // Subject line
       text:
-        "Respected Faculty/Approver, \n This is mail is regarding password reset for the user " + req.username +
+        "Hi Sir/Madam, \n This is mail is regarding password reset for the user " + req.username +
         "\n Please go through the mail for the password for the application\n Also, you can directly contact the tutorpointmailer@gmail.com fof futher information. ", // plain text body
       html:
-        "<h3>Respected Faculty/Approver,</h3> <br> <h4>This is mail is regarding password reset for the user " + req.username +
+        "<h3>Hi Sir/Madam,</h3> <br> <h4>This is mail is regarding password reset for the user " + req.username +
         "<br> Please go through the mail for the password for the application.<br> Also, you can directly contact the tutorpointmailer@gmail.com for futher information.  <br> Security Code is : <b>"+req.code+"</b> </h4> ", // html body
     });
 

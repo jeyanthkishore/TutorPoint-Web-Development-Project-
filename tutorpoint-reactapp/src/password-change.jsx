@@ -13,6 +13,8 @@ import {
 } from "mdbreact";
 import "./password-change.css";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class PasswordChange extends Component {
   constructor(props) {
@@ -43,10 +45,10 @@ class PasswordChange extends Component {
 
   async handleClick() {
     if (this.state.newPassword !== this.state.renewPassword) {
-      alert("Password do not match");
+      Swal.fire("Password Do Not Match");
     }
     if (this.state.renewPassword.length < 8) {
-      alert("Password length doesnot match");
+      Swal.fire("Password length doesnot match criteria");
     } else {
       const password = {
         oldPassword: this.state.oldPassword,
@@ -57,18 +59,19 @@ class PasswordChange extends Component {
         .post("http://localhost:8080/passwordChange", password)
         .then((response) => {
           if (response.data.message === "not found") {
-            alert("Mail Id not registered !!!");
+            Swal.fire("Mail Id not registered !!!");
           } else if (response.data.message === "password") {
-            alert("Please enter correct old Password");
+            Swal.fire("Please enter correct old Password");
           } else {
-            alert("Password Change Successfull!!!");
-            this.props.history.push("/homepage");
+            Swal.fire("Password Change Successfull!!!").then((response) => {
+              this.props.history.push("/homepage");
+            });
           }
         })
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Password update failure. Please try again");
+          Swal.fire("Password update failure. Please try again");
         });
     }
   }
@@ -91,7 +94,7 @@ class PasswordChange extends Component {
                   </MDBCardHeader>
                   <MDBCardBody>
                     <form>
-                      <div className="">
+                      <div>
                         <label htmlFor="oldPassword">Enter old password</label>
                         <input
                           type="password"

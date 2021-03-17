@@ -13,6 +13,8 @@ import {
 import validator from "validator";
 import "./register.css";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class Register extends Component {
   constructor(props) {
@@ -55,19 +57,22 @@ class Register extends Component {
       this.state.username === "" ||
       this.state.contact === ""
     ) {
-      alert("Please enter all the required details");
+      Swal.fire("Please Fill All The Required Details");
       return;
     }
     if (this.state.password !== this.state.re_password) {
-      alert("Password miss match");
+      Swal.fire("Password Miss Match");
       return;
     }
+    if (this.state.password.length < 8 || this.state.password.length > 16) {
+      Swal.fire("Password Should Be More Than 8 Digits");
+    }
     if (!validator.isEmail(this.state.email)) {
-      alert("Please enter a valid email ID");
+      Swal.fire("Please Enter a Valid Email ID");
       return;
     }
     if (!validator.isNumeric(this.state.contact)) {
-      alert("Phone number containes alphabets");
+      Swal.fire("Contact Number Containes Alphabets\n Please Change!");
       return;
     }
     const register = {
@@ -80,13 +85,13 @@ class Register extends Component {
     await axios
       .post("http://localhost:8080/register", register)
       .then((response) => {
-        alert("Registration Successfull");
+        Swal.fire("Registration Successfull");
         this.props.history.push("/");
       })
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("Email Id already Exist! Please enter new email");
+        Swal.fire("Email Id already Exist! Please enter new email");
       });
   }
   render() {
@@ -106,7 +111,7 @@ class Register extends Component {
                 </MDBCardHeader>
                 <MDBCardBody>
                   <form>
-                    <div className="grey-text">
+                    <div>
                       <MDBInput
                         label="Full Name*"
                         group

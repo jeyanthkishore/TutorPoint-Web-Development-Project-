@@ -14,6 +14,8 @@ import {
 import logo from "./logo12.png";
 import logo_dal from "./gold.png";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class Login extends Component {
   constructor(props) {
@@ -42,9 +44,9 @@ class Login extends Component {
 
   async handleClick() {
     if (!validator.isEmail(this.state.email)) {
-      alert("Please enter a valid email");
+      Swal.fire("Please Enter a Valid Email");
     } else if (this.state.password.length <= 8) {
-      alert("Please enter 8 digit passowrd");
+      Swal.fire("Please Enter 8 Digit Passowrd");
     } else {
       const login = {
         password: this.state.password,
@@ -54,9 +56,9 @@ class Login extends Component {
         .post("http://localhost:8080/login", login)
         .then((response) => {
           if (response.data.message === "username") {
-            alert("Mail Id not registered !!!");
+            Swal.fire("Mail Id not Registered !!!");
           } else if (response.data.message === "password") {
-            alert("Invalid/Mismatch password");
+            Swal.fire("Invalid/Mismatch Password :-(");
           } else {
             console.log("Logged IN");
             localStorage.setItem("access_token", response.data.token);
@@ -68,7 +70,7 @@ class Login extends Component {
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Login Failure, Try again after sometime");
+          Swal.fire("Login Failure, Try again after sometime");
         });
     }
   }
@@ -108,7 +110,7 @@ class Login extends Component {
               </MDBCardHeader>
               <MDBCardBody>
                 <form>
-                  <div className="grey-text">
+                  <div className="">
                     <MDBInput
                       label="Email"
                       icon="envelope"

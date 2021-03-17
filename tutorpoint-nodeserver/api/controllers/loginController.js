@@ -18,6 +18,7 @@ async function registerUser(req) {
             email: req.body.email,
             contact: req.body.contact,
             dept: req.body.dept,
+            role: "student",
         });
         console.log("Working!!!!!");
         user.save();
