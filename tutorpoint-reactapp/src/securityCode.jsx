@@ -124,7 +124,7 @@ class SecurityCode extends Component {
                     />
                     <label htmlFor="resetPassword">Enter new Password</label>
                     <input
-                      type="text"
+                      type="password"
                       className="form-control"
                       id="newPassword"
                       name="newPassword"
@@ -132,7 +132,7 @@ class SecurityCode extends Component {
                     />
                     <label htmlFor="resetPassword">Re-enter new Password</label>
                     <input
-                      type="text"
+                      type="password"
                       className="form-control"
                       id="resetPassword"
                       name="resetPassword"
