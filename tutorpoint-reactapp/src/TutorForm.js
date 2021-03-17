@@ -120,7 +120,7 @@ class TutorForm extends Component {
         break;
     }
     this.setState({ errors, [name]: value }, () => {
-      console.log(errors);
+      // console.log(errors);
     });
   };
   onFileChangeHandler = (event) => {
@@ -168,7 +168,8 @@ class TutorForm extends Component {
     axios
       .post("http://localhost:8080/api/user/uploadfile", data, conf)
       .then((response) => {
-        alert("The file is successfully uploaded");
+        console.log(response);
+        alert("The file is successfully uploaded" + response);
       })
       .catch((error) => {});
 

@@ -12,6 +12,7 @@ const courses = mongoose.Schema({
           course_id: String,
           faculty: String,
           faculty_email: String,
+          approver_id: String,
         },
       ],
     },
