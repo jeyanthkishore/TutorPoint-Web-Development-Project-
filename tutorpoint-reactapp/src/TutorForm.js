@@ -11,6 +11,15 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import axios from "axios";
 
+function coursesList() {
+  return axios
+    .get("http://localhost:8080/api/courses")
+    .then(function (results) {
+      return results.data;
+    })
+    .catch((error) => {});
+}
+
 class TutorForm extends Component {
   state = {};
   constructor(props) {
@@ -26,7 +35,32 @@ class TutorForm extends Component {
       errors: {
         fullName: "",
       },
+      departmentObject: [],
+      departmentList: [],
     };
+  }
+
+  componentDidMount() {
+    coursesList().then((res) => {
+      let deptNames = [];
+      var i;
+      for (i = 0; i < res[0].departments.length; i++) {
+        deptNames.push(res[0].departments[i].department_name);
+      }
+      console.log("datadepna" + typeof deptNames);
+      this.setState({
+        departmentObject: res[0].departments,
+        departmentList: deptNames,
+      });
+      console.log("dismount" + this.state.departmentObject[0].department_name);
+    });
+  }
+
+  onDropdownSelect(value) {
+    console.log(value.department_name);
+  }
+  onTutorApplicationStatusClick() {
+    this.props.history.push("/tutor-application-status");
   }
   onChangeHandler = (event) => {
     event.preventDefault();
@@ -101,11 +135,21 @@ class TutorForm extends Component {
         alert("The file is successfully uploaded");
       })
       .catch((error) => {});
+
+    this.props.history.push("/tutor-application-status");
   };
   render() {
+    // const departmentNames = this.state.departmentObject.map(function (
+    //   department
+    // ) {
+    //   console.log(department.department_name);
+    //   return department.department_name;
+    // });
+    // console.log("constrendfunc" + departmentNames);
+    console.log("list" + typeof this.state.departmentList);
     return (
       <div>
-        <header>
+        <section>
           <NavBar></NavBar>
           <MDBView src={homepage}>
             <MDBMask
@@ -114,6 +158,19 @@ class TutorForm extends Component {
               style={{ overflowY: "scroll" }}
             >
               <div className="TutorForm">
+                <div
+                  style={{
+                    marginLeft: "75%",
+                    marginBottom: "0%",
+                    color: "orange",
+                    fontWeight: "50",
+                  }}
+                >
+                  <a href="#/tutor-application-status">
+                    {" "}
+                    👉Tutor Application Status
+                  </a>
+                </div>
                 <h2 className="TutTitle">Application Form - Become a Tutor</h2>
                 <br></br>
 
@@ -160,10 +217,7 @@ class TutorForm extends Component {
                         // defaultValue="Choose Department"
                         name="department"
                         required
-                      >
-                        <option>Choose Department</option>
-                        <option>...</option>
-                      </Form.Control>
+                      ></Form.Control>
                     </Col>
                   </Form.Group>
                   <Form.Group as={Row} controlId="course">
@@ -249,11 +303,6 @@ class TutorForm extends Component {
                     style={{ marginLeft: "18%", marginBottom: "0%" }}
                     variant="primary"
                     type="submit"
-                    // onClick={() =>
-                    //   alert(
-                    //     "Thanks for Submitting the application!!!! Your reference number is #12345678"
-                    //   )
-                    // }
                   >
                     Submit
                   </Button>
@@ -261,7 +310,7 @@ class TutorForm extends Component {
               </div>
             </MDBMask>
           </MDBView>
-        </header>
+        </section>
       </div>
     );
   }
