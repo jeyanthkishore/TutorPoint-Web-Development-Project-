@@ -11,12 +11,15 @@ import {
 import validator from "validator";
 import "./password-reset.css";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class SecurityCode extends Component {
   constructor(props) {
     super(props);
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleBackClick = this.handleBackClick.bind(this);
     this.BG_CLASS = "body--bg";
     this.state = {
       securityCode: "",
@@ -33,28 +36,37 @@ class SecurityCode extends Component {
     document.body.classList.remove(this.BG_CLASS);
   }
 
+  handleBackClick() {
+    localStorage.removeItem("securityCode");
+    localStorage.removeItem("email");
+    this.props.history.push("/password-reset");
+  }
   async handleClick() {
     if (
       this.state.securityCode === "" ||
       this.state.newPassword === "" ||
       this.state.resetPassword === ""
     ) {
-      alert("Please enter all the required details");
+      Swal.fire("Please Enter All Required Details");
       return;
     }
     if (localStorage.getItem("securityCode") !== this.state.securityCode) {
-      alert("Invalid Security Code! Please enter code sent to your mail");
+      Swal.fire(
+        "Invalid Security Code! \n Please Enter Code Sent to your Mail"
+      );
       return;
     }
     if (this.state.newPassword !== this.state.resetPassword) {
-      alert("Password miss match");
+      Swal.fire("Password Miss Match");
       return;
     }
     if (
       this.state.newPassword.length > 16 ||
-      this.state.resetPassword.length > 16
+      this.state.resetPassword.length > 16 ||
+      this.state.newPassword.length < 8 ||
+      this.state.resetPassword.length < 8
     ) {
-      alert("Password should be less than 16 characters");
+      Swal.fire("Password should be between 8 to 16 characters");
       return;
     } else {
       await axios
@@ -66,20 +78,21 @@ class SecurityCode extends Component {
         })
         .then((response) => {
           if (response.data.message === "not found") {
-            alert("Mail ID not registered with the application !!!");
+            Swal.fire("Mail ID not registered with the application !!!");
           } else if (response.data.message === "success") {
-            alert(
+            Swal.fire(
               "Password has been reset successfully.\n Use the new password for Login !"
-            );
+            ).then((response) => {
+              this.props.history.push("/");
+            });
             localStorage.removeItem("securityCode");
             localStorage.removeItem("email");
-            this.props.history.push("/");
           }
         })
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Error in Resetting Password");
+          Swal.fire("Error in Resetting Password");
         });
     }
   }
@@ -105,7 +118,7 @@ class SecurityCode extends Component {
               </MDBCardHeader>
               <MDBCardBody>
                 <form>
-                  <div className="grey-text">
+                  <div className="">
                     <label htmlFor="resetPassword">
                       Enter your Security Code
                     </label>
@@ -118,7 +131,7 @@ class SecurityCode extends Component {
                     />
                     <label htmlFor="resetPassword">Enter new Password</label>
                     <input
-                      type="text"
+                      type="password"
                       className="form-control"
                       id="newPassword"
                       name="newPassword"
@@ -126,14 +139,15 @@ class SecurityCode extends Component {
                     />
                     <label htmlFor="resetPassword">Re-enter new Password</label>
                     <input
-                      type="text"
+                      type="password"
                       className="form-control"
                       id="resetPassword"
                       name="resetPassword"
                       onChange={this.handleChange}
                     />
-                    <div className="text-center new-button">
+                    <div className="text-center new-button pass-button">
                       <MDBBtn onClick={this.handleClick}>Submit</MDBBtn>
+                      <MDBBtn onClick={this.handleBackClick}>Back</MDBBtn>
                     </div>
                   </div>
                 </form>

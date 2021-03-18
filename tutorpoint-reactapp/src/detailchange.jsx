@@ -13,6 +13,8 @@ import validator from "validator";
 import "./detailchange.css";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class DetailsChange extends Component {
   constructor(props) {
@@ -47,15 +49,15 @@ class DetailsChange extends Component {
       this.state.username === "" ||
       this.state.contact === ""
     ) {
-      alert("Please enter all the required details");
+      Swal.fire("Please Enter All Required Details");
       return;
     }
     if (!validator.isEmail(this.state.email)) {
-      alert("Please enter a valid email ID");
+      Swal.fire("Please Enter a Valid Email ID");
       return;
     }
     if (!validator.isNumeric(this.state.contact)) {
-      alert("Phone number containes alphabets");
+      Swal.fire("Phone number containes alphabets");
       return;
     } else {
       const details = {
@@ -69,10 +71,11 @@ class DetailsChange extends Component {
         .post("http://localhost:8080/changeDetail", details)
         .then((response) => {
           if (response.data.message === "not found") {
-            alert("Mail Id not registered !!!");
+            Swal.fire("Mail Id not registered !!!");
           } else if (response.data.message === "success") {
-            alert("Changes are made Successfull");
-            this.props.history.push("/homepage");
+            Swal.fire("Changes are made Successfull").then((result) => {
+              this.props.history.push("/homepage");
+            });
             localStorage.setItem("access_token", response.data.token);
             localStorage.setItem("email", this.state.email);
             console.log(localStorage);
@@ -81,7 +84,7 @@ class DetailsChange extends Component {
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Login Failure, Try again after sometime");
+          Swal.fire("Update Failure, Try again after sometime");
         });
     }
   }
@@ -150,7 +153,7 @@ class DetailsChange extends Component {
                         name="dept"
                         onChange={this.handleChange}
                       />
-                      <div className="text-center new-button">
+                      <div className="text-center new-button password-button">
                         <MDBBtn onClick={this.handleSubmitClick}>Submit</MDBBtn>
                         <MDBBtn onClick={this.handleCancelClick}>Cancel</MDBBtn>
                       </div>

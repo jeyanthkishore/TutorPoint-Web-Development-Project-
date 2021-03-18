@@ -1,4 +1,4 @@
-/* The code below was referred from [Tutorial-6 V3 recording (T6V3: NodeJS and Express [Option 2 How-To Video])](https://dal.brightspace.com/d2l/le/content/143362/viewContent/2243534/View) and modified further to complete the activity.*/
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 const express = require("express");
 const router = express.Router();
 const multer = require("multer");
@@ -20,5 +20,7 @@ router.post(
   upload.array("uploadDocuments", 12),
   userController.uploadFile
 );
+
+router.post("/tutorapplications", userController.getTutorApplications);
 
 module.exports = router;

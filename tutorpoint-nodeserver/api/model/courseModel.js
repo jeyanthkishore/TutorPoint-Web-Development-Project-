@@ -1,4 +1,4 @@
-/* The code below was referred from [Tutorial-7 V3 recording (T673: NodeJS and Express [Option 2 How-To Video])](https://dal.brightspace.com/d2l/le/content/143362/viewContent/2243537/View) and modified further to complete the activity.*/
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 const mongoose = require("mongoose");
 
 const courses = mongoose.Schema({
@@ -12,6 +12,7 @@ const courses = mongoose.Schema({
           course_id: String,
           faculty: String,
           faculty_email: String,
+          approver_id: String,
         },
       ],
     },
