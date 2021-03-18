@@ -78,7 +78,6 @@ class TutorApplicationStatus extends Component {
     if (this.state.tableObjectList.length > 0) {
       applicationRows = this.state.tableObjectList.map((r, index) => {
         console.log(r + "hihih");
-        var newCounter = counterVar + 1;
         return (
           <tr>
             <td>{index + 1}</td>
@@ -128,7 +127,10 @@ class TutorApplicationStatus extends Component {
                     fontWeight: "50",
                   }}
                 >
-                  <a href="#/tutor-application-status"> 🔄 refresh</a>
+                  <a onClick={() => window.location.reload(false)}>
+                    {" "}
+                    🔄 refresh
+                  </a>
                 </div>
                 <h2>Tutor Application Status </h2>
                 <br></br>

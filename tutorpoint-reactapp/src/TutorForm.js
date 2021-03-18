@@ -10,6 +10,7 @@ import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import "@sweetalert2/theme-dark/dark.css";
 
@@ -43,6 +44,8 @@ class TutorForm extends Component {
       courseList: [],
       facultyEmail: "",
       courseId: "",
+      email: "",
+      username: "",
     };
     coursesList().then((res) => {
       let deptNames = [];
@@ -63,6 +66,8 @@ class TutorForm extends Component {
     if (token === "" || token === undefined || token === null) {
       this.props.history.push("/");
     }
+    const decoded = jwt_decode(token);
+
     coursesList().then((res) => {
       let deptNames = [];
       var i;
@@ -73,6 +78,8 @@ class TutorForm extends Component {
       this.setState({
         departmentObject: res[0].departments,
         departmentList: deptNames,
+        email: decoded.email,
+        username: decoded.username,
       });
     });
   }
@@ -291,6 +298,9 @@ class TutorForm extends Component {
                         required
                         minlength="5"
                         onChange={this.onChangeHandler}
+                        value={this.state.username}
+                        readonly
+                        style={{ backgroundColor: "lightgrey" }}
                       />
                     </Col>
                   </Form.Group>
@@ -305,6 +315,9 @@ class TutorForm extends Component {
                         placeholder="Enter email"
                         name="email"
                         required
+                        value={this.state.email}
+                        readonly
+                        style={{ backgroundColor: "lightgrey" }}
                       />
                     </Col>
                   </Form.Group>
