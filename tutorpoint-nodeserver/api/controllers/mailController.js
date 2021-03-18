@@ -66,13 +66,13 @@ const mailSender = (req, res) => {
         studentName +
         "<br> E-mail: " +
         studentMail +
-        "<br> Message: " +
+        "<br> Message: <br>" +
         description +
         "<br> Availability: " +
         availability +
         "<br> <br> Please go through the attached documents and the application to make a decision. <br> Also, you can directly contact the student at " +
         studentMail +
-        "for futher information. <br> <b>Please make a decision on this application by clicking <a href='http://localhost:3000/#/manage-tutor-application'>Here</a></b> </h4> ", // html body
+        " for futher information. <br> <b>Please make a decision on this application by clicking <a href='http://localhost:3000/#/manage-tutor-application'>Here</a></b> </h4> ", // html body
       attachments: attachmentsMail,
       // {
       //   // utf-8 string as an attachment

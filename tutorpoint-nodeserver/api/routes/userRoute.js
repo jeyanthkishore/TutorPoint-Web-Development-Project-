@@ -21,4 +21,6 @@ router.post(
   userController.uploadFile
 );
 
+router.post("/tutorapplications", userController.getTutorApplications);
+
 module.exports = router;

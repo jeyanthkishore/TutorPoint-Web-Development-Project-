@@ -10,6 +10,8 @@ import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 function coursesList() {
   return axios
@@ -53,11 +55,14 @@ class TutorForm extends Component {
         departmentObject: res[0].departments,
         departmentList: deptNames,
       });
-      console.log("dismount" + this.state.departmentObject[0].department_name);
     });
   }
 
   componentDidMount() {
+    var token = localStorage.getItem("access_token");
+    if (token === "" || token === undefined || token === null) {
+      this.props.history.push("/");
+    }
     coursesList().then((res) => {
       let deptNames = [];
       var i;
@@ -69,7 +74,6 @@ class TutorForm extends Component {
         departmentObject: res[0].departments,
         departmentList: deptNames,
       });
-      console.log("dismount" + this.state.departmentObject[0].department_name);
     });
   }
 
@@ -192,11 +196,12 @@ class TutorForm extends Component {
     data.append("facultyEmail", this.state.facultyEmail);
     data.append("courseId", this.state.courseId);
     // alert("A form was submitted" + JSON.stringify(Object.fromEntries(data)));
-    alert(
-      "A form was submitted" +
-        JSON.stringify(Object.fromEntries(data)) +
-        data.uploadDocuments[0].name
-    );
+    // alert(
+    //   "A form was submitted" +
+    //     JSON.stringify(Object.fromEntries(data)) +
+    //     data.uploadDocuments[0].name
+    // );
+
     const conf = {
       headers: {
         "content-type": "multipart/form-data",
@@ -212,7 +217,8 @@ class TutorForm extends Component {
         axios
           .post("http://localhost:8080/api/mail/send", response.data)
           .then((resp) => {
-            alert("MAILSENT!!" + resp);
+            Swal.fire("Application submitted successfully");
+            // alert("MAILSENT!!" + resp);
           })
           .catch((error) => {});
       })
@@ -265,7 +271,7 @@ class TutorForm extends Component {
                 >
                   <a href="#/tutor-application-status">
                     {" "}
-                    👉Tutor Application Status
+                    👉 Tutor Application Status
                   </a>
                 </div>
                 <h2 className="TutTitle">Application Form - Become a Tutor</h2>
