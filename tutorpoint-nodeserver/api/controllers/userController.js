@@ -81,11 +81,13 @@ const uploadFile = (req, res) => {
           status: "pending",
           to_be_approved_by: responseObject.formData.faculty_email,
           reason: "blank",
+          updated_at: Date.now(),
         },
         application_details: {
           files_destination: responseObject.fileDestination,
           student_description: responseObject.formData.description,
           attachment_file_names: responseObject.fileNames,
+          created_at: Date.now(),
         },
       });
       tutorApplication.save().then((result) => {
@@ -95,4 +97,15 @@ const uploadFile = (req, res) => {
     });
 };
 
+const getTutorApplications = (req, res) => {
+  const email = req.body.email;
+  tutorApplicationData
+    .find({ "applied_by.email": email })
+    .exec()
+    .then((data) => {
+      var jsonData = data;
+      res.status(200).json(data);
+    });
+};
 module.exports.uploadFile = uploadFile;
+module.exports.getTutorApplications = getTutorApplications;

@@ -19,11 +19,13 @@ const tutorapplications = mongoose.Schema({
     status: String,
     to_be_approved_by: String,
     reason: String,
+    updated_at: Date,
   },
   application_details: {
     files_destination: String,
     student_description: String,
     attachment_file_names: Array,
+    created_at: Date,
   },
 });
 

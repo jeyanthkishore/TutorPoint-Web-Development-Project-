@@ -14,7 +14,7 @@ function ManageTutorApplication() {
   return (
     <div>
       <header>
-        <NavBar></NavBar>
+        {/* <NavBar></NavBar> */}
         <MDBView src={homepage}>
           <MDBMask
             overlay="black-strong"
