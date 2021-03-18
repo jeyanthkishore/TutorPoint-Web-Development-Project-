@@ -1,3 +1,4 @@
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 import React from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
@@ -9,6 +10,10 @@ import Breadcrumb from "react-bootstrap/Breadcrumb";
 import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
+import axios from "axios";
+import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 function ManageTutorApplication() {
   return (

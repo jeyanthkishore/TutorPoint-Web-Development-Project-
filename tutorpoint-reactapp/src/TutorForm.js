@@ -1,3 +1,4 @@
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 import React, { Component } from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
@@ -10,6 +11,7 @@ import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import "@sweetalert2/theme-dark/dark.css";
 
@@ -42,7 +44,10 @@ class TutorForm extends Component {
       selectedDepartment: "",
       courseList: [],
       facultyEmail: "",
+      approverId: "",
       courseId: "",
+      email: "",
+      username: "",
     };
     coursesList().then((res) => {
       let deptNames = [];
@@ -63,6 +68,8 @@ class TutorForm extends Component {
     if (token === "" || token === undefined || token === null) {
       this.props.history.push("/");
     }
+    const decoded = jwt_decode(token);
+
     coursesList().then((res) => {
       let deptNames = [];
       var i;
@@ -73,6 +80,8 @@ class TutorForm extends Component {
       this.setState({
         departmentObject: res[0].departments,
         departmentList: deptNames,
+        email: decoded.email,
+        username: decoded.username,
       });
     });
   }
@@ -111,6 +120,7 @@ class TutorForm extends Component {
     var j;
     var facultyEmail = "";
     var courseId = "";
+    var approverId = "";
     for (i = 0; i < this.state.departmentObject.length; i++) {
       if (
         this.state.departmentObject[i].department_name ===
@@ -128,11 +138,16 @@ class TutorForm extends Component {
             facultyEmail = this.state.departmentObject[i].courses[j]
               .faculty_email;
             courseId = this.state.departmentObject[i].courses[j].course_id;
+            approverId = this.state.departmentObject[i].courses[j].approver_id;
           }
         }
       }
     }
-    this.setState({ facultyEmail: facultyEmail, courseId: courseId });
+    this.setState({
+      facultyEmail: facultyEmail,
+      courseId: courseId,
+      approverId: approverId,
+    });
     console.log(this.state.facultyEmail);
   };
   onTutorApplicationStatusClick() {
@@ -195,6 +210,7 @@ class TutorForm extends Component {
     data.uploadDocuments = ("files", this.state.files.selectedFiles);
     data.append("facultyEmail", this.state.facultyEmail);
     data.append("courseId", this.state.courseId);
+    data.append("approverId", this.state.approverId);
     // alert("A form was submitted" + JSON.stringify(Object.fromEntries(data)));
     // alert(
     //   "A form was submitted" +
@@ -291,6 +307,9 @@ class TutorForm extends Component {
                         required
                         minlength="5"
                         onChange={this.onChangeHandler}
+                        value={this.state.username}
+                        readonly
+                        style={{ backgroundColor: "lightgrey" }}
                       />
                     </Col>
                   </Form.Group>
@@ -305,6 +324,9 @@ class TutorForm extends Component {
                         placeholder="Enter email"
                         name="email"
                         required
+                        value={this.state.email}
+                        readonly
+                        style={{ backgroundColor: "lightgrey" }}
                       />
                     </Col>
                   </Form.Group>

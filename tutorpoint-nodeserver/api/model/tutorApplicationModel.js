@@ -1,4 +1,4 @@
-/* The code below was referred from [Tutorial-7 V3 recording (T673: NodeJS and Express [Option 2 How-To Video])](https://dal.brightspace.com/d2l/le/content/143362/viewContent/2243537/View) and modified further to complete the activity.*/
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 const mongoose = require("mongoose");
 
 const tutorapplications = mongoose.Schema({
@@ -18,6 +18,7 @@ const tutorapplications = mongoose.Schema({
   application_status: {
     status: String,
     to_be_approved_by: String,
+    approver_id: String,
     reason: String,
     updated_at: Date,
   },
