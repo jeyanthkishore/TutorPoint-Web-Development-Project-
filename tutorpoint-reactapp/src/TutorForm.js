@@ -206,8 +206,15 @@ class TutorForm extends Component {
     axios
       .post("http://localhost:8080/api/user/uploadfile", data, conf)
       .then((response) => {
-        console.log(response);
-        alert("The file is successfully uploaded" + response);
+        var responseUpload = response;
+        console.log("resbody" + responseUpload.data.formData);
+        console.log("restype" + typeof responseUpload.data);
+        axios
+          .post("http://localhost:8080/api/mail/send", response.data)
+          .then((resp) => {
+            alert("MAILSENT!!" + resp);
+          })
+          .catch((error) => {});
       })
       .catch((error) => {});
 

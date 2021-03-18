@@ -29,6 +29,7 @@ const uploadFile = (req, res) => {
     },
     fileNames: fileNames,
     fileDestination: fileDestination,
+    tutorApplicationId: "",
   };
   //res.status(200).json(responseObject);
   var new_tutor_application_id;
@@ -49,11 +50,19 @@ const uploadFile = (req, res) => {
         console.log(jsonData[0].tutor_application_id.substring(2));
         new_tutor_application_id =
           "T" +
-          (parseInt(jsonData[0].tutor_application_id.substring(2), 10) + 1);
+          (parseInt(
+            jsonData[0].tutor_application_id.substring(
+              1,
+              jsonData[0].tutor_application_id.length
+            ),
+            10
+          ) +
+            1);
         console.log("neww" + new_tutor_application_id);
       }
 
       console.log("resp" + responseObject.formData.course_id);
+      responseObject.tutorApplicationId = new_tutor_application_id;
       let tutorApplication = new tutorApplicationData({
         _id: new mongoose.Types.ObjectId(),
         tutor_application_id: new_tutor_application_id,
