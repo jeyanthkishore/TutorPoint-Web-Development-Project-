@@ -1,59 +1,46 @@
 import React from 'react';
+import axios from "axios";
 import WorkshopTabsComponent from '../components/WorkshopTabsComponent.jsx'
+import { Button } from 'react-bootstrap';
 
 class WorkshopContainer extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {workshopDetails:[{
-    	'department': 'Computer Science',
-    	'title': 'Trees and Graphs | Software Development Concepts | 5:30 pm | 15 Feb'
-    },{
-    	'department': 'Computer Science',
-    	'title': 'Design Patterns | Advance Software Development Concepts | 6:30 pm | 15 Feb'
-    },
-    {
-    	'department': 'Computer Science',
-    	'title': 'AWS Services| Cloud Computing | 3:30 pm | 14 Feb'
-    },
-    {
-    	'department': 'Computer Science',
-    	'title': 'IPV4 and IPV6 | Computer Networks | 1:30 pm | 9 Feb'
-    },
-     {
-    	'department': 'Computer Science',
-    	'title': 'Containers | Cloud Computing | 5:30 pm | 26 Feb'
-    },
-     {
-    	'department': 'Computer Science',
-    	'title': ' Joins and Sub queries | DBMS | 5:30 pm | 16 Feb'
-    },
-    {
-    	'department': 'Law',
-    	'title': 'Civil Rights | Civil Law | 3:30 pm | 11 Feb'
-    },{
-    	'department': 'Law',
-    	'title': 'Employment and Labor Rights | Employment Law | 5:30 pm | 15 Feb'
-    },
-    {
-    	'department': 'Law',
-    	'title': 'Internationals laws to learn | Law | 12:30 pm | 12 Feb'
-    },{
-    	'department': 'Law',
-    	'title': 'Law and Sections3 | 5:30 pm | 15 Feb'
-    },
-    {
-    	'department': 'Medicine',
-    	'title': 'Dentistry and functions | Dentistry | 5:30 pm | 15 Feb'
-    },{
-    	'department': 'Medicine',
-    	'title': 'Study human Brain | Human Topics in Medicine | 5:30 pm | 15 Feb'
-    }]};
+    this.state = {workshopDetails:[]};
+    // this.getWorkshops();
+    this.addWorkshop = this.addWorkshop.bind(this);
+  }
+  componentDidMount(){
+    this.getWorkshops();
+  }
+  addWorkshop() {
+    this.props.history.push("/addworkshop");
+  }
+
+ async getWorkshops()
+  {
+    await axios
+        .get("http://localhost:8080/api/workshopDetails/")
+        .then((response) => {
+          this.setState({
+            workshopDetails: response.data
+
+          })
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          alert("workShops not found");
+        });
   }
 
   render() {
     return (
+      <div>
       <WorkshopTabsComponent workshopList = {this.state.workshopDetails}/>
+      <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>
+      </div>
     );
   }
 }

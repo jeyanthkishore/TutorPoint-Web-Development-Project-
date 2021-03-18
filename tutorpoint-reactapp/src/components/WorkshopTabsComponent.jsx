@@ -53,8 +53,8 @@ class WorkshopTabsComponent extends React.Component {
       let workshops = [];
       this.props.workshopList.map((workshop) => {
         if (dep === workshop.department) {
-          if (!workshops.includes(workshop.title)) {
-            workshops.push(workshop.title);
+          if (!workshops.includes(workshop.name)) {
+            workshops.push(workshop.name);
           }
         }
       });
@@ -78,7 +78,7 @@ class WorkshopTabsComponent extends React.Component {
           >
             <Tab.Container
               id="left-tabs-example"
-              defaultActiveKey="Computer Science"
+              defaultActiveKey="Medicine"
             >
               <Row className="workshop-tabs">
                 <Col sm={3}>
