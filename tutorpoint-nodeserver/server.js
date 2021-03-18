@@ -7,6 +7,7 @@ const mailRoute = require("./api/routes/mailRoute");
 const courseRoute = require("./api/routes/courseRoute");
 const loginRoute = require("./api/routes/loginRoute");
 const workshopRoute = require("./api/routes/workshopRoute");
+const tutorRoute = require("./api/routes/tutorRoute");
 const passwordRoute = require("./api/controllers/passwordController");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -23,6 +24,7 @@ app.use(cors());
 app.use("/api/user", userRoute);
 app.use("/api/mail", mailRoute);
 app.use("/api/courses", courseRoute);
+app.use("/api/tutorDetails", tutorRoute);
 app.use("/api/workshopDetails",workshopRoute);
 app.use("/", loginRoute);
 app.get("/*", function (req, res) {
