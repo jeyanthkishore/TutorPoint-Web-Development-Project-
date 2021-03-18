@@ -39,6 +39,8 @@ class TutorForm extends Component {
       departmentList: [],
       selectedDepartment: "",
       courseList: [],
+      facultyEmail: "",
+      courseId: "",
     };
     coursesList().then((res) => {
       let deptNames = [];
@@ -86,6 +88,9 @@ class TutorForm extends Component {
           courseNames.push(
             this.state.departmentObject[i].courses[j].course_name
           );
+          this.setState({
+            selectedDepartment: this.state.departmentObject[i].department_name,
+          });
         }
         console.log(
           "insideDropedowd" + this.state.departmentObject[i].courses.length
@@ -94,7 +99,38 @@ class TutorForm extends Component {
     }
     this.setState({ courseList: courseNames });
   };
-
+  onCourseSelect = (event) => {
+    event.preventDefault();
+    console.log("here" + event.target.value);
+    console.log("incourseSelect" + this.state.selectedDepartment);
+    var i;
+    var j;
+    var facultyEmail = "";
+    var courseId = "";
+    for (i = 0; i < this.state.departmentObject.length; i++) {
+      if (
+        this.state.departmentObject[i].department_name ===
+        this.state.selectedDepartment
+      ) {
+        for (j = 0; j < this.state.departmentObject[i].courses.length; j++) {
+          if (
+            this.state.departmentObject[i].courses[j].course_name ===
+            event.target.value
+          ) {
+            console.log(
+              "seehere" +
+                this.state.departmentObject[i].courses[j].faculty_email
+            );
+            facultyEmail = this.state.departmentObject[i].courses[j]
+              .faculty_email;
+            courseId = this.state.departmentObject[i].courses[j].course_id;
+          }
+        }
+      }
+    }
+    this.setState({ facultyEmail: facultyEmail, courseId: courseId });
+    console.log(this.state.facultyEmail);
+  };
   onTutorApplicationStatusClick() {
     this.props.history.push("/tutor-application-status");
   }
@@ -120,7 +156,7 @@ class TutorForm extends Component {
         break;
     }
     this.setState({ errors, [name]: value }, () => {
-      console.log(errors);
+      // console.log(errors);
     });
   };
   onFileChangeHandler = (event) => {
@@ -153,6 +189,8 @@ class TutorForm extends Component {
     console.log("submithandler");
     const data = new FormData(event.target);
     data.uploadDocuments = ("files", this.state.files.selectedFiles);
+    data.append("facultyEmail", this.state.facultyEmail);
+    data.append("courseId", this.state.courseId);
     // alert("A form was submitted" + JSON.stringify(Object.fromEntries(data)));
     alert(
       "A form was submitted" +
@@ -168,7 +206,8 @@ class TutorForm extends Component {
     axios
       .post("http://localhost:8080/api/user/uploadfile", data, conf)
       .then((response) => {
-        alert("The file is successfully uploaded");
+        console.log(response);
+        alert("The file is successfully uploaded" + response);
       })
       .catch((error) => {});
 
@@ -292,6 +331,7 @@ class TutorForm extends Component {
                         defaultValue="Choose Course"
                         name="course"
                         required
+                        onChange={this.onCourseSelect}
                       >
                         {courseOptions}
                         <option>Choose Course</option>
