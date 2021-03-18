@@ -1,4 +1,4 @@
-/* The code below was referred from [Tutorial-6 V3 recording (T6V3: NodeJS and Express [Option 2 How-To Video])](https://dal.brightspace.com/d2l/le/content/143362/viewContent/2243534/View) and modified further to complete the activity.*/
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 const tutorApplicationData = require("../model/tutorApplicationModel");
 const mongoose = require("mongoose");
 
@@ -26,6 +26,7 @@ const uploadFile = (req, res) => {
       availability: req.body.availability,
       faculty_email: req.body.facultyEmail,
       course_id: req.body.courseId,
+      approver_id: req.body.approverId,
     },
     fileNames: fileNames,
     fileDestination: fileDestination,
@@ -80,6 +81,7 @@ const uploadFile = (req, res) => {
         application_status: {
           status: "pending",
           to_be_approved_by: responseObject.formData.faculty_email,
+          approver_id: responseObject.formData.approver_id,
           reason: "blank",
           updated_at: Date.now(),
         },

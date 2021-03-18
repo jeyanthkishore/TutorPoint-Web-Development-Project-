@@ -1,3 +1,4 @@
+/*Author: Yash Jaiswal, BannerID: B00873246*/
 import React, { Component } from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
@@ -43,6 +44,7 @@ class TutorForm extends Component {
       selectedDepartment: "",
       courseList: [],
       facultyEmail: "",
+      approverId: "",
       courseId: "",
       email: "",
       username: "",
@@ -118,6 +120,7 @@ class TutorForm extends Component {
     var j;
     var facultyEmail = "";
     var courseId = "";
+    var approverId = "";
     for (i = 0; i < this.state.departmentObject.length; i++) {
       if (
         this.state.departmentObject[i].department_name ===
@@ -135,11 +138,16 @@ class TutorForm extends Component {
             facultyEmail = this.state.departmentObject[i].courses[j]
               .faculty_email;
             courseId = this.state.departmentObject[i].courses[j].course_id;
+            approverId = this.state.departmentObject[i].courses[j].approver_id;
           }
         }
       }
     }
-    this.setState({ facultyEmail: facultyEmail, courseId: courseId });
+    this.setState({
+      facultyEmail: facultyEmail,
+      courseId: courseId,
+      approverId: approverId,
+    });
     console.log(this.state.facultyEmail);
   };
   onTutorApplicationStatusClick() {
@@ -202,6 +210,7 @@ class TutorForm extends Component {
     data.uploadDocuments = ("files", this.state.files.selectedFiles);
     data.append("facultyEmail", this.state.facultyEmail);
     data.append("courseId", this.state.courseId);
+    data.append("approverId", this.state.approverId);
     // alert("A form was submitted" + JSON.stringify(Object.fromEntries(data)));
     // alert(
     //   "A form was submitted" +
