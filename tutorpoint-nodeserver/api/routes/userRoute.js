@@ -22,5 +22,5 @@ router.post(
 );
 
 router.post("/tutorapplications", userController.getTutorApplications);
-
+router.put("/tutorapplication", userController.updateTutorApplication);
 module.exports = router;
