@@ -39,7 +39,7 @@ class PasswordReset extends Component {
       Swal.fire("Please Enter a Valid Email ID");
     } else {
       await axios
-        .get("http://localhost:8080/sendSecurityCode", {
+        .get("https://tutorpoint1.herokuapp.com/sendSecurityCode", {
           params: { email: this.state.resetPassword },
         })
         .then((response) => {

@@ -4,10 +4,10 @@ import { Modal, Button, Table } from "react-bootstrap";
 import axios from "axios";
 
 class TutorAvailabilityModal extends React.Component {
-	constructor(props) {
+  constructor(props) {
     super(props);
     this.state = {
-      schedules: []
+      schedules: [],
     };
 
     this.getTutorSchedule = this.getTutorSchedule.bind(this);
@@ -16,31 +16,30 @@ class TutorAvailabilityModal extends React.Component {
     this.getTutorSchedule();
   }
 
-  onClickHandler(){
+  onClickHandler() {
     alert("Session booked successfully!");
   }
 
-  async getTutorSchedule()
-  {
+  async getTutorSchedule() {
     await axios
-        .get("http://localhost:8080/api/tutorSchedule/getByEmail",{
-        	params:{
-        		"email": this.props.email
-        	}
-        })
-        .then((response) => {
-          this.setState({
-            schedules: response.data
-          })
-        })
-        .catch(function (error) {
-          console.log(error);
-          console.log(error.message);
+      .get("https://tutorpoint1.herokuapp.com/api/tutorSchedule/getByEmail", {
+        params: {
+          email: this.props.email,
+        },
+      })
+      .then((response) => {
+        this.setState({
+          schedules: response.data,
         });
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log(error.message);
+      });
   }
 
   //TODO: this method would be modified to include book appointment changes
-	createTableRow() {
+  createTableRow() {
     let trs = [];
     this.state.schedules.map((row, index) => {
       trs.push(
@@ -54,15 +53,16 @@ class TutorAvailabilityModal extends React.Component {
     });
     return trs;
   }
-	render() {
-		return (<Modal className="schedule-modal" show={this.props.show}>
-		  <Modal.Header onClick={this.props.closeModal} closeButton>
-		    <Modal.Title>Tutor Availability per Week</Modal.Title>
-		  </Modal.Header>
+  render() {
+    return (
+      <Modal className="schedule-modal" show={this.props.show}>
+        <Modal.Header onClick={this.props.closeModal} closeButton>
+          <Modal.Title>Tutor Availability per Week</Modal.Title>
+        </Modal.Header>
 
-		  <Modal.Body>
-		    {this.state.schedules.length && this.state.schedules.length != 0 && 
-		    <Table striped bordered hover size="sm">
+        <Modal.Body>
+          {this.state.schedules.length && this.state.schedules.length != 0 && (
+            <Table striped bordered hover size="sm">
               <thead>
                 <tr>
                   <th>#</th>
@@ -73,18 +73,20 @@ class TutorAvailabilityModal extends React.Component {
               </thead>
               <tbody>{this.createTableRow()}</tbody>
             </Table>
-        	}
-        	{(this.state.schedules.success == false) &&
-        		<p>No Sessions Available!</p>
-        	}
-		  </Modal.Body>
+          )}
+          {this.state.schedules.success == false && (
+            <p>No Sessions Available!</p>
+          )}
+        </Modal.Body>
 
-		  <Modal.Footer>
-		    <Button variant="secondary" onClick={this.props.closeModal}>Close</Button>
-		  </Modal.Footer>
-		</Modal>);
-	}
-
+        <Modal.Footer>
+          <Button variant="secondary" onClick={this.props.closeModal}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
 }
 
 export default TutorAvailabilityModal;

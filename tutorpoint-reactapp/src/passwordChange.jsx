@@ -57,7 +57,7 @@ class PasswordChange extends Component {
         email: localStorage.getItem("email"),
       };
       await axios
-        .post("http://localhost:8080/passwordChange", password)
+        .post("https://tutorpoint1.herokuapp.com/passwordChange", password)
         .then((response) => {
           if (response.data.message === "not found") {
             Swal.fire("Mail Id not registered !!!");

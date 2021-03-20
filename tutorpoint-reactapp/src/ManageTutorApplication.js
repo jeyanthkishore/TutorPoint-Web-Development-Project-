@@ -46,7 +46,11 @@ class ManageTutorApplication extends Component {
     };
 
     axios
-      .put("http://localhost:8080/api/user/tutorapplication", data, conf)
+      .put(
+        "https://tutorpoint1.herokuapp.com/api/user/tutorapplication",
+        data,
+        conf
+      )
       .then((response) => {
         var responseResult = response;
         console.log(
@@ -65,7 +69,7 @@ class ManageTutorApplication extends Component {
           };
           axios
             .post(
-              "http://localhost:8080/api/mail/send-application-update",
+              "https://tutorpoint1.herokuapp.com/api/mail/send-application-update",
               newResponseObject
             )
             .then((resp) => {

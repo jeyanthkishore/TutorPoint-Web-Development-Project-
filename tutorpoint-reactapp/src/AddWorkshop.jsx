@@ -12,55 +12,60 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import axios from "axios";
 
-
 class AddWorkshop extends Component {
   state = {};
   constructor(props) {
     super(props);
-    this.state={
-        name:'',
-        department:'',
-        date:'',
-        time:'',
-        tutor:''
-    }
+    this.state = {
+      name: "",
+      department: "",
+      date: "",
+      time: "",
+      tutor: "",
+    };
     this.handlePublish = this.handlePublish.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
-    }
+  }
 
-    async handlePublish()
-    { 
-      if(this.state.name === '' || this.state.department === '' || this.state.date === '' || 
-      this.state.time === '' || this.state.tutor === '') {
-        alert("All fields are mandatory!");
-      } else {
-        const workshop={
-            name:this.state.name,
-            department:this.state.department,
-            date:this.state.date,
-            time:this.state.time,
-            tutor:this.state.tutor
-        }
-    await axios
-      .post("http://localhost:8080/api/workshopDetails/", workshop)
-      .then((response) => {
-        alert("Workshop created successfull!");
-        this.props.history.push("/workshops");
-      })
-      .catch(function (error) {
-        console.log(error);
-        console.log(error.message);
-        alert("Workshop already published!");
-      });
-      }
+  async handlePublish() {
+    if (
+      this.state.name === "" ||
+      this.state.department === "" ||
+      this.state.date === "" ||
+      this.state.time === "" ||
+      this.state.tutor === ""
+    ) {
+      alert("All fields are mandatory!");
+    } else {
+      const workshop = {
+        name: this.state.name,
+        department: this.state.department,
+        date: this.state.date,
+        time: this.state.time,
+        tutor: this.state.tutor,
+      };
+      await axios
+        .post(
+          "https://tutorpoint1.herokuapp.com/api/workshopDetails/",
+          workshop
+        )
+        .then((response) => {
+          alert("Workshop created successfull!");
+          this.props.history.push("/workshops");
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          alert("Workshop already published!");
+        });
     }
+  }
 
-    onChangeHandler(event)
-    {
-        this.setState ({[event.target.name] : event.target.value})
-    }
-  
-    // all fields for adding workshop form are validated
+  onChangeHandler(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
+  // all fields for adding workshop form are validated
   render() {
     return (
       <div>
@@ -72,7 +77,7 @@ class AddWorkshop extends Component {
               className="flex-center flex-column text-white text-center"
               style={{ overflowY: "scroll" }}
             >
-            <div className="TutorForm">
+              <div className="TutorForm">
                 <div
                   style={{
                     marginLeft: "75%",
@@ -80,8 +85,7 @@ class AddWorkshop extends Component {
                     color: "orange",
                     fontWeight: "50",
                   }}
-                >
-                </div>
+                ></div>
                 <h2 className="TutTitle">Add a Workshop</h2>
                 <br></br>
 
@@ -105,7 +109,7 @@ class AddWorkshop extends Component {
                   <Form.Group as={Row} controlId="Tutor">
                     <Form.Label column md={2}>
                       {" "}
-                     Tutor
+                      Tutor
                     </Form.Label>
                     <Col md={10}>
                       <Form.Control
@@ -128,7 +132,6 @@ class AddWorkshop extends Component {
                         placeholder="Department"
                         name="department"
                         required
-                 
                         onChange={this.onChangeHandler}
                       />
                     </Col>
@@ -144,7 +147,6 @@ class AddWorkshop extends Component {
                         placeholder="Date"
                         name="date"
                         required
-                 
                         onChange={this.onChangeHandler}
                       />
                     </Col>
@@ -160,7 +162,6 @@ class AddWorkshop extends Component {
                         placeholder="Time"
                         name="time"
                         required
-                 
                         onChange={this.onChangeHandler}
                       />
                     </Col>
@@ -173,11 +174,11 @@ class AddWorkshop extends Component {
                     Publish
                   </Button>
                 </Form>
-            </div>
-        </MDBMask>
+              </div>
+            </MDBMask>
           </MDBView>
         </section>
-    </div>
+      </div>
     );
   }
 }

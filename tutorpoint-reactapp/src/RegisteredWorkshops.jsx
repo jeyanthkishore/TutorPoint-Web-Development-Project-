@@ -2,7 +2,7 @@
 import React, { Component } from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
-import {Button,Table} from "react-bootstrap";
+import { Button, Table } from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -14,49 +14,50 @@ import axios from "axios";
 import jwt_decode from "jwt-decode";
 
 class RegisteredWorkshops extends React.Component {
-
   constructor(props) {
     super(props);
     const token = localStorage.access_token;
-        const decoded = jwt_decode(token);
-         this.state = {
-            workshops:[],
-            email: decoded.email,
-            dept: decoded.dept,
-            contact: decoded.contact.toString(),
-            username: decoded.username,
-      };
-    
+    const decoded = jwt_decode(token);
+    this.state = {
+      workshops: [],
+      email: decoded.email,
+      dept: decoded.dept,
+      contact: decoded.contact.toString(),
+      username: decoded.username,
+    };
+
     this.getWorkshops = this.getWorkshops.bind(this);
-    this.createTableRow=this.createTableRow.bind(this);
+    this.createTableRow = this.createTableRow.bind(this);
 
     this.getWorkshops();
-
   }
 
-//workshops are fetched base on logged in user email
-  async getWorkshops()
-  {
+  //workshops are fetched base on logged in user email
+  async getWorkshops() {
     await axios
-        .get("http://localhost:8080/api/workshopRegisterDetails/specific",
+      .get(
+        "https://tutorpoint1.herokuapp.com/api/workshopRegisterDetails/specific",
         {
-          params: {email:this.state.email}
+          params: { email: this.state.email },
         }
-        )
-        .then((response) => {
-         axios 
-          .get("http://localhost:8080/api/workshopDetails/specific", {
-            params: {id:response}
-          })
-          .then((response)=>{
-          this.setState({ workshops: response.data})
+      )
+      .then((response) => {
+        axios
+          .get(
+            "https://tutorpoint1.herokuapp.com/api/workshopDetails/specific",
+            {
+              params: { id: response },
+            }
+          )
+          .then((response) => {
+            this.setState({ workshops: response.data });
           })
           .catch(function (error) {
             console.log(error);
             console.log(error.message);
             alert("Workshops not found!");
-          })
-        })
+          });
+      });
   }
 
   createTableRow() {
@@ -74,9 +75,8 @@ class RegisteredWorkshops extends React.Component {
     return trs;
   }
 
-  render()
-  {
-    return(
+  render() {
+    return (
       <div>
         <header>
           <NavBar></NavBar>
@@ -104,7 +104,6 @@ class RegisteredWorkshops extends React.Component {
       </div>
     );
   }
-
 }
 
 export default RegisteredWorkshops;

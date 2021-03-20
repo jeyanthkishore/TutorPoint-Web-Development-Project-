@@ -17,7 +17,7 @@ import "@sweetalert2/theme-dark/dark.css";
 
 function coursesList() {
   return axios
-    .get("http://localhost:8080/api/courses")
+    .get("https://tutorpoint1.herokuapp.com/api/courses")
     .then(function (results) {
       return results.data;
     })
@@ -201,13 +201,16 @@ class TutorForm extends Component {
     };
     //changeapiurllater
     axios
-      .post("http://localhost:8080/api/user/uploadfile", data, conf)
+      .post("https://tutorpoint1.herokuapp.com/api/user/uploadfile", data, conf)
       .then((response) => {
         var responseUpload = response;
         console.log("resbody" + responseUpload.data.formData);
         console.log("restype" + typeof responseUpload.data);
         axios
-          .post("http://localhost:8080/api/mail/send", response.data)
+          .post(
+            "https://tutorpoint1.herokuapp.com/api/mail/send",
+            response.data
+          )
           .then((resp) => {
             Swal.fire("Application submitted successfully");
             // alert("MAILSENT!!" + resp);

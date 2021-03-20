@@ -71,7 +71,7 @@ class SecurityCode extends Component {
       return;
     } else {
       await axios
-        .get("http://localhost:8080/resetPassword", {
+        .get("https://tutorpoint1.herokuapp.com/resetPassword", {
           params: {
             password: this.state.newPassword,
             email: localStorage.getItem("email"),

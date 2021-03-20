@@ -69,7 +69,7 @@ class DetailsChange extends Component {
       };
       console.log("send request");
       await axios
-        .post("http://localhost:8080/changeDetail", details)
+        .post("https://tutorpoint1.herokuapp.com/changeDetail", details)
         .then((response) => {
           if (response.data.message === "not found") {
             Swal.fire("Mail Id not registered !!!");

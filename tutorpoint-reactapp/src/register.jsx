@@ -84,7 +84,7 @@ class Register extends Component {
       dept: this.state.dept,
     };
     await axios
-      .post("http://localhost:8080/register", register)
+      .post("https://tutorpoint1.herokuapp.com/register", register)
       .then((response) => {
         Swal.fire("Registration Successfull");
         this.props.history.push("/");

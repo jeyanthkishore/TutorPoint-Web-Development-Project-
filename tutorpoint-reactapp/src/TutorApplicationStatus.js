@@ -23,7 +23,11 @@ function tutorApplicationList(email) {
   };
   const data = { email: email };
   return axios
-    .post("http://localhost:8080/api/user/tutorapplications", data, conf)
+    .post(
+      "https://tutorpoint1.herokuapp.com/api/user/tutorapplications",
+      data,
+      conf
+    )
     .then(function (results) {
       return results.data;
     })

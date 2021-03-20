@@ -6,7 +6,7 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import NavBar from "./navbar";
 import axios from "axios";
-import TutorAvailabilityModal from './TutorAvailabilityModal';
+import TutorAvailabilityModal from "./TutorAvailabilityModal";
 
 class TutorTableContainer extends React.Component {
   constructor(props) {
@@ -16,7 +16,7 @@ class TutorTableContainer extends React.Component {
       originalTableData: [],
       searchTableData: [],
       show: false,
-      email:""
+      email: "",
     };
     this.onsearchTextChange = this.onsearchTextChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -27,32 +27,31 @@ class TutorTableContainer extends React.Component {
     this.getTutors();
   }
 
-  async getTutors()
-  {
+  async getTutors() {
     await axios
-        .get("http://localhost:8080/api/tutorDetails/")
-        .then((response) => {
-          this.setState({
-            originalTableData: response.data,
-            searchTableData: response.data
-          })
-        })
-        .catch(function (error) {
-          console.log(error);
-          console.log(error.message);
-          alert("Tutors not found!");
+      .get("https://tutorpoint1.herokuapp.com/api/tutorDetails/")
+      .then((response) => {
+        this.setState({
+          originalTableData: response.data,
+          searchTableData: response.data,
         });
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log(error.message);
+        alert("Tutors not found!");
+      });
   }
 
-  onClickHandler(email){
+  onClickHandler(email) {
     this.setState({
-      "show":true,
-      "email": email
-  });
+      show: true,
+      email: email,
+    });
   }
 
   closeModal() {
-    this.setState({"show":false});
+    this.setState({ show: false });
   }
 
   createTableRow() {
@@ -65,8 +64,12 @@ class TutorTableContainer extends React.Component {
           <td>{row.dep}</td>
           <td>{row.course}</td>
           <td>
-            <Button value={row.email} 
-            onClick={() => this.onClickHandler(row.email)}>View Availability</Button>
+            <Button
+              value={row.email}
+              onClick={() => this.onClickHandler(row.email)}
+            >
+              View Availability
+            </Button>
           </td>
         </tr>
       );
@@ -83,7 +86,7 @@ class TutorTableContainer extends React.Component {
     let value = this.state.searchText;
     let searchRows = [];
     this.state.originalTableData.map((item) => {
-      if ((item.course).toLowerCase() === value.toLowerCase()) {
+      if (item.course.toLowerCase() === value.toLowerCase()) {
         searchRows.push({
           name: item.name,
           dep: item.dep,
@@ -103,10 +106,13 @@ class TutorTableContainer extends React.Component {
               overlay="black-strong"
               className="flex-center flex-column text-white text-center"
             >
-            {this.state.show && <TutorAvailabilityModal show={this.state.show} 
-            closeModal={this.closeModal} email={this.state.email}>
-              
-            </TutorAvailabilityModal>}
+              {this.state.show && (
+                <TutorAvailabilityModal
+                  show={this.state.show}
+                  closeModal={this.closeModal}
+                  email={this.state.email}
+                ></TutorAvailabilityModal>
+              )}
               <div className="tableContainer">
                 <Card
                   style={{
@@ -116,7 +122,7 @@ class TutorTableContainer extends React.Component {
                     marginBottom: "2%",
                     marginTop: "10%",
 
-                    backgroundColor: "rgba(52, 52, 52, 0.8)"
+                    backgroundColor: "rgba(52, 52, 52, 0.8)",
                   }}
                 >
                   <Card.Body>
