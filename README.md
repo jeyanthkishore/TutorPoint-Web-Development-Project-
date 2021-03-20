@@ -5,7 +5,7 @@
 Heroku Link: https://tutorpoint1.herokuapp.com/
 
 - _Date Created_: 23 02 2021
-- _Last Modification Date_: 23 02 2021
+- _Last Modification Date_: 20 03 2021
 - _URL_: <https://tutorpoint1.herokuapp.com/>
 
 ## Authors
@@ -28,3 +28,7 @@ Available: https://www.dal.ca/dept/communicationsandmarketing/tools-and-resource
 - [React-Bootstrap](https://react-bootstrap.github.io/getting-started/introduction) - for using bootstrap with react
 - [NodeJs](https://nodejs.org/en/) - runtime environment that enables JavaScript to be used in the backend.
 - [Express](https://expressjs.com/) - it is a framework that is used with Node.js.
+
+## Sources Used
+
+code for sending email was adapted from nodemailer package documentation and from the following blog on the website - [https://johnmeguira.medium.com/sending-mail-with-nodejs-150fb6aec1bc](https://johnmeguira.medium.com/sending-mail-with-nodejs-150fb6aec1bc)

@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 import React from 'react';
 import axios from "axios";
 import WorkshopTabsComponent from '../components/WorkshopTabsComponent.jsx'
@@ -9,13 +10,9 @@ class WorkshopContainer extends React.Component {
     super(props);
     this.state = {workshopDetails:[]};
     // this.getWorkshops();
-    this.addWorkshop = this.addWorkshop.bind(this);
   }
   componentDidMount(){
     this.getWorkshops();
-  }
-  addWorkshop() {
-    this.props.history.push("/addworkshop");
   }
 
  async getWorkshops()
@@ -38,8 +35,7 @@ class WorkshopContainer extends React.Component {
   render() {
     return (
       <div>
-      <WorkshopTabsComponent workshopList = {this.state.workshopDetails}/>
-      <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>
+      <WorkshopTabsComponent workshopList = {this.state.workshopDetails} history={this.props.history}/>
       </div>
     );
   }

@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 import React, { Component } from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
@@ -28,7 +29,11 @@ class AddWorkshop extends Component {
     }
 
     async handlePublish()
-    {
+    { 
+      if(this.state.name === '' || this.state.department === '' || this.state.date === '' || 
+      this.state.time === '' || this.state.tutor === '') {
+        alert("All fields are mandatory!");
+      } else {
         const workshop={
             name:this.state.name,
             department:this.state.department,
@@ -45,8 +50,9 @@ class AddWorkshop extends Component {
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("Workshop not created!");
+        alert("Workshop already published!");
       });
+      }
     }
 
     onChangeHandler(event)
@@ -106,7 +112,6 @@ class AddWorkshop extends Component {
                         placeholder="Tutor"
                         name="tutor"
                         required
-                 
                         onChange={this.onChangeHandler}
                       />
                     </Col>
@@ -163,7 +168,6 @@ class AddWorkshop extends Component {
                     style={{ marginLeft: "18%", marginBottom: "0%" }}
                     variant="primary"
                     onClick={this.handlePublish}
-                    type="submit"
                   >
                     Publish
                   </Button>

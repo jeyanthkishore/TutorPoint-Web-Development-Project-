@@ -1,3 +1,4 @@
+//The author of this file is Jeyanth Kishore Ramasamy
 import React, { Component } from "react";
 import NavBar from "./navbar";
 import {
