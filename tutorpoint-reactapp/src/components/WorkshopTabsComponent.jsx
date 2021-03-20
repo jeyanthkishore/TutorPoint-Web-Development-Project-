@@ -118,7 +118,8 @@ class WorkshopTabsComponent extends React.Component {
                 </Col>
               </Row>
             </Tab.Container>
-            <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>
+            {this.state.role==="tutor" &&
+            <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>}
             <Button type="submit" onClick={this.registerdWorkshops} >Registered Workshops</Button>
           </MDBMask>
         </MDBView>

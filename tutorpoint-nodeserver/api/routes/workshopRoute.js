@@ -47,25 +47,25 @@ router.post("/", (req, res) => {
             }
         });
 });
-router.post("/", (req, res) => {
-    workshopModel
-        .find({ name: req.body.name})
-        .exec()
-        .then((data) => {
-            console.log(data);
-            if (!data.length) {
-                const response = addWorkshops(req,res);
-                res.status(200).json({
-                    success: true,
-                    message: "Workshop created successfully!",
-                })
-            } else {
-                res.status(407).json({
-                    success: false,
-                    message: "Workshop already exists",
-                });
-            }
-        });
-});
+// router.post("/", (req, res) => {
+//     workshopModel
+//         .find({ name: req.body.name})
+//         .exec()
+//         .then((data) => {
+//             console.log(data);
+//             if (!data.length) {
+//                 const response = addWorkshops(req,res);
+//                 res.status(200).json({
+//                     success: true,
+//                     message: "Workshop created successfully!",
+//                 })
+//             } else {
+//                 res.status(407).json({
+//                     success: false,
+//                     message: "Workshop already exists",
+//                 });
+//             }
+//         });
+// });
 
 module.exports = router;

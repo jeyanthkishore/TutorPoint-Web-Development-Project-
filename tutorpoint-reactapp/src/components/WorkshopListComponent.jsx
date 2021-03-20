@@ -30,7 +30,12 @@ class WorkshopListComponent extends React.Component {
 		await axios
       .post("http://localhost:8080/api/workshopRegisterDetails/", workshopRegister)
       .then((response) => {
-        alert("Workshop registered successfull!");
+        if (response.success){
+          alert("Workshop registered successfull!");
+        } else {
+          alert("Workshop already registered!");
+        }
+        
         //this.props.history.push("/workshops");
       })
       .catch(function (error) {

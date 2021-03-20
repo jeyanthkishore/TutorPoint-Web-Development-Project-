@@ -29,7 +29,11 @@ class AddWorkshop extends Component {
     }
 
     async handlePublish()
-    {
+    { 
+      if(this.state.name === '' || this.state.department === '' || this.state.date === '' || 
+      this.state.time === '' || this.state.tutor === '') {
+        alert("All fields are mandatory!");
+      } else {
         const workshop={
             name:this.state.name,
             department:this.state.department,
@@ -46,8 +50,9 @@ class AddWorkshop extends Component {
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("Workshop not created!");
+        alert("Workshop already published!");
       });
+      }
     }
 
     onChangeHandler(event)

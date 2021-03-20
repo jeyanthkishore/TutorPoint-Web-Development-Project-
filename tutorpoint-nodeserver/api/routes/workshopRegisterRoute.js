@@ -32,11 +32,27 @@ router.post("/", (req, res) => {
         .exec()
         .then((data) => {
             console.log(data);
+            let exists=false;
+            data.map(item=>{
+                if(item.workshopid===req.body.workshopid && item.email===req.body.email)
+                {
+                    exists=true;        
+                }
+            })
+            console.log(exists);
+            if(!exists){ 
             const response = registerWorkshops(req,res);
             res.status(200).json({
                 success: true,
                 message: "Workshop registered successfully!",
             })
+        } else{
+            res.status(200).json({
+                success: false,
+                message: "Workshop already registered!",
+            })
+
+        }
            
         });
 });
