@@ -25,7 +25,7 @@ app.use("/api/user", userRoute);
 app.use("/api/mail", mailRoute);
 app.use("/api/courses", courseRoute);
 app.use("/api/tutorDetails", tutorRoute);
-app.use("/api/workshopDetails",workshopRoute);
+app.use("/api/workshopDetails", workshopRoute);
 app.use("/", loginRoute);
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname + "/build/index.html"));
