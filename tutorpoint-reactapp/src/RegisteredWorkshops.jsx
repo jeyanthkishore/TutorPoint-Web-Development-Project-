@@ -34,7 +34,7 @@ class RegisteredWorkshops extends React.Component {
 
   }
 
-
+//workshops are fetched base on logged in user email
   async getWorkshops()
   {
     await axios
@@ -54,7 +54,7 @@ class RegisteredWorkshops extends React.Component {
           .catch(function (error) {
             console.log(error);
             console.log(error.message);
-            alert("Tutors not found!");
+            alert("Workshops not found!");
           })
         })
   }
