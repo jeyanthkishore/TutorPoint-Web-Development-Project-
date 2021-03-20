@@ -5,6 +5,7 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import NavBar from "./navbar";
 import axios from "axios";
+import TutorAvailabilityModal from './TutorAvailabilityModal';
 
 class TutorTableContainer extends React.Component {
   constructor(props) {
@@ -13,10 +14,14 @@ class TutorTableContainer extends React.Component {
       searchText: "",
       originalTableData: [],
       searchTableData: [],
+      show: false,
+      email:""
     };
     this.onsearchTextChange = this.onsearchTextChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
     this.getTutors = this.getTutors.bind(this);
+    this.onClickHandler = this.onClickHandler.bind(this);
+    this.closeModal = this.closeModal.bind(this);
 
     this.getTutors();
   }
@@ -38,6 +43,17 @@ class TutorTableContainer extends React.Component {
         });
   }
 
+  onClickHandler(email){
+    this.setState({
+      "show":true,
+      "email": email
+  });
+  }
+
+  closeModal() {
+    this.setState({"show":false});
+  }
+
   createTableRow() {
     let trs = [];
     this.state.searchTableData.map((row, index) => {
@@ -47,6 +63,10 @@ class TutorTableContainer extends React.Component {
           <td>{row.name}</td>
           <td>{row.dep}</td>
           <td>{row.course}</td>
+          <td>
+            <Button value={row.email} 
+            onClick={() => this.onClickHandler(row.email)}>View Availability</Button>
+          </td>
         </tr>
       );
     });
@@ -82,6 +102,10 @@ class TutorTableContainer extends React.Component {
               overlay="black-strong"
               className="flex-center flex-column text-white text-center"
             >
+            {this.state.show && <TutorAvailabilityModal show={this.state.show} 
+            closeModal={this.closeModal} email={this.state.email}>
+              
+            </TutorAvailabilityModal>}
               <div className="tableContainer">
                 <Card
                   style={{
@@ -89,8 +113,9 @@ class TutorTableContainer extends React.Component {
                     color: "white",
                     marginLeft: "30%",
                     marginBottom: "2%",
+                    marginTop: "10%",
 
-                    backgroundColor: "rgba(52, 52, 52, 0.8)",
+                    backgroundColor: "rgba(52, 52, 52, 0.8)"
                   }}
                 >
                   <Card.Body>
