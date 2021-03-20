@@ -11,7 +11,7 @@ const getTutors = (req,res)=>{
             success: false,
             message: "Tutors not found!",
         
-    });
+        });
     console.log(err);
 });
 }

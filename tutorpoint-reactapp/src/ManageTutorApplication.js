@@ -58,9 +58,10 @@ class ManageTutorApplication extends Component {
         if (responseResult.data.success.toString() == "true") {
           console.log("mailsend" + responseResult.data.message);
           const newResponseObject = {
-            student_mail: "yashjaiswalofficial@gmail.com",
-            fullName: "Yash Jaiswal",
-            tutorApplicationId: "T12345",
+            student_mail: responseResult.data.message.applied_by.email,
+            fullName: responseResult.data.message.applied_by.student_name,
+            tutorApplicationId:
+              responseResult.data.message.tutor_application_id,
           };
           axios
             .post(

@@ -65,3 +65,7 @@
 .nav-item .dropdown {
   top: 7px;
 }
+
+.schedule-modal {
+  width:80%;
+}
