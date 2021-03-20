@@ -140,7 +140,7 @@ class AddWorkshop extends Component {
                     </Form.Label>
                     <Col md={10}>
                       <Form.Control
-                        type="input"
+                        type="date"
                         placeholder="Date"
                         name="date"
                         required
