@@ -1,4 +1,4 @@
-/* mail style adapted from nodemailer package documentation*/
+/* mail format and code was adapted from nodemailer package documentation and from the following blog on the website - [https://johnmeguira.medium.com/sending-mail-with-nodejs-150fb6aec1bc](https://johnmeguira.medium.com/sending-mail-with-nodejs-150fb6aec1bc) */
 /*Author: Yash Jaiswal, BannerID: B00873246*/
 const mongoose = require("mongoose");
 const nodemailer = require("nodemailer");
@@ -28,19 +28,16 @@ const mailSender = (req, res) => {
 
   console.log(studentMail);
   async function main() {
-    // create reusable transporter object using the default SMTP transport
     const transport = nodemailer.createTransport({
-      service: "gmail", // true for 465, false for other ports
+      service: "gmail",
       auth: {
-        user: "tutorpointmailer@gmail.com", // generated ethereal user
-        pass: "tutor@123", // generated ethereal password
+        user: "tutorpointmailer@gmail.com",
+        pass: "tutor@123",
       },
     });
-
-    // send mail with defined transport object
     let info = await transport.sendMail({
-      from: '"TutorPoint" <tutorpointmailer@gmail.com>', // sender address
-      to: toEmail, // list of receivers
+      from: '"TutorPoint" <tutorpointmailer@gmail.com>',
+      to: toEmail,
       subject:
         "Tutor Application " +
         "- " +
@@ -48,7 +45,7 @@ const mailSender = (req, res) => {
         " received for the course " +
         courseId +
         "- " +
-        courseName, // Subject line
+        courseName,
       // text:
       //   "Respected Faculty, \n This is regarding an application submitted by " +
       //   studentName +
@@ -76,23 +73,9 @@ const mailSender = (req, res) => {
         studentMail +
         " for futher information. <br>Your Approver ID is: " +
         approverId +
-        "<br> <b>Please make a decision on this application by clicking <a href='http://localhost:3000/#/manage-tutor-application'>Here</a></b> </h4> ", // html body
+        "<br> <b>Please make a decision on this application by clicking <a href='https://tutorpoint1.herokuapp.com/#/manage-tutor-application'>Here</a></b> </h4> ", // html body
       attachments: attachmentsMail,
-      // {
-      //   // utf-8 string as an attachment
-      //   filename: "sample.pdf",
-      //   path:
-      //     "/Users/yash/tutorpoint-becomtutorfeature/tutorpoint-nodeserver/api/routes/uploads/uploadDocuments-1616024823295.pdf",
-      //   contentType: "application/pdf",
-      // },
     });
-
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // Preview only available when sending through an Ethereal account
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   }
 
   main().catch(console.error);
@@ -105,19 +88,17 @@ const tutorApplicationUpdateMail = (req, res) => {
   const tutorApplicationId = req.body.tutorApplicationId;
   console.log(toEmail + studentName + tutorApplicationUpdateMail);
   async function main() {
-    // create reusable transporter object using the default SMTP transport
     const transport = nodemailer.createTransport({
-      service: "gmail", // true for 465, false for other ports
+      service: "gmail",
       auth: {
-        user: "tutorpointmailer@gmail.com", // generated ethereal user
-        pass: "tutor@123", // generated ethereal password
+        user: "tutorpointmailer@gmail.com",
+        pass: "tutor@123",
       },
     });
 
-    // send mail with defined transport object
     let info = await transport.sendMail({
-      from: '"TutorPoint" <tutorpointmailer@gmail.com>', // sender address
-      to: toEmail, // list of receivers
+      from: '"TutorPoint" <tutorpointmailer@gmail.com>',
+      to: toEmail,
       subject: "Tutor Application " + "- " + tutorApplicationId + " Updated!!!",
       html:
         "<h2>Hello " +
@@ -127,13 +108,6 @@ const tutorApplicationUpdateMail = (req, res) => {
         " has been updated. <br>Please check the portal for details. " +
         "<br> <br> Thank you. Have a nice day.</h3>",
     });
-
-    console.log("Message sent: %s", info.messageId);
-    // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-
-    // Preview only available when sending through an Ethereal account
-    console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-    // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
   }
 
   main().catch(console.error);
