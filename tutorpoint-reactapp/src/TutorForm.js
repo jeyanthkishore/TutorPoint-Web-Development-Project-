@@ -153,31 +153,7 @@ class TutorForm extends Component {
   onTutorApplicationStatusClick() {
     this.props.history.push("/tutor-application-status");
   }
-  onChangeHandler = (event) => {
-    event.preventDefault();
-    const { name, value } = event.target;
-    let errors = this.state.errors;
 
-    switch (name) {
-      case "fullName":
-        errors.fullName =
-          value.length < 5
-            ? "Full Name must be atleast 5 characters in length!!!"
-            : "";
-        break;
-      case "description":
-        errors.description =
-          value.length < 100
-            ? "Description must be atleast 100 characters in length!!!"
-            : "";
-        break;
-      default:
-        break;
-    }
-    this.setState({ errors, [name]: value }, () => {
-      // console.log(errors);
-    });
-  };
   onFileChangeHandler = (event) => {
     event.preventDefault();
     var text = "";
@@ -306,7 +282,6 @@ class TutorForm extends Component {
                         name="fullName"
                         required
                         minlength="5"
-                        onChange={this.onChangeHandler}
                         value={this.state.username}
                         readonly
                         style={{ backgroundColor: "lightgrey" }}
@@ -386,7 +361,6 @@ class TutorForm extends Component {
                         name="description"
                         required
                         minlength="100"
-                        onChange={this.onChangeHandler}
                       />
                     </Col>
                   </Form.Group>

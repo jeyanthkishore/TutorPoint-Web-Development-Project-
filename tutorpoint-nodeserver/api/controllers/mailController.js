@@ -71,7 +71,7 @@ const mailSender = (req, res) => {
         availability +
         "<br> <br> Please go through the attached documents and the application to make a decision. <br> Also, you can directly contact the student at " +
         studentMail +
-        " for futher information. <br>Your Approver ID is: " +
+        " for futher information. <br><br>Your Approver ID is: " +
         approverId +
         "<br> <b>Please make a decision on this application by clicking <a href='https://tutorpoint1.herokuapp.com/#/manage-tutor-application'>Here</a></b> </h4> ", // html body
       attachments: attachmentsMail,
