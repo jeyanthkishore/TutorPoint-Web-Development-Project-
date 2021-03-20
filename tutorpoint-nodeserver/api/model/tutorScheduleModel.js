@@ -1,3 +1,4 @@
+//Author: Prabhjot Kaur(B00843735)
 const mongoose = require("mongoose");
 
 const tutorSchedule = mongoose.Schema({
