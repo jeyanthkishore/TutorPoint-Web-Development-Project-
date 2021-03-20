@@ -1,3 +1,4 @@
+//The author of this file is Jeyanth Kishore Ramasamy(B00875285)
 const loginModel = require("../model/loginModel");
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");

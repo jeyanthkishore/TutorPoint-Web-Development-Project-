@@ -3,7 +3,7 @@ import Register from "./register";
 import Login from "./login";
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import PasswordReset from "./password-reset";
+import PasswordReset from "./passwordReset";
 import HomePage from "./homepage";
 import TutorTableContainer from "./TutorTableContainer";
 import WorkshopContainer from "./containers/WorkshopContainer";
@@ -11,7 +11,7 @@ import TutorForm from "./TutorForm";
 import Feedback from "./Feedback";
 import ManageTutorApplication from "./ManageTutorApplication";
 import TutorApplicationStatus from "./TutorApplicationStatus";
-import PasswordChange from "./password-change.jsx";
+import PasswordChange from "./passwordChange.jsx";
 import DetailChange from "./detailchange.jsx";
 import HelpPage from "./helppage.jsx";
 import SecurityCode from "./securityCode";
@@ -35,11 +35,7 @@ function App() {
           <Route exact path="/feedback" component={Feedback}></Route>
           <Route exact path="/becomeTutor" component={TutorForm}></Route>
           <Route exact path="/password-reset" component={PasswordReset}></Route>
-          <Route
-            exact
-            path="/password-change"
-            component={PasswordChange}
-          ></Route>
+          <Route exact path="/password-change"component={PasswordChange}></Route>
           <Route exact path="/helppage" component={HelpPage}></Route>
           <Route exact path="/details-change" component={DetailChange}></Route>
           <Route exact path="/securityCode" component={SecurityCode}></Route>
