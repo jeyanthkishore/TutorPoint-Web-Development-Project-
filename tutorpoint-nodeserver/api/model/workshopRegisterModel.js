@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 
 const registerWorkshop = mongoose.Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+  _id: mongoose.Schema.Types.ObjectId, // mongoose Type objectId is used for generating unique ID's
   workshopid:String,
   email: String,
   

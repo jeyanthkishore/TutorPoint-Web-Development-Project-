@@ -59,7 +59,8 @@ class AddWorkshop extends Component {
     {
         this.setState ({[event.target.name] : event.target.value})
     }
-    
+  
+    // all fields for adding workshop form are validated
   render() {
     return (
       <div>
