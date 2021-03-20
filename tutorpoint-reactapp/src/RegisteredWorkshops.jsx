@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 import React, { Component } from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
@@ -10,18 +11,63 @@ import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 class RegisteredWorkshops extends React.Component {
 
+  constructor(props) {
+    super(props);
+    const token = localStorage.access_token;
+        const decoded = jwt_decode(token);
+         this.state = {
+            workshops:[],
+            email: decoded.email,
+            dept: decoded.dept,
+            contact: decoded.contact.toString(),
+            username: decoded.username,
+      };
+    
+    this.getWorkshops = this.getWorkshops.bind(this);
+    this.createTableRow=this.createTableRow.bind(this);
+
+    this.getWorkshops();
+
+  }
+
+
+  async getWorkshops()
+  {
+    await axios
+        .get("http://localhost:8080/api/workshopRegisterDetails/specific",
+        {
+          params: {email:this.state.email}
+        }
+        )
+        .then((response) => {
+         axios 
+          .get("http://localhost:8080/api/workshopDetails/specific", {
+            params: {id:response}
+          })
+          .then((response)=>{
+          this.setState({ workshops: response.data})
+          })
+          .catch(function (error) {
+            console.log(error);
+            console.log(error.message);
+            alert("Tutors not found!");
+          })
+        })
+  }
+
   createTableRow() {
     let trs = [];
-    this.state.searchTableData.map((row, index) => {
+    this.state.workshops.map((row, index) => {
       trs.push(
         <tr>
-          <td>{index}</td>
           <td>{row.name}</td>
-          <td>{row.dep}</td>
-          <td>{row.course}</td>
+          <td>{row.tutor}</td>
+          <td>{row.date}</td>
+          <td>{row.time}</td>
         </tr>
       );
     });
@@ -43,14 +89,13 @@ class RegisteredWorkshops extends React.Component {
                 <Table striped bordered hover size="sm">
                   <thead>
                     <tr>
-                      <th>#</th>
                       <th>Workshop Name</th>
                       <th>Tutor</th>
                       <th>Date</th>
                       <th>Time</th>
                     </tr>
                   </thead>
-                  {/* <tbody>{this.createTableRow()}</tbody> */}
+                  {<tbody>{this.createTableRow()}</tbody>}
                 </Table>
               </div>
             </MDBMask>

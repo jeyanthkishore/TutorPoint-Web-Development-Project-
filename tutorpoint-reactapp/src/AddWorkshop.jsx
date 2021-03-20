@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 import React, { Component } from "react";
 import "./TutorForm.css";
 import Form from "react-bootstrap/Form";
@@ -106,7 +107,6 @@ class AddWorkshop extends Component {
                         placeholder="Tutor"
                         name="tutor"
                         required
-                 
                         onChange={this.onChangeHandler}
                       />
                     </Col>
@@ -163,7 +163,6 @@ class AddWorkshop extends Component {
                     style={{ marginLeft: "18%", marginBottom: "0%" }}
                     variant="primary"
                     onClick={this.handlePublish}
-                    type="submit"
                   >
                     Publish
                   </Button>

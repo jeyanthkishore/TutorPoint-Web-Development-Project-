@@ -1,15 +1,38 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 import React from "react";
 import WorkshopListComponent from "./WorkshopListComponent.jsx";
-import { ListGroup, Tab, Row, Col, Nav } from "react-bootstrap";
+import { ListGroup, Tab, Row, Col, Nav,Button } from "react-bootstrap";
 import NavBar from "../navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "../homepage.jpg";
+import jwt_decode from "jwt-decode";
 
 class WorkshopTabsComponent extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { departments: [] };
+      const token = localStorage.access_token;
+      const decoded = jwt_decode(token);
+      this.state = {
+        departments: [],
+      email: decoded.email,
+      dept: decoded.dept,
+      contact: decoded.contact.toString(),
+      username: decoded.username,
+      role:decoded.role
+      }; 
+
+    this.addWorkshop = this.addWorkshop.bind(this);
+    this.registerdWorkshops = this.registerdWorkshops.bind(this);
+
     this.formatInputData();
+  }
+
+  addWorkshop() {
+    this.props.history.push("/addworkshop");
+  }
+  registerdWorkshops()
+  {
+    this.props.history.push("/registeredWorkshops");
   }
 
   formatInputData() {
@@ -95,6 +118,8 @@ class WorkshopTabsComponent extends React.Component {
                 </Col>
               </Row>
             </Tab.Container>
+            <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>
+            <Button type="submit" onClick={this.registerdWorkshops} >Registered Workshops</Button>
           </MDBMask>
         </MDBView>
       </header>

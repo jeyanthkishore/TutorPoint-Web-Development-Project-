@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 const mongoose = require("mongoose");
 
 const registerWorkshop = mongoose.Schema({

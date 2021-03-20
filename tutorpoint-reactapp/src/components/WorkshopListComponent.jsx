@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 import React from 'react';
 import {ListGroup, Tab, Row, Col, Nav, Button} from 'react-bootstrap';
 import axios from "axios";
@@ -14,6 +15,7 @@ class WorkshopListComponent extends React.Component {
             dept: decoded.dept,
             contact: decoded.contact.toString(),
             username: decoded.username,
+            role:decoded.role
       };
 		this.handleClick = this.handleClick.bind(this);
 		}
@@ -42,7 +44,7 @@ class WorkshopListComponent extends React.Component {
   	let listgrp = [];
   	this.props.workshopList.map((item,index) => {
   		listgrp.push(<ListGroup.Item action >
-	      {item.name}
+	      {`${item.name} | ${item.tutor} | ${item.date} | ${item.time}`}
 		   <Button value={ item.id} onClick={() => {this.handleClick(item.id)}}>Register</Button>
 	    </ListGroup.Item>)
   	});

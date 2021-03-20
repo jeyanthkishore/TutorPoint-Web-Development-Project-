@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 const workshopRegisterModel = require('../model/workshopRegisterModel'); 
 const mongoose = require("mongoose");
 
@@ -23,8 +24,8 @@ const registerWorkshops = (req,res)=>{
 
 }
 const getWorkshopIdsByEmail=(req,data)=>{
-    const email=req.body.email;
-    
+    const email=req.query.email;
+    console.log(req.query);
     let filteredWorkshopIds = [];
     data.map(item =>
         {

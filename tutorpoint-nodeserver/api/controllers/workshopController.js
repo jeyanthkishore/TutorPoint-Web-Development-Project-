@@ -1,3 +1,4 @@
+/*Author: Manpreet Singh, BannerID: B00853930*/
 const workshopModel = require('../model/workshopModel'); 
 const mongoose = require("mongoose");
 
@@ -17,7 +18,7 @@ const getWorkshops = (req,res)=>{
 }
 
 const filterByIds=(req,data)=>{
-    const ids=req.body.id;
+    const ids=req.query.id;
     
     let filteredWorkshops = [];
     data.map(item=>
