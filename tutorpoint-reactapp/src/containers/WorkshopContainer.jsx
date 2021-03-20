@@ -10,12 +10,17 @@ class WorkshopContainer extends React.Component {
     this.state = {workshopDetails:[]};
     // this.getWorkshops();
     this.addWorkshop = this.addWorkshop.bind(this);
+    this.registerdWorkshops = this.registerdWorkshops.bind(this);
   }
   componentDidMount(){
     this.getWorkshops();
   }
   addWorkshop() {
     this.props.history.push("/addworkshop");
+  }
+  registerdWorkshops()
+  {
+    this.props.history.push("/registeredWorkshops");
   }
 
  async getWorkshops()
@@ -40,6 +45,7 @@ class WorkshopContainer extends React.Component {
       <div>
       <WorkshopTabsComponent workshopList = {this.state.workshopDetails}/>
       <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>
+      <Button type="submit" onClick={this.registerdWorkshops} >Registered Workshops</Button>
       </div>
     );
   }

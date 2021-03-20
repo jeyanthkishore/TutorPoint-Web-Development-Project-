@@ -2,12 +2,50 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
 const router = express.Router();
-const { getWorkshops,addWorkshops} =require('../controllers/workshopController');
+const { getWorkshops,addWorkshops,filterByIds} =require('../controllers/workshopController');
 const workshopModel = require("../model/workshopModel");
 
 
 router.get('/', getWorkshops)
 
+router.get('/specific', (req, res) => {
+
+    workshopModel.find().exec().then((data)=>{
+        const filteredWorkshops= filterByIds(req,data);
+        if(filteredWorkshops.length==0)
+        {
+            res.status(200).json({
+                success: false,
+                message: "Workshops not found"
+
+            })
+        }
+        res.status(200).json(filteredWorkshops);
+    })
+
+
+});
+
+router.post("/", (req, res) => {
+    workshopModel
+        .find({ name: req.body.name})
+        .exec()
+        .then((data) => {
+            console.log(data);
+            if (!data.length) {
+                const response = addWorkshops(req,res);
+                res.status(200).json({
+                    success: true,
+                    message: "Workshop created successfully!",
+                })
+            } else {
+                res.status(407).json({
+                    success: false,
+                    message: "Workshop already exists",
+                });
+            }
+        });
+});
 router.post("/", (req, res) => {
     workshopModel
         .find({ name: req.body.name})

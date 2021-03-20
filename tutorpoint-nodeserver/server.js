@@ -7,6 +7,7 @@ const mailRoute = require("./api/routes/mailRoute");
 const courseRoute = require("./api/routes/courseRoute");
 const loginRoute = require("./api/routes/loginRoute");
 const workshopRoute = require("./api/routes/workshopRoute");
+const workshopRegisterRoute = require("./api/routes/workshopRegisterRoute");
 const passwordRoute = require("./api/controllers/passwordController");
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -24,6 +25,7 @@ app.use("/api/user", userRoute);
 app.use("/api/mail", mailRoute);
 app.use("/api/courses", courseRoute);
 app.use("/api/workshopDetails",workshopRoute);
+app.use("/api/workshopRegisterDetails",workshopRegisterRoute);
 app.use("/", loginRoute);
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname + "/build/index.html"));

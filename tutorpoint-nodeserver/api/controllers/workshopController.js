@@ -16,6 +16,19 @@ const getWorkshops = (req,res)=>{
 });
 }
 
+const filterByIds=(req,data)=>{
+    const ids=req.body.id;
+    
+    let filteredWorkshops = [];
+    data.map(item=>
+        {
+            if(ids.includes(item.id)){
+                filteredWorkshops.push(item);
+            }
+        })
+    return filteredWorkshops;
+}
+
 const addWorkshops = (req,res)=>{
     workshopModel.countDocuments().then((count_documents) => {
         console.log(count_documents);
@@ -47,4 +60,5 @@ const addWorkshops = (req,res)=>{
 
 module.exports.getWorkshops = getWorkshops;
 module.exports.addWorkshops = addWorkshops;
+module.exports.filterByIds = filterByIds;
 

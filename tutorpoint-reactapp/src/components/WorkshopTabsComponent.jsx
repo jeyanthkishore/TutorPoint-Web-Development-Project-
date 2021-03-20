@@ -54,7 +54,7 @@ class WorkshopTabsComponent extends React.Component {
       this.props.workshopList.map((workshop) => {
         if (dep === workshop.department) {
           if (!workshops.includes(workshop.name)) {
-            workshops.push(workshop.name);
+            workshops.push(workshop);
           }
         }
       });
