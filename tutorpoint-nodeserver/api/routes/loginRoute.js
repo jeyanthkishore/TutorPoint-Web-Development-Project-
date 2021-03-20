@@ -1,3 +1,4 @@
+//The author of this file is Jeyanth Kishore Ramasamy(B00875285)
 const express = require("express");
 const router = express.Router();
 const loginModel = require("../model/loginModel");
@@ -41,7 +42,7 @@ router.post("/login", (req, res) => {
                 });
             } else {
                 console.log(data);
-                var token = jwt.sign({ id: data['_id'],username:data['username'],email:data['email'],contact:data['contact'],dept:data['dept']},'shhhhh');
+                var token = jwt.sign({ id: data['_id'],username:data['username'],email:data['email'],contact:data['contact'],dept:data['dept'],role:data['role']},'shhhhh');
                 console.log(token);
                  res.status(200).json({
                     success: true,
