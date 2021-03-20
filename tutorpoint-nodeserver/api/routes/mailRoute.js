@@ -4,5 +4,9 @@ const router = express.Router();
 const mailController = require("../controllers/mailController");
 
 router.post("/send", mailController.mailSender);
+router.post(
+  "/send-application-update",
+  mailController.tutorApplicationUpdateMail
+);
 
 module.exports = router;

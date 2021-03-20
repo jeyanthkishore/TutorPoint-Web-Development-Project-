@@ -4,79 +4,38 @@ import NavBarContainer from "./NavBarContainer";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./homepage.jpg";
 import NavBar from "./navbar";
+import axios from "axios";
 
 class TutorTableContainer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchText: "",
-      originalTableData: [
-        {
-          name: "Mary James",
-          dep: "Computer Science",
-          course: "SDC",
-        },
-        {
-          name: "James Smith",
-          dep: "Computer Science",
-          course: "SDC",
-        },
-        {
-          name: "Tom Hanks",
-          dep: "Computer Science",
-          course: "Cloud",
-        },
-        {
-          name: "Katy Pery",
-          dep: "Computer Science",
-          course: "SC",
-        },
-        {
-          name: "Taylor Swift",
-          dep: "Computer Science",
-          course: "ML",
-        },
-        {
-          name: "Ema Watson",
-          dep: "Computer Science",
-          course: "ML",
-        },
-      ],
-      searchTableData: [
-        {
-          name: "Mary James",
-          dep: "Computer Science",
-          course: "SDC",
-        },
-        {
-          name: "James Smith",
-          dep: "Computer Science",
-          course: "SDC",
-        },
-        {
-          name: "Tom Hanks",
-          dep: "Computer Science",
-          course: "Cloud",
-        },
-        {
-          name: "Katy Pery",
-          dep: "Computer Science",
-          course: "SC",
-        },
-        {
-          name: "Taylor Swift",
-          dep: "Computer Science",
-          course: "ML",
-        },
-        {
-          name: "Ema Watson",
-          dep: "Computer Science",
-          course: "ML",
-        },
-      ],
+      originalTableData: [],
+      searchTableData: [],
     };
     this.onsearchTextChange = this.onsearchTextChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.getTutors = this.getTutors.bind(this);
+
+    this.getTutors();
+  }
+
+  async getTutors()
+  {
+    await axios
+        .get("http://localhost:8080/api/tutorDetails/")
+        .then((response) => {
+          this.setState({
+            originalTableData: response.data,
+            searchTableData: response.data
+          })
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+          alert("Tutors not found!");
+        });
   }
 
   createTableRow() {
@@ -103,7 +62,7 @@ class TutorTableContainer extends React.Component {
     let value = this.state.searchText;
     let searchRows = [];
     this.state.originalTableData.map((item) => {
-      if (item.course === value) {
+      if ((item.course).toLowerCase() === value.toLowerCase()) {
         searchRows.push({
           name: item.name,
           dep: item.dep,

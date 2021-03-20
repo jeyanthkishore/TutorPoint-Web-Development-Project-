@@ -28,7 +28,6 @@ class TutorForm extends Component {
   state = {};
   constructor(props) {
     super(props);
-
     this.state = {
       files: {
         label: "upload your resume and transcripts (PDFs)",
@@ -112,6 +111,7 @@ class TutorForm extends Component {
     }
     this.setState({ courseList: courseNames });
   };
+
   onCourseSelect = (event) => {
     event.preventDefault();
     console.log("here" + event.target.value);

@@ -109,5 +109,69 @@ const getTutorApplications = (req, res) => {
       res.status(200).json(data);
     });
 };
+
+const updateTutorApplication = (req, res) => {
+  let applicationId = req.body.applicationId;
+  let approverId = req.body.approverId;
+  let decision = req.body.decision;
+  let reason = req.body.reason;
+  let todaysDate = Date.now();
+
+  tutorApplicationData
+    .find({ tutor_application_id: applicationId })
+    .exec()
+    .then((data) => {
+      console.log(data + "mongosearchres");
+      if (data.length == 0) {
+        res.status(400).json({
+          success: false,
+          message: "Invalid Application ID",
+        });
+      } else {
+        console.log(data[0].application_status.approver_id + "checkkkkk!!");
+        if (
+          data[0].application_status.approver_id.toUpperCase() ===
+          approverId.toUpperCase()
+        ) {
+          tutorApplicationData.findOneAndUpdate(
+            { tutor_application_id: applicationId },
+            {
+              $set: {
+                "application_status.status": decision,
+                "application_status.updated_at": todaysDate,
+                "application_status.reason": reason,
+              },
+            },
+            { useFindAndModify: false },
+            (err, d) => {
+              console.log("document here" + d);
+              if (d == null) {
+                res.status(400).json({
+                  success: false,
+                  message: "Invalid Approver ID",
+                });
+              }
+              if (err) {
+                console.log(err);
+                res.status(500).json(err);
+              } else {
+                console.log("Application Updated Successfully!!!");
+                res.status(200).json({
+                  success: true,
+                  message: d,
+                });
+              }
+            }
+          );
+        } else {
+          res.status(400).json({
+            success: false,
+            message: "Invalid Approver ID",
+          });
+        }
+      }
+    });
+};
 module.exports.uploadFile = uploadFile;
 module.exports.getTutorApplications = getTutorApplications;
+module.exports.updateTutorApplication = updateTutorApplication;
