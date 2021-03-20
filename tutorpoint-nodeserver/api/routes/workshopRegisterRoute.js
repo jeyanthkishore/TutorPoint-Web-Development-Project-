@@ -6,7 +6,7 @@ const router = express.Router();
 const workshopRegisterModel = require("../model/workshopRegisterModel");
 const { registerWorkshops, getWorkshopIdsByEmail} =require('../controllers/workshopRegisterController');
 
-
+//get workshops ids for logged in user
 router.get('/specific', (req, res) => {
 
     workshopRegisterModel.find().exec().then((data)=>{
@@ -26,6 +26,8 @@ router.get('/specific', (req, res) => {
 
 
 });
+
+//registering workshop and saving in database
 router.post("/", (req, res) => {
     workshopRegisterModel
         .find()

@@ -59,7 +59,8 @@ class AddWorkshop extends Component {
     {
         this.setState ({[event.target.name] : event.target.value})
     }
-    
+  
+    // all fields for adding workshop form are validated
   render() {
     return (
       <div>
@@ -139,7 +140,7 @@ class AddWorkshop extends Component {
                     </Form.Label>
                     <Col md={10}>
                       <Form.Control
-                        type="input"
+                        type="date"
                         placeholder="Date"
                         name="date"
                         required

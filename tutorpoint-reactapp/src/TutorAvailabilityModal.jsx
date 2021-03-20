@@ -1,3 +1,4 @@
+//Author: Prabhjot Kaur(B00843735)
 import React from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 import axios from "axios";
@@ -37,6 +38,8 @@ class TutorAvailabilityModal extends React.Component {
           console.log(error.message);
         });
   }
+
+  //TODO: this method would be modified to include book appointment changes
 	createTableRow() {
     let trs = [];
     this.state.schedules.map((row, index) => {
