@@ -10,7 +10,7 @@ import {
   MDBCardHeader,
 } from "mdbreact";
 import validator from "validator";
-import "./passwordReset.css";
+import "../css/passwordReset.css";
 import axios from "axios";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import "@sweetalert2/theme-dark/dark.css";

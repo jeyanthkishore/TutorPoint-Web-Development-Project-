@@ -1,6 +1,6 @@
 //The author of this file is Jeyanth Kishore Ramasamy
 import React, { Component } from "react";
-import NavBar from "./navbar";
+import NavBar from "../navbar";
 import {
   MDBContainer,
   MDBRow,
@@ -11,7 +11,7 @@ import {
   MDBCardHeader,
 } from "mdbreact";
 import validator from "validator";
-import "./detailchange.css";
+import "../css/detailchange.css";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import Swal from "sweetalert2/src/sweetalert2.js";

@@ -1,20 +1,20 @@
 import "./App.css";
-import Register from "./register";
-import Login from "./login";
+import Register from "./components/js/register";
+import Login from "./components/js/login";
 import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import PasswordReset from "./passwordReset";
-import HomePage from "./homepage";
+import PasswordReset from "./components/js/passwordReset";
+import HomePage from "./components/homepage";
 import TutorTableContainer from "./TutorTableContainer";
 import WorkshopContainer from "./containers/WorkshopContainer";
 import TutorForm from "./TutorForm";
 import Feedback from "./Feedback";
 import ManageTutorApplication from "./ManageTutorApplication";
 import TutorApplicationStatus from "./TutorApplicationStatus";
-import PasswordChange from "./passwordChange.jsx";
-import DetailChange from "./detailchange.jsx";
-import HelpPage from "./helppage.jsx";
-import SecurityCode from "./securityCode";
+import PasswordChange from "./components/js/passwordChange.jsx";
+import DetailChange from "./components/js/detailchange.jsx";
+import HelpPage from "./components/js/helppage.jsx";
+import SecurityCode from "./components/js/securityCode";
 import AddWorkshop from "./AddWorkshop.jsx";
 import RegisteredWorkshops from "./RegisteredWorkshops";
 

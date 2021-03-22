@@ -1,8 +1,8 @@
 //The author of this file is Jeyanth Kishore Ramasamy
 import React, { Component } from "react";
-import helppage from "./help.jpg";
-import NavBar from "./navbar";
-import "./homepage.css";
+import helppage from "../../images/help.jpg";
+import NavBar from "../navbar";
+import "../homepage.css";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 
 class HelpPage extends Component {

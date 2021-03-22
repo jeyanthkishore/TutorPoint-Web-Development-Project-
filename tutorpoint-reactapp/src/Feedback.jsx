@@ -9,8 +9,8 @@ import Col from "react-bootstrap/Col";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import NavBarContainer from "./NavBarContainer";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
-import homepage from "./homepage.jpg";
-import NavBar from "./navbar";
+import homepage from "./images/homepage.jpg";
+import NavBar from "./components/navbar";
 
 function Feedback() {
   return (

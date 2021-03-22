@@ -1,6 +1,6 @@
 //The author of this file is Jeyanth Kishore Ramasamy(B00875285)
 import React, { Component } from "react";
-import NavBar from "./navbar";
+import NavBar from "../navbar";
 import {
   MDBContainer,
   MDBRow,
@@ -12,7 +12,7 @@ import {
   MDBMask,
   MDBView,
 } from "mdbreact";
-import "./passwordChange.css";
+import "../css/passwordChange.css";
 import axios from "axios";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import "@sweetalert2/theme-dark/dark.css";

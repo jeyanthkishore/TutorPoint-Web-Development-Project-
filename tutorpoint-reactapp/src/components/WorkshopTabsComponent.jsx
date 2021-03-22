@@ -1,25 +1,25 @@
 /*Author: Manpreet Singh, BannerID: B00853930*/
 import React from "react";
 import WorkshopListComponent from "./WorkshopListComponent.jsx";
-import { ListGroup, Tab, Row, Col, Nav,Button } from "react-bootstrap";
-import NavBar from "../navbar";
+import { ListGroup, Tab, Row, Col, Nav, Button } from "react-bootstrap";
+import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
-import homepage from "../homepage.jpg";
+import homepage from "../images/homepage.jpg";
 import jwt_decode from "jwt-decode";
 
 class WorkshopTabsComponent extends React.Component {
   constructor(props) {
     super(props);
-      const token = localStorage.access_token;
-      const decoded = jwt_decode(token);
-      this.state = {
-        departments: [],
+    const token = localStorage.access_token;
+    const decoded = jwt_decode(token);
+    this.state = {
+      departments: [],
       email: decoded.email,
       dept: decoded.dept,
       contact: decoded.contact.toString(),
       username: decoded.username,
-      role:decoded.role
-      }; 
+      role: decoded.role,
+    };
 
     this.addWorkshop = this.addWorkshop.bind(this);
     this.registerdWorkshops = this.registerdWorkshops.bind(this);
@@ -30,8 +30,7 @@ class WorkshopTabsComponent extends React.Component {
   addWorkshop() {
     this.props.history.push("/addworkshop");
   }
-  registerdWorkshops()
-  {
+  registerdWorkshops() {
     this.props.history.push("/registeredWorkshops");
   }
 
@@ -99,10 +98,7 @@ class WorkshopTabsComponent extends React.Component {
             overlay="black-strong"
             className="flex-center-tab flex-column text-white text-center"
           >
-            <Tab.Container
-              id="left-tabs-example"
-              defaultActiveKey="Medicine"
-            >
+            <Tab.Container id="left-tabs-example" defaultActiveKey="Medicine">
               <Row className="workshop-tabs">
                 <Col sm={3}>
                   <Nav variant="pills" className="flex-column">
@@ -118,9 +114,14 @@ class WorkshopTabsComponent extends React.Component {
                 </Col>
               </Row>
             </Tab.Container>
-            {this.state.role==="tutor" &&
-            <Button type="submit" onClick={this.addWorkshop} >Add a Workshop</Button>}
-            <Button type="submit" onClick={this.registerdWorkshops} >Registered Workshops</Button>
+            {this.state.role === "tutor" && (
+              <Button type="submit" onClick={this.addWorkshop}>
+                Add a Workshop
+              </Button>
+            )}
+            <Button type="submit" onClick={this.registerdWorkshops}>
+              Registered Workshops
+            </Button>
           </MDBMask>
         </MDBView>
       </header>

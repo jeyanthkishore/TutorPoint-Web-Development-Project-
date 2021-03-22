@@ -3,8 +3,8 @@ import React from "react";
 import { Table, Card, FormControl, Form, Button } from "react-bootstrap";
 import NavBarContainer from "./NavBarContainer";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
-import homepage from "./homepage.jpg";
-import NavBar from "./navbar";
+import homepage from "./images/homepage.jpg";
+import NavBar from "./components/navbar";
 import axios from "axios";
 import TutorAvailabilityModal from "./TutorAvailabilityModal";
 
