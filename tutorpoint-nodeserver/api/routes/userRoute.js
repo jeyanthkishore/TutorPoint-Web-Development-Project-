@@ -25,5 +25,6 @@ router.get("/tutors/:course", userController.getTutorsList);
 router.post("/tutorapplications", userController.getTutorApplications);
 router.put("/tutorapplication", userController.updateTutorApplication);
 router.post("/tutorrating", userController.tutorRating);
+router.get("/tutorrating/:tutoremail", userController.getTutorRating);
 
 module.exports = router;
