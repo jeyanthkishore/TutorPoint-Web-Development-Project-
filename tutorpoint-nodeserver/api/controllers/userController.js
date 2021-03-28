@@ -258,8 +258,32 @@ const tutorRating = (req, res) => {
     .json({ success: "true", message: "Rating Added Succesfully!!!!" });
 };
 
+const getTutorRating = (req, res) => {
+  const tutorEmail = req.params.tutoremail;
+  console.log("paramshere" + req.params.tutoremail);
+  tutorRatingData
+    .find({ "tutor_rating.tutor_email": tutorEmail })
+    .exec()
+    .then((data) => {
+      var jsonData = data;
+      var i;
+      var avg_rating;
+      var rating_sum = 0;
+      if (jsonData.length == 0) {
+        res.status(400).json({ success: false, message: "Tutor Not Found!!!" });
+      } else {
+        for (i = 0; i < jsonData.length; i++) {
+          rating_sum += jsonData[i].tutor_rating.rating_out_of_five;
+        }
+        avg_rating = rating_sum / jsonData.length;
+        res.status(200).json({ rating: avg_rating });
+      }
+    });
+};
+
 module.exports.uploadFile = uploadFile;
 module.exports.getTutorApplications = getTutorApplications;
 module.exports.getTutorsList = getTutorsList;
 module.exports.updateTutorApplication = updateTutorApplication;
 module.exports.tutorRating = tutorRating;
+module.exports.getTutorRating = getTutorRating;
