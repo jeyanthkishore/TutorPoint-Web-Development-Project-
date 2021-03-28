@@ -44,13 +44,9 @@ class ManageTutorApplication extends Component {
         "content-type": "application/json",
       },
     };
-
+    // "https://tutorpoint1.herokuapp.com/api/user/tutorapplication";
     axios
-      .put(
-        "https://tutorpoint1.herokuapp.com/api/user/tutorapplication",
-        data,
-        conf
-      )
+      .put("http://localhost:8080/api/user/tutorapplication", data, conf)
       .then((response) => {
         var responseResult = response;
         console.log(
