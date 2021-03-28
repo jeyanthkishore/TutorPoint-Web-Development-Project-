@@ -9,6 +9,7 @@ const loginRoute = require("./api/routes/loginRoute");
 const workshopRoute = require("./api/routes/workshopRoute");
 const workshopRegisterRoute = require("./api/routes/workshopRegisterRoute");
 const tutorRoute = require("./api/routes/tutorRoute");
+const appointmentRoute = require("./api/routes/appointmentRoute");
 const tutorScheduleRoute = require("./api/routes/tutorScheduleRoute");
 const passwordRoute = require("./api/controllers/passwordController");
 const bodyParser = require("body-parser");
@@ -30,6 +31,7 @@ app.use("/api/tutorDetails", tutorRoute);
 app.use("/api/tutorSchedule", tutorScheduleRoute);
 app.use("/api/workshopDetails",workshopRoute);
 app.use("/api/workshopRegisterDetails",workshopRegisterRoute);
+app.use("/api/appointmentsForStudent",appointmentRoute);
 app.use("/", loginRoute);
 app.get("/*", function (req, res) {
   res.sendFile(path.join(__dirname + "/build/index.html"));

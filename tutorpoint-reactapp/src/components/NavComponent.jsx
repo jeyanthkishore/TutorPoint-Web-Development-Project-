@@ -22,6 +22,7 @@ class  NavComponent extends React.Component {
       <Nav.Link href="#home">Home</Nav.Link>
       <Nav.Link href="#features">About Us</Nav.Link>
       <Nav.Link href="#pricing">Contact Us</Nav.Link>
+      <Nav.Link href="#pricing">Appointments</Nav.Link>
       </Nav>
        <Form inline>
       <FormControl type="text" placeholder="Search" className="mr-sm-2" />

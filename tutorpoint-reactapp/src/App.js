@@ -17,6 +17,7 @@ import HelpPage from "./components/js/helppage.jsx";
 import SecurityCode from "./components/js/securityCode";
 import AddWorkshop from "./AddWorkshop.jsx";
 import RegisteredWorkshops from "./RegisteredWorkshops";
+import Appointments from "./Appointments";
 
 function App() {
   return (
@@ -41,6 +42,7 @@ function App() {
           <Route exact path="/securityCode" component={SecurityCode}></Route>
           <Route exact path="/addworkshop" component={AddWorkshop}></Route>
           <Route exact path="/registeredWorkshops" component={RegisteredWorkshops}></Route>
+          <Route exact path="/appointments" component={Appointments}></Route>
           <Route
             exact
             path="/manage-tutor-application"
