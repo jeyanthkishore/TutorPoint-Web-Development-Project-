@@ -35,12 +35,20 @@ function App() {
           <Route exact path="/feedback" component={Feedback}></Route>
           <Route exact path="/becomeTutor" component={TutorForm}></Route>
           <Route exact path="/password-reset" component={PasswordReset}></Route>
-          <Route exact path="/password-change"component={PasswordChange}></Route>
+          <Route
+            exact
+            path="/password-change"
+            component={PasswordChange}
+          ></Route>
           <Route exact path="/helppage" component={HelpPage}></Route>
           <Route exact path="/details-change" component={DetailChange}></Route>
           <Route exact path="/securityCode" component={SecurityCode}></Route>
           <Route exact path="/addworkshop" component={AddWorkshop}></Route>
-          <Route exact path="/registeredWorkshops" component={RegisteredWorkshops}></Route>
+          <Route
+            exact
+            path="/registeredWorkshops"
+            component={RegisteredWorkshops}
+          ></Route>
           <Route
             exact
             path="/manage-tutor-application"

@@ -1,5 +1,8 @@
 /*Author: Yash Jaiswal, BannerID: B00873246*/
 const tutorApplicationData = require("../model/tutorApplicationModel");
+const tutorData = require("../model/tutorModel");
+const tutorRatingData = require("../model/tutorRatingModel");
+const loginUserData = require("../model/loginModel");
 const mongoose = require("mongoose");
 
 const uploadFile = (req, res) => {
@@ -155,11 +158,52 @@ const updateTutorApplication = (req, res) => {
                 console.log(err);
                 res.status(500).json(err);
               } else {
-                console.log("Application Updated Successfully!!!");
-                res.status(200).json({
-                  success: true,
-                  message: d,
-                });
+                if (decision === "Approved") {
+                  loginUserData.findOneAndUpdate(
+                    { email: d.applied_by.email },
+                    {
+                      $set: {
+                        role: "tutor",
+                      },
+                    },
+                    { useFindAndModify: false },
+                    (err, doc) => {
+                      console.log("document here" + doc);
+                      if (doc == null) {
+                        res.status(400).json({
+                          success: false,
+                          message: "Invalid Approver ID",
+                        });
+                      }
+                      if (err) {
+                        console.log(err);
+                        res.status(500).json(err);
+                      } else {
+                        let tutorObj = new tutorData({
+                          _id: new mongoose.Types.ObjectId(),
+                          name: d.applied_by.student_name,
+                          dep: d.applied_for.department_name,
+                          course: d.applied_for.course_name,
+                          email: d.applied_by.email,
+                        });
+                        tutorObj.save().then((result) => {
+                          console.log(result);
+                        });
+                        console.log("Application Updated Successfully!!!");
+                        res.status(200).json({
+                          success: true,
+                          message: d,
+                        });
+                      }
+                    }
+                  );
+                } else {
+                  console.log("Application Updated Successfully!!!");
+                  res.status(200).json({
+                    success: true,
+                    message: d,
+                  });
+                }
               }
             }
           );
@@ -172,6 +216,50 @@ const updateTutorApplication = (req, res) => {
       }
     });
 };
+
+const getTutorsList = (req, res) => {
+  const courseName = req.params.course;
+  console.log("paramshere" + req.params.course);
+  tutorData
+    .find({ course: courseName })
+    .exec()
+    .then((data) => {
+      var jsonData = data;
+      res.status(200).json(data);
+    });
+};
+
+const tutorRating = (req, res) => {
+  console.log("body here");
+  console.log(req);
+  console.log("fullname" + req.body.fullName);
+
+  let tutorRatingObject = new tutorRatingData({
+    _id: new mongoose.Types.ObjectId(),
+    feedback_given_by: {
+      name: req.body.fullName,
+      email: req.body.email,
+    },
+    tutor_rating: {
+      tutor_name: req.body.tutorName,
+      tutor_dept: req.body.tutorDept,
+      tutor_course: req.body.tutorCourse,
+      rating_out_of_five: req.body.tutorRating,
+      tutor_email: req.body.tutorEmail,
+      rating_comment: req.body.comment,
+      created_at: Date.now(),
+    },
+  });
+  tutorRatingObject.save().then((result) => {
+    console.log(result);
+  });
+  res
+    .status(200)
+    .json({ success: "true", message: "Rating Added Succesfully!!!!" });
+};
+
 module.exports.uploadFile = uploadFile;
 module.exports.getTutorApplications = getTutorApplications;
+module.exports.getTutorsList = getTutorsList;
 module.exports.updateTutorApplication = updateTutorApplication;
+module.exports.tutorRating = tutorRating;
