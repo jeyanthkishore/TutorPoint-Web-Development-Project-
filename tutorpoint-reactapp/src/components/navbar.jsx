@@ -74,6 +74,11 @@ class NavBar extends Component {
                     </MDBNavLink>
                   </MDBNavItem>
                   <MDBNavItem>
+                    <MDBNavLink to="/appointments">
+                      <strong>Appointments</strong>
+                    </MDBNavLink>
+                  </MDBNavItem>
+                  <MDBNavItem>
                     <MDBNavLink to="/feedback">
                       <strong>Feedback</strong>
                     </MDBNavLink>

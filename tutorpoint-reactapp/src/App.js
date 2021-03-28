@@ -17,6 +17,7 @@ import HelpPage from "./components/js/helppage.jsx";
 import SecurityCode from "./components/js/securityCode";
 import AddWorkshop from "./AddWorkshop.jsx";
 import RegisteredWorkshops from "./RegisteredWorkshops";
+import Appointments from "./Appointments";
 
 function App() {
   return (
@@ -35,20 +36,13 @@ function App() {
           <Route exact path="/feedback" component={Feedback}></Route>
           <Route exact path="/becomeTutor" component={TutorForm}></Route>
           <Route exact path="/password-reset" component={PasswordReset}></Route>
-          <Route
-            exact
-            path="/password-change"
-            component={PasswordChange}
-          ></Route>
+          <Route exact path="/password-change"component={PasswordChange}></Route>
           <Route exact path="/helppage" component={HelpPage}></Route>
           <Route exact path="/details-change" component={DetailChange}></Route>
           <Route exact path="/securityCode" component={SecurityCode}></Route>
           <Route exact path="/addworkshop" component={AddWorkshop}></Route>
-          <Route
-            exact
-            path="/registeredWorkshops"
-            component={RegisteredWorkshops}
-          ></Route>
+          <Route exact path="/registeredWorkshops" component={RegisteredWorkshops}></Route>
+          <Route exact path="/appointments" component={Appointments}></Route>
           <Route
             exact
             path="/manage-tutor-application"
