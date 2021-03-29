@@ -1,6 +1,6 @@
 const express = require("express");
 const nodemailer = require("nodemailer");
-const { getAppointmentsStudent } = require("../controllers/appointmentController");
+const { getAppointmentsStudent,bookAppointment } = require("../controllers/appointmentController");
 const router = express.Router();
 
 const appointmentModel = require("../model/appointmentModel");
@@ -26,5 +26,37 @@ router.get('/', (req, res) => {
     })
 
 
+});
+
+router.post("/", (req, res) => {
+    appointmentModel
+        .find()
+        .exec()
+        .then((data) => {
+            console.log(data);
+            let exists=false;
+            data.map(item=>{
+                if(item.tutoremail===req.body.tutoremail && item.studentemail===req.body.studentemail
+                    && item.time === item.time && item.day === item.day)
+                {
+                    exists=true;        
+                }
+            })
+            console.log(exists);
+            if(!exists){ 
+            const response = bookAppointment(req,res);
+            res.status(200).json({
+                success: true,
+                message: "Appointment booked successfully!",
+            })
+        } else{
+            res.status(200).json({
+                success: false,
+                message: "Appointment already booked!",
+            })
+
+        }
+           
+        });
 });
 module.exports = router;

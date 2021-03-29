@@ -1,4 +1,4 @@
-const workshopModel = require('../model/appointmentModel'); 
+const appointmentModel = require('../model/appointmentModel'); 
 const mongoose = require("mongoose");
 
 
@@ -15,4 +15,30 @@ const getAppointmentsStudent=(req,data)=>{
     return appointments;
 }
 
+const bookAppointment = (req,res)=>{
+    appointmentModel.countDocuments().then((count_documents) => {
+        console.log(count_documents);
+        const newDocument = count_documents + 1;
+        console.log(req.body);
+        const appointment= new appointmentModel({
+            _id: new mongoose.Types.ObjectId(),
+            tutoremail: req.body.tutoremail,
+            studentemail: req.body.studentemail,
+            time:req.body.time,
+            day: req.body.day,
+            status: req.body.status,
+            tutorname: req.body.tutorname
+        });
+
+        console.log("Working!!!!!");
+        appointment.save();
+        return appointment;
+  }).catch((err) => {
+      console.log(err);
+      return err;
+  })
+
+}
+
 module.exports.getAppointmentsStudent = getAppointmentsStudent;
+module.exports.bookAppointment = bookAppointment;
