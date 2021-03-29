@@ -2,22 +2,43 @@
 import React from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
 
 class TutorAvailabilityModal extends React.Component {
   constructor(props) {
     super(props);
+    const token = localStorage.access_token;
+    const decoded = jwt_decode(token);
     this.state = {
       schedules: [],
+      userEmail:decoded.email
     };
 
     this.getTutorSchedule = this.getTutorSchedule.bind(this);
     this.createTableRow = this.createTableRow.bind(this);
+    this.onClickHandler = this.onClickHandler.bind(this);
 
     this.getTutorSchedule();
   }
 
-  onClickHandler() {
-    alert("Session booked successfully!");
+  async onClickHandler(row) {
+    let body = {
+          tutoremail: this.props.email,
+          tutorname: this.props.tutorname,
+          status: "pending",
+          day:row.day,
+          time:row.time,
+          studentemail: this.state.userEmail
+        }
+    await axios
+      .post("http://localhost:8080/api/appointmentsForStudent/", body)
+      .then((response) => {
+        alert(response.data.message);
+      })
+      .catch(function (error) {
+        console.log(error);
+        console.log(error.message);
+      });
   }
 
   async getTutorSchedule() {
@@ -48,6 +69,14 @@ class TutorAvailabilityModal extends React.Component {
           <td>{row.day}</td>
           <td>{row.time}</td>
           <td>{row.duration}</td>
+          <td>
+            <Button
+              value={row.email}
+              onClick={() => this.onClickHandler(row)}
+            >
+              Book Session
+            </Button>
+          </td>
         </tr>
       );
     });
@@ -69,6 +98,7 @@ class TutorAvailabilityModal extends React.Component {
                   <th>Day</th>
                   <th>Time</th>
                   <th>Duration</th>
+                  <th></th>
                 </tr>
               </thead>
               <tbody>{this.createTableRow()}</tbody>

@@ -35,9 +35,10 @@ router.post("/", (req, res) => {
         .then((data) => {
             console.log(data);
             let exists=false;
+            console.log(exists);
             data.map(item=>{
                 if(item.tutoremail===req.body.tutoremail && item.studentemail===req.body.studentemail
-                    && item.time === item.time && item.day === item.day)
+                    && item.time === req.body.time && item.day === req.body.day)
                 {
                     exists=true;        
                 }

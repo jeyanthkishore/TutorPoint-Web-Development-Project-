@@ -17,6 +17,7 @@ class TutorTableContainer extends React.Component {
       searchTableData: [],
       show: false,
       email: "",
+      tutorname:""
     };
     this.onsearchTextChange = this.onsearchTextChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -43,10 +44,12 @@ class TutorTableContainer extends React.Component {
       });
   }
 
-  onClickHandler(email) {
+  onClickHandler(email, name) {
     this.setState({
       show: true,
       email: email,
+      tutorname: name
+
     });
   }
 
@@ -66,7 +69,7 @@ class TutorTableContainer extends React.Component {
           <td>
             <Button
               value={row.email}
-              onClick={() => this.onClickHandler(row.email)}
+              onClick={() => this.onClickHandler(row.email, row.name)}
             >
               View Availability
             </Button>
@@ -111,6 +114,7 @@ class TutorTableContainer extends React.Component {
                   show={this.state.show}
                   closeModal={this.closeModal}
                   email={this.state.email}
+                  tutorname={this.state.tutorname}
                 ></TutorAvailabilityModal>
               )}
               <div className="tableContainer">
