@@ -7,9 +7,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import NavBar from "./components/navbar";
+import NavBar from "./navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
-import homepage from "./images/homepage.jpg";
+import homepage from "../images/homepage.jpg";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
 import Swal from "sweetalert2/src/sweetalert2.js";
@@ -341,13 +341,13 @@ class TutorForm extends Component {
                     <Col md={10}>
                       <Form.Control
                         as="select"
-                        defaultValue="Choose Course"
+                        // defaultValue="Choose Course"
                         name="course"
                         required
                         onChange={this.onCourseSelect}
                       >
-                        {courseOptions}
                         <option>Choose Course</option>
+                        {courseOptions}
                       </Form.Control>
                     </Col>
                   </Form.Group>
