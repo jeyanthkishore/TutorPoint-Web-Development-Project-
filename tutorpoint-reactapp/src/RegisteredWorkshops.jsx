@@ -12,6 +12,8 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./images/homepage.jpg";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class RegisteredWorkshops extends React.Component {
   constructor(props) {
@@ -55,7 +57,7 @@ class RegisteredWorkshops extends React.Component {
           .catch(function (error) {
             console.log(error);
             console.log(error.message);
-            alert("Workshops not found!");
+            Swal.fire("Workshops not found!");
           });
       });
   }

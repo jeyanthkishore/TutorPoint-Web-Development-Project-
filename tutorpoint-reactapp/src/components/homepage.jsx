@@ -6,8 +6,14 @@ import NavBarContainer from "../NavBarContainer";
 import "./homepage.css";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "../images/homepage.jpg";
+import About from "./js/Homepage/Overview";
+import homeCompOne from "./js/Homepage/HomeComponent1";
+import homeCompTwo from "./js/Homepage/HomeComponent2";
+import homeCompThree from "./js/Homepage/HomeComponent3";
+import Footer from "./js/Footer";
 import { Table, Card, FormControl, Form, Button } from "react-bootstrap";
 import { ThemeConsumer } from "react-bootstrap/esm/ThemeProvider";
+import Overview from "./js/Homepage/Overview";
 
 class HomePage extends Component {
   constructor(props) {
@@ -138,17 +144,11 @@ class HomePage extends Component {
         </header>
 
         <main>
-          <MDBContainer className="text-center my-5">
-            <br></br>
-            <h3>Want to learn new concepts?</h3>
-            <p align="justify">
-              1) Select your course<br></br>
-              2) Choose your Tutor<br></br>
-              3) Schedule your timings<br></br>
-              4) Book your Appointments<br></br>
-            </p>
-          </MDBContainer>
+          <Overview {...homeCompTwo} />
+          <Overview {...homeCompOne} />
+          <Overview {...homeCompThree} />
         </main>
+        <Footer></Footer>
       </div>
     );
   }

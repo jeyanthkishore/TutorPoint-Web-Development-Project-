@@ -1,6 +1,6 @@
 .body--bgchange {
   background-image: url("/src/images/profile1.jpg");
-  background-repeat: no-repeat;
+  background-repeat: inherit;
   background-size: cover;
 }
 

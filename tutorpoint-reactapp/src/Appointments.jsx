@@ -8,6 +8,8 @@ import NavBar from "./components/navbar";
 import axios from "axios";
 import TutorAvailabilityModal from "./TutorAvailabilityModal";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class Appointments extends React.Component {
   constructor(props) {
@@ -20,35 +22,30 @@ class Appointments extends React.Component {
       dept: decoded.dept,
       contact: decoded.contact.toString(),
       username: decoded.username,
-      appointments:[]
+      appointments: [],
     };
-  
-    this.getAppointments= this.getAppointments.bind(this);
-    
+
+    this.getAppointments = this.getAppointments.bind(this);
 
     this.getAppointments();
   }
 
   async getAppointments() {
     await axios
-      .get("http://localhost:8080/api/appointmentsForStudent",{
+      .get("http://localhost:8080/api/appointmentsForStudent", {
         params: { studentemail: this.state.email },
       })
       .then((response) => {
         this.setState({
-         appointments:response.data
+          appointments: response.data,
         });
       })
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("No Appointments");
+        Swal.fire("No Appointments");
       });
   }
-
-  
-
- 
 
   createTableRow() {
     let trs = [];
@@ -64,7 +61,6 @@ class Appointments extends React.Component {
     });
     return trs;
   }
-  
 
   render() {
     return (

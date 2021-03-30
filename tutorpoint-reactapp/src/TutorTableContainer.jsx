@@ -7,6 +7,8 @@ import homepage from "./images/homepage.jpg";
 import NavBar from "./components/navbar";
 import axios from "axios";
 import TutorAvailabilityModal from "./TutorAvailabilityModal";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class TutorTableContainer extends React.Component {
   constructor(props) {
@@ -17,7 +19,7 @@ class TutorTableContainer extends React.Component {
       searchTableData: [],
       show: false,
       email: "",
-      tutorname:""
+      tutorname: "",
     };
     this.onsearchTextChange = this.onsearchTextChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
@@ -40,7 +42,7 @@ class TutorTableContainer extends React.Component {
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("Tutors not found!");
+        Swal.fire("Tutors not found!");
       });
   }
 
@@ -48,8 +50,7 @@ class TutorTableContainer extends React.Component {
     this.setState({
       show: true,
       email: email,
-      tutorname: name
-
+      tutorname: name,
     });
   }
 
