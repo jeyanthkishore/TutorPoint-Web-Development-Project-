@@ -7,10 +7,10 @@ import PasswordReset from "./components/js/passwordReset";
 import HomePage from "./components/homepage";
 import TutorTableContainer from "./TutorTableContainer";
 import WorkshopContainer from "./containers/WorkshopContainer";
-import TutorForm from "./TutorForm";
-import Feedback from "./Feedback";
-import ManageTutorApplication from "./ManageTutorApplication";
-import TutorApplicationStatus from "./TutorApplicationStatus";
+import TutorForm from "./components/TutorForm";
+import Feedback from "./components/Feedback";
+import ManageTutorApplication from "./components/ManageTutorApplication";
+import TutorApplicationStatus from "./components/TutorApplicationStatus";
 import PasswordChange from "./components/js/passwordChange.jsx";
 import DetailChange from "./components/js/detailchange.jsx";
 import HelpPage from "./components/js/helppage.jsx";
@@ -36,12 +36,20 @@ function App() {
           <Route exact path="/feedback" component={Feedback}></Route>
           <Route exact path="/becomeTutor" component={TutorForm}></Route>
           <Route exact path="/password-reset" component={PasswordReset}></Route>
-          <Route exact path="/password-change"component={PasswordChange}></Route>
+          <Route
+            exact
+            path="/password-change"
+            component={PasswordChange}
+          ></Route>
           <Route exact path="/helppage" component={HelpPage}></Route>
           <Route exact path="/details-change" component={DetailChange}></Route>
           <Route exact path="/securityCode" component={SecurityCode}></Route>
           <Route exact path="/addworkshop" component={AddWorkshop}></Route>
-          <Route exact path="/registeredWorkshops" component={RegisteredWorkshops}></Route>
+          <Route
+            exact
+            path="/registeredWorkshops"
+            component={RegisteredWorkshops}
+          ></Route>
           <Route exact path="/appointments" component={Appointments}></Route>
           <Route
             exact
