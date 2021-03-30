@@ -8,7 +8,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
 import Table from "react-bootstrap/Table";
-import NavBar from "./navbar";
+import NavBar from "../components/navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "../images/homepage.jpg";
 import axios from "axios";
