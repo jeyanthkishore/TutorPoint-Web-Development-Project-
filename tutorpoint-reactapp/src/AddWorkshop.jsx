@@ -11,6 +11,8 @@ import NavBar from "./components/navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "./images/homepage.jpg";
 import axios from "axios";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class AddWorkshop extends Component {
   state = {};
@@ -35,7 +37,7 @@ class AddWorkshop extends Component {
       this.state.time === "" ||
       this.state.tutor === ""
     ) {
-      alert("All fields are mandatory!");
+      Swal.fire("All fields are mandatory!");
     } else {
       const workshop = {
         name: this.state.name,
@@ -50,13 +52,13 @@ class AddWorkshop extends Component {
           workshop
         )
         .then((response) => {
-          alert("Workshop created successfull!");
+          Swal.fire("Workshop created successfull!");
           this.props.history.push("/workshops");
         })
         .catch(function (error) {
           console.log(error);
           console.log(error.message);
-          alert("Workshop already published!");
+          Swal.fire("Workshop already published!");
         });
     }
   }

@@ -3,6 +3,8 @@ import React from "react";
 import axios from "axios";
 import WorkshopTabsComponent from "../components/WorkshopTabsComponent.jsx";
 import { Button } from "react-bootstrap";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class WorkshopContainer extends React.Component {
   constructor(props) {
@@ -25,7 +27,7 @@ class WorkshopContainer extends React.Component {
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("workShops not found");
+        Swal.fire("workShops not found");
       });
   }
 

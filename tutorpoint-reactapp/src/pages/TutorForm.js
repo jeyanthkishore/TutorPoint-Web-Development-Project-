@@ -7,14 +7,11 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Breadcrumb from "react-bootstrap/Breadcrumb";
-import NavBarContainer from "./NavBarContainer";
+import NavBar from "../components/navbar";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
-import homepage from "./images/homepage.jpg";
-import NavBar from "./components/navbar";
+import homepage from "../images/homepage.jpg";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
-import ReactStars from "react-rating-stars-component";
-
 import Swal from "sweetalert2/src/sweetalert2.js";
 import "@sweetalert2/theme-dark/dark.css";
 
@@ -26,7 +23,8 @@ function coursesList() {
     })
     .catch((error) => {});
 }
-class Feedback extends Component {
+
+class TutorForm extends Component {
   state = {};
   constructor(props) {
     super(props);
@@ -49,14 +47,6 @@ class Feedback extends Component {
       courseId: "",
       email: "",
       username: "",
-      tutorsList: [],
-      tutorObj: [],
-      tutorRating: "",
-      tutorName: "",
-      tutorDept: "",
-      tutorCourse: "",
-      tutorEmail: "",
-      comment: "",
     };
     coursesList().then((res) => {
       let deptNames = [];
@@ -85,6 +75,7 @@ class Feedback extends Component {
       for (i = 0; i < res[0].departments.length; i++) {
         deptNames.push(res[0].departments[i].department_name);
       }
+      console.log("datadepna" + typeof deptNames);
       this.setState({
         departmentObject: res[0].departments,
         departmentList: deptNames,
@@ -158,99 +149,79 @@ class Feedback extends Component {
       approverId: approverId,
     });
     console.log(this.state.facultyEmail);
+  };
+  onTutorApplicationStatusClick() {
+    this.props.history.push("/tutor-application-status");
+  }
+
+  onFileChangeHandler = (event) => {
+    event.preventDefault();
+    var text = "";
+    var i;
+    console.log(event.target.files);
+    for (i = 0; i < event.target.files.length; i++) {
+      text += event.target.files[i].name;
+      if (i === event.target.files.length - 1) {
+        continue;
+      } else {
+        text += ", ";
+      }
+      // console.log(event.target.files[i].name);
+    }
+    // console.log(text);
+
     this.setState({
-      tutorObj: [],
-      tutorsList: [],
+      files: {
+        label: text,
+        selectedFiles: event.target.files,
+        loaded: 0,
+      },
     });
-    axios
-      .get("http://localhost:8080/api/user/tutors/" + event.target.value)
-      .then((response) => {
-        this.setState({
-          tutorObj: response.data,
-        });
-        if (this.state.tutorObj.length > 0) {
-          var k;
-          var tempTutorsList = [];
-          for (k = 0; k < this.state.tutorObj.length; k++) {
-            console.log(this.state.tutorObj[k].name);
-            tempTutorsList.push(this.state.tutorObj[k].name);
-          }
-          this.setState({
-            tutorsList: tempTutorsList,
-          });
-          console.table(this.state.tutorsList);
-        }
-      });
   };
 
-  onTutorSelect = (event) => {
-    event.preventDefault();
-    console.log("tutorhere" + event.target.value);
-    console.log("tutorobj" + this.state.tutorObj);
-    var i;
-    var j;
-    var tutorName = "";
-    var tutorDept = "";
-    var tutorCourse = "";
-    var tutorEmail = "";
-    for (i = 0; i < this.state.tutorObj.length; i++) {
-      if (this.state.tutorObj[i].name == event.target.value) {
-        tutorName = this.state.tutorObj[i].name;
-        tutorDept = this.state.tutorObj[i].dep;
-        tutorCourse = this.state.tutorObj[i].course;
-        tutorEmail = this.state.tutorObj[i].email;
-        this.setState({
-          tutorName: tutorName,
-          tutorDept: tutorDept,
-          tutorCourse: tutorCourse,
-          tutorEmail: tutorEmail,
-        });
-        console.log(
-          "tutorName" +
-            this.state.tutorName +
-            this.state.tutorDept +
-            this.state.tutorCourse +
-            this.state.tutorEmail
-        );
-      }
-    }
-  };
-  onChangeHandler = (event) => {
-    this.setState({ [event.target.name]: event.target.value });
-  };
   onSubmitHandler = (event) => {
     event.preventDefault();
     console.log("submithandler");
-    console.log(event.target[0]);
-    const data = {
-      fullName: this.state.username,
-      email: this.state.email,
-      tutorRating: this.state.tutorRating,
-      tutorName: this.state.tutorName,
-      tutorDept: this.state.tutorDept,
-      tutorCourse: this.state.tutorCourse,
-      tutorEmail: this.state.tutorEmail,
-      comment: this.state.comment,
-    };
+    const data = new FormData(event.target);
+    data.uploadDocuments = ("files", this.state.files.selectedFiles);
+    data.append("facultyEmail", this.state.facultyEmail);
+    data.append("courseId", this.state.courseId);
+    data.append("approverId", this.state.approverId);
+    // alert("A form was submitted" + JSON.stringify(Object.fromEntries(data)));
+    // alert(
+    //   "A form was submitted" +
+    //     JSON.stringify(Object.fromEntries(data)) +
+    //     data.uploadDocuments[0].name
+    // );
+
     const conf = {
       headers: {
-        "content-type": "application/json",
+        "content-type": "multipart/form-data",
       },
     };
+    //changeapiurllater
     axios
-      .post("http://localhost:8080/api/user/tutorrating", data, conf)
+      .post("https://tutorpoint1.herokuapp.com/api/user/uploadfile", data, conf)
       .then((response) => {
-        console.log(response);
-        Swal.fire("Application submitted successfully");
+        var responseUpload = response;
+        console.log("resbody" + responseUpload.data.formData);
+        console.log("restype" + typeof responseUpload.data);
+        axios
+          .post(
+            "https://tutorpoint1.herokuapp.com/api/mail/send",
+            response.data
+          )
+          .then((resp) => {
+            Swal.fire("Application submitted successfully");
+            // alert("MAILSENT!!" + resp);
+          })
+          .catch((error) => {});
       })
       .catch((error) => {});
-  };
 
+    this.props.history.push("/tutor-application-status");
+  };
   render() {
-    const ratingChanged = (newRating) => {
-      console.log(newRating);
-      this.setState({ tutorRating: newRating });
-    };
     const options = this.state.departmentList.map((r) => {
       return (
         <option key={r} value={r}>
@@ -265,18 +236,18 @@ class Feedback extends Component {
         </option>
       );
     });
-    const tutorOptions = this.state.tutorsList.map((r) => {
-      console.log("checklogher" + r);
-      return (
-        <option key={r} value={r}>
-          {r}
-        </option>
-      );
-    });
 
+    // const departmentNames = this.state.departmentObject.map(function (
+    //   department
+    // ) {
+    //   console.log(department.department_name);
+    //   return department.department_name;
+    // });
+    // console.log("constrendfunc" + departmentNames);
+    // console.log("list" + typeof this.state.departmentList);
     return (
       <div>
-        <header>
+        <section>
           <NavBar></NavBar>
           <MDBView src={homepage}>
             <MDBMask
@@ -285,7 +256,20 @@ class Feedback extends Component {
               style={{ overflowY: "scroll" }}
             >
               <div className="TutorForm">
-                <h2 className="TutTitle">Feedback Form</h2>
+                <div
+                  style={{
+                    marginLeft: "75%",
+                    marginBottom: "0%",
+                    color: "orange",
+                    fontWeight: "50",
+                  }}
+                >
+                  <a href="#/tutor-application-status">
+                    {" "}
+                    👉 Tutor Application Status
+                  </a>
+                </div>
+                <h2 className="TutTitle">Application Form - Become a Tutor</h2>
                 <br></br>
 
                 <Form className="TutorFormStl" onSubmit={this.onSubmitHandler}>
@@ -340,6 +324,13 @@ class Feedback extends Component {
                       >
                         <option>Choose Department</option>
                         {options}
+                        {/* {this.state.departmentList.map((r) => {
+                          return (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          );
+                        })} */}
                       </Form.Control>
                     </Col>
                   </Form.Group>
@@ -350,6 +341,7 @@ class Feedback extends Component {
                     <Col md={10}>
                       <Form.Control
                         as="select"
+                        // defaultValue="Choose Course"
                         name="course"
                         required
                         onChange={this.onCourseSelect}
@@ -359,56 +351,70 @@ class Feedback extends Component {
                       </Form.Control>
                     </Col>
                   </Form.Group>
-                  <Form.Group as={Row} controlId="tutor">
-                    <Form.Label column sm={2}>
-                      Tutor
+
+                  <Form.Group as={Row} controlId="description">
+                    <Form.Label column md={2}>
+                      Why do you want to teach?
                     </Form.Label>
-                    <Col sm={10}>
-                      <Form.Control
-                        as="select"
-                        name="tutor"
-                        required
-                        onChange={this.onTutorSelect}
-                        required
-                      >
-                        <option>Choose Tutor</option>
-                        {tutorOptions}
-                      </Form.Control>
-                    </Col>
-                  </Form.Group>
-                  <Form.Group as={Row} controlId="tutorrating">
-                    <Form.Label column sm={2}>
-                      Overall Rating for Tutor
-                    </Form.Label>
-                    <Col sm={10}>
-                      <ReactStars
-                        count={5}
-                        onChange={ratingChanged}
-                        size={24}
-                        activeColor="#ffd700"
-                        name="tutorrating"
-                        required
-                      />
-                    </Col>
-                  </Form.Group>
-                  <Form.Group as={Row} controlId="comment">
-                    <Form.Label column sm={2}>
-                      Comment
-                    </Form.Label>
-                    <Col sm={10}>
+                    <Col md={10}>
                       <Form.Control
                         as="textarea"
                         rows={3}
-                        name="comment"
                         placeholder="write here.."
+                        name="description"
                         required
-                        onChange={this.onChangeHandler}
+                        minlength="100"
                       />
                     </Col>
                   </Form.Group>
 
+                  <Form.Group as={Row} controlId="availability">
+                    <Form.Label column md={2}>
+                      Availability (Tutoring)
+                    </Form.Label>
+                    <Col md={10}>
+                      <Form.Control
+                        placeholder="&nbsp; &nbsp; &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  &nbsp;  eg. Monday - Tuesday and 7 - 8 PM"
+                        name="availability"
+                        required
+                        minlength="5"
+                      />
+                    </Col>
+                  </Form.Group>
+                  <Form.Group as={Row} controlId="uploadDocuments">
+                    <Form.Label column md={2}>
+                      Upload Documents
+                    </Form.Label>
+                    <Col md={10}>
+                      <Form.File
+                        type="file"
+                        id="uploadDocuments"
+                        name="uploadDocuments"
+                        label={this.state.files.label}
+                        custom
+                        multiple
+                        accept="application/pdf"
+                        onChange={this.onFileChangeHandler}
+                        value={this.state.selectedFiles}
+                        required
+                      />
+                    </Col>
+                  </Form.Group>
+
+                  <Form.Group id="agreeTermsAndConditions">
+                    <Form.Check
+                      style={{
+                        marginLeft: "18%",
+                        marginBottom: "0%",
+                        marginTop: "0%",
+                      }}
+                      type="checkbox"
+                      label="By selecting this checkbox, you agree that all of the information provided is accurate."
+                      required
+                    />
+                  </Form.Group>
                   <Button
-                    style={{ marginLeft: "18%", marginBottom: "10%" }}
+                    style={{ marginLeft: "18%", marginBottom: "0%" }}
                     variant="primary"
                     type="submit"
                   >
@@ -418,10 +424,10 @@ class Feedback extends Component {
               </div>
             </MDBMask>
           </MDBView>
-        </header>
+        </section>
       </div>
     );
   }
 }
 
-export default Feedback;
+export default TutorForm;

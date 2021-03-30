@@ -3,6 +3,8 @@ import React from "react";
 import { Modal, Button, Table } from "react-bootstrap";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class TutorAvailabilityModal extends React.Component {
   constructor(props) {
@@ -11,7 +13,7 @@ class TutorAvailabilityModal extends React.Component {
     const decoded = jwt_decode(token);
     this.state = {
       schedules: [],
-      userEmail:decoded.email
+      userEmail: decoded.email,
     };
 
     this.getTutorSchedule = this.getTutorSchedule.bind(this);
@@ -23,17 +25,17 @@ class TutorAvailabilityModal extends React.Component {
 
   async onClickHandler(row) {
     let body = {
-          tutoremail: this.props.email,
-          tutorname: this.props.tutorname,
-          status: "pending",
-          day:row.day,
-          time:row.time,
-          studentemail: this.state.userEmail
-        }
+      tutoremail: this.props.email,
+      tutorname: this.props.tutorname,
+      status: "pending",
+      day: row.day,
+      time: row.time,
+      studentemail: this.state.userEmail,
+    };
     await axios
       .post("http://localhost:8080/api/appointmentsForStudent/", body)
       .then((response) => {
-        alert(response.data.message);
+        Swal.fire(response.data.message);
       })
       .catch(function (error) {
         console.log(error);
@@ -70,10 +72,7 @@ class TutorAvailabilityModal extends React.Component {
           <td>{row.time}</td>
           <td>{row.duration}</td>
           <td>
-            <Button
-              value={row.email}
-              onClick={() => this.onClickHandler(row)}
-            >
+            <Button value={row.email} onClick={() => this.onClickHandler(row)}>
               Book Session
             </Button>
           </td>

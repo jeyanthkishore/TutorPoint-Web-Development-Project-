@@ -3,6 +3,8 @@ import React from "react";
 import { ListGroup, Tab, Row, Col, Nav, Button } from "react-bootstrap";
 import axios from "axios";
 import jwt_decode from "jwt-decode";
+import Swal from "sweetalert2/src/sweetalert2.js";
+import "@sweetalert2/theme-dark/dark.css";
 
 class WorkshopListComponent extends React.Component {
   constructor(props) {
@@ -31,9 +33,9 @@ class WorkshopListComponent extends React.Component {
       )
       .then((response) => {
         if (response.success) {
-          alert("Workshop registered successfull!");
+          Swal.fire("Workshop registered successfull!");
         } else {
-          alert("Workshop already registered!");
+          Swal.fire("Workshop already registered!");
         }
 
         //this.props.history.push("/workshops");
@@ -41,7 +43,7 @@ class WorkshopListComponent extends React.Component {
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
-        alert("Workshop not registered!");
+        Swal.fire("Workshop not registered!");
       });
   }
 

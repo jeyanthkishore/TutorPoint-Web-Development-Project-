@@ -7,6 +7,9 @@ import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 
 class HelpPage extends Component {
   state = {};
+  componentDidMount() {
+    window.scrollTo(0, 0);
+  }
   render() {
     return (
       <div>
