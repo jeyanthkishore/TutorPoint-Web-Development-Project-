@@ -1,8 +1,8 @@
 //Author: Prabhjot Kaur(B00843735)
 import React from "react";
-import { Table, Card, FormControl, Form, Button } from "react-bootstrap";
+import { Table, Card, FormControl, Form, Button  } from "react-bootstrap";
 import NavBarContainer from "./NavBarContainer";
-import { MDBContainer, MDBView, MDBMask } from "mdbreact";
+import { MDBContainer, MDBView, MDBMask} from "mdbreact";
 import homepage from "./images/homepage.jpg";
 import NavBar from "./components/navbar";
 import axios from "axios";
@@ -58,7 +58,6 @@ class Appointments extends React.Component {
           <td>{row.tutorname}</td>
           <td>{row.day}</td>
           <td>{row.time}</td>
-          <td>{row.status}</td>
         </tr>
       );
     });
@@ -77,13 +76,13 @@ class Appointments extends React.Component {
               className="flex-center flex-column text-white text-center"
             >
               <div className="tableContainer">
+              <h1>Booked Appointments</h1>
                 <Table striped bordered hover size="sm">
                   <thead>
                     <tr>
                       <th>TutorName</th>
                       <th>Day</th>
                       <th>Time</th>
-                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>{this.createTableRow()}</tbody>
