@@ -2,7 +2,7 @@
 // & Prabhjot Kaur(B00843735)
 import React, { Component } from "react";
 import NavBar from "./navbar";
-import NavBarContainer from "../NavBarContainer";
+import NavBarContainer from "./NavBarContainer";
 import "./homepage.css";
 import { MDBContainer, MDBView, MDBMask } from "mdbreact";
 import homepage from "../images/homepage.jpg";

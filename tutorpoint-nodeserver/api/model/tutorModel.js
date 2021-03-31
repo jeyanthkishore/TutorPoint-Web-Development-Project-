@@ -6,8 +6,7 @@ const tutors = mongoose.Schema({
   name: String,
   dep: String,
   course: String,
-  email: String
-  
+  email: String,
 });
 
-module.exports = mongoose.model("tutors",tutors ,'tutors');
+module.exports = mongoose.model("tutors", tutors, "tutors");

@@ -108,6 +108,9 @@ class NavBar extends Component {
                         <MDBDropdownItem href="#/details-change">
                           Change Profile Details
                         </MDBDropdownItem>
+                        <MDBDropdownItem href="#/tutor-application-status">
+                          View Tutor Application Status
+                        </MDBDropdownItem>
                       </MDBDropdownMenu>
                     </MDBDropdown>
                   </MDBNavItem>

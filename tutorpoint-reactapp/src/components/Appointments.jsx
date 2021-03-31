@@ -1,10 +1,10 @@
 //Author: Prabhjot Kaur(B00843735)
 import React from "react";
-import { Table, Card, FormControl, Form, Button  } from "react-bootstrap";
+import { Table, Card, FormControl, Form, Button } from "react-bootstrap";
 import NavBarContainer from "./NavBarContainer";
-import { MDBContainer, MDBView, MDBMask} from "mdbreact";
-import homepage from "./images/homepage.jpg";
-import NavBar from "./components/navbar";
+import { MDBContainer, MDBView, MDBMask } from "mdbreact";
+import homepage from "../images/homepage.jpg";
+import NavBar from "./navbar";
 import axios from "axios";
 import TutorAvailabilityModal from "./TutorAvailabilityModal";
 import jwt_decode from "jwt-decode";
@@ -72,7 +72,7 @@ class Appointments extends React.Component {
               className="flex-center flex-column text-white text-center"
             >
               <div className="tableContainer">
-              <h1>Booked Appointments</h1>
+                <h1>Booked Appointments</h1>
                 <Table striped bordered hover size="sm">
                   <thead>
                     <tr>
