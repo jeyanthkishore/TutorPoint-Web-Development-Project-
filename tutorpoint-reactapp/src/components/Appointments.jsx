@@ -32,7 +32,7 @@ class Appointments extends React.Component {
 
   async getAppointments() {
     await axios
-      .get("http://localhost:8080/api/appointmentsForStudent", {
+      .get("https://tutorpoint1.herokuapp.com/api/appointmentsForStudent", {
         params: { studentemail: this.state.email },
       })
       .then((response) => {

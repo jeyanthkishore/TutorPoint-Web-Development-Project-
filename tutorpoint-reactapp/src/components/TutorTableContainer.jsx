@@ -37,7 +37,8 @@ class TutorTableContainer extends React.Component {
     for (i = 0; i < responseObj.length; i++) {
       await axios
         .get(
-          "http://localhost:8080/api/user/tutorrating/" + responseObj[i].email
+          "https://tutorpoint1.herokuapp.com/api/user/tutorrating/" +
+            responseObj[i].email
         )
         .then((response) => {
           rating = response.data.rating;
