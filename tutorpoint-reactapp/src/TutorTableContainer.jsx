@@ -9,6 +9,7 @@ import axios from "axios";
 import TutorAvailabilityModal from "./TutorAvailabilityModal";
 import Swal from "sweetalert2/src/sweetalert2.js";
 import "@sweetalert2/theme-dark/dark.css";
+import ReactStars from "react-rating-stars-component";
 
 class TutorTableContainer extends React.Component {
   constructor(props) {
@@ -30,15 +31,40 @@ class TutorTableContainer extends React.Component {
     this.getTutors();
   }
 
+  async getTutorRating(responseObj) {
+    let rating = 0;
+    var i;
+    for (i = 0; i < responseObj.length; i++) {
+      await axios
+        .get(
+          "http://localhost:8080/api/user/tutorrating/" + responseObj[i].email
+        )
+        .then((response) => {
+          rating = response.data.rating;
+          console.log("insideratingapi", rating);
+          responseObj[i].rating = rating;
+          // return rating;
+        })
+        .catch(function (error) {
+          console.log(error);
+          console.log(error.message);
+        });
+    }
+  }
+  async xyz(response) {
+    const responseObj = response.data;
+    await this.getTutorRating(responseObj);
+    console.table(responseObj[0].rating);
+    this.setState({
+      originalTableData: responseObj,
+      searchTableData: responseObj,
+    });
+  }
+
   async getTutors() {
     await axios
       .get("https://tutorpoint1.herokuapp.com/api/tutorDetails/")
-      .then((response) => {
-        this.setState({
-          originalTableData: response.data,
-          searchTableData: response.data,
-        });
-      })
+      .then((response) => this.xyz(response))
       .catch(function (error) {
         console.log(error);
         console.log(error.message);
@@ -60,13 +86,28 @@ class TutorTableContainer extends React.Component {
 
   createTableRow() {
     let trs = [];
+
     this.state.searchTableData.map((row, index) => {
+      console.log(row, JSON.parse(JSON.stringify(row)).rating);
       trs.push(
         <tr>
           <td>{index}</td>
           <td>{row.name}</td>
           <td>{row.dep}</td>
           <td>{row.course}</td>
+          <td style={{ pointerEvents: "none" }}>
+            <ReactStars
+              count={5}
+              value={row.rating}
+              size={24}
+              // activeColor="#ffd700"
+            />
+            {row.rating == 0 ? (
+              <label> No ratings available</label>
+            ) : (
+              row.rating
+            )}
+          </td>
           <td>
             <Button
               value={row.email}
@@ -154,6 +195,7 @@ class TutorTableContainer extends React.Component {
                       <th>Name</th>
                       <th>Department</th>
                       <th>Course</th>
+                      <th>Rating</th>
                     </tr>
                   </thead>
                   <tbody>{this.createTableRow()}</tbody>
