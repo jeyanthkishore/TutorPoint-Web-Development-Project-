@@ -5,7 +5,7 @@ import React from "react";
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import PasswordReset from "./components/js/passwordReset";
 import HomePage from "./components/homepage";
-import TutorTableContainer from "./TutorTableContainer";
+import TutorTableContainer from "./components/TutorTableContainer";
 import WorkshopContainer from "./containers/WorkshopContainer";
 import TutorForm from "./pages/TutorForm";
 import Feedback from "./pages/Feedback";
@@ -15,9 +15,9 @@ import PasswordChange from "./components/js/passwordChange.jsx";
 import DetailChange from "./components/js/detailchange.jsx";
 import HelpPage from "./components/js/helppage.jsx";
 import SecurityCode from "./components/js/securityCode";
-import AddWorkshop from "./AddWorkshop.jsx";
-import RegisteredWorkshops from "./RegisteredWorkshops";
-import Appointments from "./Appointments";
+import AddWorkshop from "./components/AddWorkshop.jsx";
+import RegisteredWorkshops from "./components/RegisteredWorkshops";
+import Appointments from "./components/Appointments";
 
 function App() {
   return (
