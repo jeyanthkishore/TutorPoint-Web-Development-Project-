@@ -33,7 +33,10 @@ class TutorAvailabilityModal extends React.Component {
       studentemail: this.state.userEmail,
     };
     await axios
-      .post("http://localhost:8080/api/appointmentsForStudent/", body)
+      .post(
+        "https://tutorpoint1.herokuapp.com/api/appointmentsForStudent/",
+        body
+      )
       .then((response) => {
         Swal.fire(response.data.message);
       })

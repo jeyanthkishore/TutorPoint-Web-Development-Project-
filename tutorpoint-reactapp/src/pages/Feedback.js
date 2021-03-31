@@ -163,7 +163,10 @@ class Feedback extends Component {
       tutorsList: [],
     });
     axios
-      .get("http://localhost:8080/api/user/tutors/" + event.target.value)
+      .get(
+        "https://tutorpoint1.herokuapp.com/api/user/tutors/" +
+          event.target.value
+      )
       .then((response) => {
         this.setState({
           tutorObj: response.data,
@@ -244,7 +247,11 @@ class Feedback extends Component {
         },
       };
       axios
-        .post("http://localhost:8080/api/user/tutorrating", data, conf)
+        .post(
+          "https://tutorpoint1.herokuapp.com/api/user/tutorrating",
+          data,
+          conf
+        )
         .then((response) => {
           console.log(response);
           Swal.fire("Feedback Submitted Succesfully!!");

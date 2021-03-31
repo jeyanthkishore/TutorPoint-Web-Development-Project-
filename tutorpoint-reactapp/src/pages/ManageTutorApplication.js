@@ -46,7 +46,11 @@ class ManageTutorApplication extends Component {
     };
     // "https://tutorpoint1.herokuapp.com/api/user/tutorapplication";
     axios
-      .put("http://localhost:8080/api/user/tutorapplication", data, conf)
+      .put(
+        "https://tutorpoint1.herokuapp.com/api/user/tutorapplication",
+        data,
+        conf
+      )
       .then((response) => {
         var responseResult = response;
         console.log(
